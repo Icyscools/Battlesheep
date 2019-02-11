@@ -336,11 +336,15 @@ class Character extends Entity {
 	updateKey(e, action) {
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
 			if (action === 'add') {
-				this.key.add(e.keyCode)
+				this.key.add(e.keyCode);
 			} else if (action === 'delete') {
-				this.key.delete(e.keyCode)
+				this.key.delete(e.keyCode);
 			}
-		} else if ()
+		} else if ([32].includes(e.keyCode)) {
+			this.fireBullet();
+		} else {
+			console.log(e.keyCode);
+		}
 	}
 
 	render() {
