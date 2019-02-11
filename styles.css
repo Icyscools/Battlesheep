@@ -1,0 +1,19 @@
+* {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+body {
+	background: url("assets/background.png"), #473F23;
+	background-size: cover;
+	background-blend-mode: overlay;
+
+	text-align: center;
+}
+
+#GameBoard {
+	margin: 0 0;
+	padding: 0 0;
+	filter: drop-shadow(0 0 5px #000);
+}
