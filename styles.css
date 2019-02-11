@@ -12,8 +12,22 @@ body {
 	text-align: center;
 }
 
+#menu {
+	position: absolute;
+	left: 50%;
+	z-index: 999;
+	transform: translate(-50%, 0);
+}
+
+#menu > #startGame {
+	position: relative;
+	margin-top: 50vh;
+	padding: 20px 120px;
+}
+
 #GameBoard {
 	margin: 0 0;
 	padding: 0 0;
 	filter: drop-shadow(0 0 5px #000);
 }
+

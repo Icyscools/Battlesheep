@@ -16,16 +16,27 @@ class GameBoard {
 			height: this.board.height
 		};
 		this.config = {
-			width: 854,
-			height: 480
+			width: 1366,
+			height: 768
 		};
 
 		window.addEventListener('resize', (e) => this.resizeCanvas());
 	}
 
+	showInterface() {
+		document.getElementById("menu").style.display = "block";
+		return 1;
+	}
+
+	hiddenInterface() {
+		document.getElementById("menu").style.display = "none";
+		return 0;
+	}
+
 	init() {
 		this.board.width = this.config.width;
 		this.board.height = this.config.height;
+		this.hiddenInterface();
 		this.resizeCanvas()
 		this.character = new Character(
 			this.context,
@@ -297,12 +308,13 @@ class Entity {
 }
 
 class Bullet extends Entity {
-	constructor(context, name, x, y, width, height, sprite_options, owner, velocity, timer, faced) {
+	constructor(context, name, x, y, width, height, sprite_options, owner, velocity, direction, timer, faced) {
 		super(context, name, x, y, width, height, sprite_options);
 		this.owner = owner;
 		this.velocity = velocity;
 		this.faced = faced;
 		this.timer = timer * 100;
+		this.direction = direction
 	}
 
 	isTimeOut() {
@@ -314,7 +326,8 @@ class Bullet extends Entity {
 	}
 
 	render() {
-		this.x = this.x + this.velocity;
+		this.x += this.direction.x * this.velocity;
+		this.y += this.direction.y * this.velocity;
 		this.timer -= 1;
 		super.render();
 	}
@@ -331,6 +344,8 @@ class Character extends Entity {
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'delete'));
+
+		window.addEventListener('click', (e) => this.fireBullet(e))
 	}
 
 	updateKey(e, action) {
@@ -340,10 +355,6 @@ class Character extends Entity {
 			} else if (action === 'delete') {
 				this.key.delete(e.keyCode);
 			}
-		} else if ([32].includes(e.keyCode)) {
-			this.fireBullet();
-		} else {
-			console.log(e.keyCode);
 		}
 	}
 
@@ -386,7 +397,17 @@ class Character extends Entity {
 		return this.bullets;
 	}
 
-	fireBullet() {
+	fireBullet(e) {
+		let direction = {
+			x: e.x - this.x,
+			y: e.y - this.y
+		}
+
+		//Normalize
+		let length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
+		direction.x /= length;
+		direction.y /= length;
+
 		let bullet = new Bullet(
 							this.context,
 							"Bullet",
@@ -401,10 +422,11 @@ class Character extends Entity {
 								ticksPerFrame: 10,
 								numberOfFrames: 2,
 								loop: true,
-								ratio: 1.0
+								ratio: 1.0,
 							},
 							this,
-							(this.faced === "left" ? -1 : 1) * 5,
+							5,
+							direction,
 							12,
 							this.faced
 						);
@@ -430,5 +452,6 @@ function randomColor(tone="Red") {
 	return color
 }
 
+
 const game = new GameBoard("GameBoard");
-game.init();
+//game.init();
