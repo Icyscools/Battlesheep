@@ -34,16 +34,15 @@ class Character extends LivingEntity {
 		this.bullets = [];
 
 		/* Inventory (Not finish) */ 
-		let item = new Items("0001", "Newbie's Sword", "", {"atk": 30});
+		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, [[item, item, item]], 1, 9);
-		let ui = this.inventory;
-		console.log(ui)
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
-		window.addEventListener('keyup', (e) => this.updateKey(e, 'delete'));
+		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
 
-		// window.addEventListener('click', (e) => this.fireBullet(e))
+		// window.addEventListener('touchstart', (e) => this.fireBullet()); Tablet supported
+		// window.addEventListener('click', (e) => this.fireBullet(e)); PC supported
 	}
 
 	updateKey(e, action) {
@@ -54,13 +53,17 @@ class Character extends LivingEntity {
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
 			if (action === 'add') {
 				this.key.add(e.keyCode);
-			} else if (action === 'delete') {
+			} else if (action === 'remove') {
 				this.key.delete(e.keyCode);
 			}
-		}
-		else if ([74, 75, 76].includes(e.keyCode)) {
+		} else if ([74, 75, 76].includes(e.keyCode)) {
 			if (action === 'add') {
 				this.fireBullet(e);
+			}
+		} else if ([73].includes(e.keyCode)) {
+			if (action === 'add') {
+				let ui = this.inventory.getUI();
+				ui.toggleUI();
 			}
 		}
 	}

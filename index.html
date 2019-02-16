@@ -6,16 +6,20 @@
 	<link rel="icon" href="favicon.png">
 </head>
 <body>
-	<div class="board">
+	<div class="board" id="board">
 		<div id="menu">
 			<button id="startGame" onclick="game.init()">Start Game</button>
 			<button id="loadGame">Load Game</button>
 			<button id="Options">Options</button>
 		</div>
+		<div id="interface">
+		</div>
 		<canvas id="GameBoard">Your browser may not be support Javascript</canvas>
 	</div>
 
 	<script src="scripts/Entitys.js"></script>
+	<script src="scripts/UI.js"></script>
+	<script src="scripts/Item.js"></script>
 	<script src="scripts/Inventory.js"></script>
 	<script src="scripts/Character.js"></script>
 	<script src="game.js"></script>

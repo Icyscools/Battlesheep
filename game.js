@@ -196,7 +196,7 @@ class GameBoard {
 			}
 			this.maps.push(rows)
 		}
-		console.log(this.maps)
+		//console.log(this.maps)
 	}
 
 	drawMap() {
