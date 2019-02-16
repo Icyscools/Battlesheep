@@ -2,32 +2,52 @@
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-}
-
-body {
+   }
+   
+   body {
 	background: url("assets/background.png"), #473F23;
 	background-size: cover;
 	background-blend-mode: overlay;
-
+   
 	text-align: center;
-}
-
-#menu {
+   }
+   
+   #menu {
 	position: absolute;
-	left: 50%;
+	left: 20%;
 	z-index: 999;
 	transform: translate(-50%, 0);
-}
-
-#menu > #startGame {
-	position: relative;
-	margin-top: 50vh;
-	padding: 20px 120px;
-}
-
-#GameBoard {
+   }
+   
+   #GameBoard {
 	margin: 0 0;
 	padding: 0 0;
 	filter: drop-shadow(0 0 5px #000);
-}
-
+   }
+   
+   #startGame {
+	position: relative;
+	display: block;
+	margin-top: 50vh;
+	padding: 20px 120px;
+	width: 320px;
+	text-align: center;
+   }
+   
+   #loadGame {
+	position: relative;
+	display: block;
+	margin-top: 10px;
+	padding: 20px 120px;
+	width: 320px;
+	text-align: center;
+   }
+   
+   #Options {
+	position: relative;
+	display: block;
+	margin-top: 10px;
+	padding: 20px 120px;
+	width: 320px;
+	text-align: center;
+   }
