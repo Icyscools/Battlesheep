@@ -2,30 +2,30 @@
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
-   }
+}
    
-   body {
+body {
 	background: url("assets/background.png"), #473F23;
 	background-size: cover;
 	background-blend-mode: overlay;
    
 	text-align: center;
-   }
+}
    
-   #menu {
+#menu {
 	position: absolute;
 	left: 20%;
 	z-index: 999;
 	transform: translate(-50%, 0);
-   }
+}
    
-   #GameBoard {
+#GameBoard {
 	margin: 0 0;
 	padding: 0 0;
 	filter: drop-shadow(0 0 5px #000);
-   }
+}
    
-   #startGame {
+#startGame {
 	/*background-image: url("assets/butt.png");*/
 	position: relative;
 	display: block;
@@ -33,22 +33,26 @@
 	padding: 20px 120px;
 	width: 320px;
 	text-align: center;
-   }
+}
    
-   #loadGame {
+#loadGame {
 	position: relative;
 	display: block;
 	margin-top: 20px;
 	padding: 20px 120px;
 	width: 320px;
 	text-align: center;
-   }
+}
    
-   #Options {
+#Options {
 	position: relative;
 	display: block;
 	margin-top: 20px;
 	padding: 20px 120px;
 	width: 320px;
 	text-align: center;
-   }
+}
+
+#player_inventory {
+	border: 1px solid #000;
+}

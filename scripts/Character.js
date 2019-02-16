@@ -1,9 +1,43 @@
 class Character extends LivingEntity {
+	/*
+	 * This is `Character` class which extends from `LivingEntity` class
+	 *
+	 * Player object
+	 * Define to playable object for player
+	 */
 	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def) {
+		/*
+		 * Constructor
+		 * is a function to define new object, class declaration
+		 * 
+		 * It run when a new object is create, use on store a data which
+		 * coming in a list of parameter, or use to variable declaration
+		 * 
+		 * Parameter
+		 *  - context: Context of canvas
+		 *  - name: Name of this object
+		 *  - x: Position X of this object
+		 *  - y: Position Y of this object
+		 *  - width: Width of this object
+		 *  - height: Height of this object
+		 *  - sprite_option: Sprite option using render sprite image
+		 *  - hp: Health of this object
+		 *  - atk: Attack damage of this object
+		 *  - def: Defense of this object
+		 */
+
+		// This is a child class from `LivingEntity` class, so we need to
+		// call super() function to put a parameter to super class
 		super(context, name, x, y, width, height, sprite_options, hp, atk, def);
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
+
+		/* Inventory (Not finish) */ 
+		let item = new Items("0001", "Newbie's Sword", "", {"atk": 30});
+		this.inventory = new Inventory(this, [[item, item, item]], 1, 9);
+		let ui = this.inventory;
+		console.log(ui)
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
@@ -13,6 +47,10 @@ class Character extends LivingEntity {
 	}
 
 	updateKey(e, action) {
+		/*
+		 * Run when player press a keys 
+		 * It's use to trigger a event or control a controller
+		 */
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
 			if (action === 'add') {
 				this.key.add(e.keyCode);
@@ -28,6 +66,14 @@ class Character extends LivingEntity {
 	}
 
 	render() {
+		/*
+		 * Render the object to the canvas
+		 * In this character object
+		 *
+		 * We will check the direction that the key press
+		 * to move the character on that direction
+		 *
+		 */
 		let speed = 4;
 		if (this.key.has(65)) {
 			this.x = Math.max(this.x - speed, 0);
@@ -46,6 +92,7 @@ class Character extends LivingEntity {
 			this.faced = "down";
 		}
 
+		// Draw Rectangle around the character; Can remove this
 		this.context.strokeStyle="blue";
 		this.context.beginPath();
 		this.context.rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width * 2, this.height * 2, 0);
@@ -54,6 +101,8 @@ class Character extends LivingEntity {
 		this.context.restore();
 
 		this.bullets.forEach((bullet) => {
+			// If bullet is time out or bullet is out frame
+			// then remove it from stored
 			if (bullet.isTimeOut() || bullet.isOutFrame()) {
 				this.bullets.splice(this.bullets.indexOf(bullet), 1);
 			} else {
@@ -65,20 +114,27 @@ class Character extends LivingEntity {
 	}
 
 	getBullet() {
+		/*
+		 * Get bullets object that this character shoot 
+		 */
 		return this.bullets;
 	}
 
 	fireBullet(e) {
+		/*
+		 * Fire a bullet to belong a direction
+		 */
 		let direction = {
 			x: this.x,
 			y: this.y
 		}
 
-		//Normalize
+		// Normalize to get a direction
 		let length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
 		direction.x /= length;
 		direction.y /= length;
 
+		// Create a new bullet object
 		let bullet = new Bullet(
 							this.context,
 							"Bullet",
@@ -101,7 +157,8 @@ class Character extends LivingEntity {
 							12,
 							this.faced
 						);
-
+		
+		// Store new bullet object to ArrayList
 		this.bullets.push(bullet);
 	}
 }

@@ -1,9 +1,18 @@
 /*
  * Game.js
- * THIS IS MAIN SOURCE
+ * THIS IS MAIN SOURCE JS
  */
 class GameBoard {
+	/*
+	 *	This is class "GameBoard"
+	 *  Define as main game board
+	 */
 	constructor(canvasName) {
+		/*
+		 * Constructor
+		 * เป็นฟังก์ชันที่เอาไว้ใช้ กำหนดว่า class นี้
+		 * ต้องสร้างจะต้องมี parameter อะไร สร้างตัวแปรอะไรบ้ง
+		 */
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
 		this.i = 0;
@@ -25,16 +34,28 @@ class GameBoard {
 	}
 
 	showInterface() {
+		/*
+		 * โชว์ Interface menu (ปุ่มเริ่มเกม)
+		 *
+		 */
 		document.getElementById("menu").style.display = "block";
 		return 1;
 	}
 
 	hiddenInterface() {
+		/*
+		 * ซ่อน Interface menu (ปุ่มเริ่มเกม)
+		 *
+		 */
 		document.getElementById("menu").style.display = "none";
 		return 0;
 	}
 
 	init() {
+		/*
+		 * ตั้งค่าพื้นฐาน เพื่อเริ่มเกม
+		 *
+		 */
 		this.board.width = this.config.width;
 		this.board.height = this.config.height;
 		this.hiddenInterface();
@@ -92,10 +113,20 @@ class GameBoard {
 	}
 
 	getEntitys() {
-		return this.entitys;
+		/*
+		 * Return Object Entity ทั้งหมดที่อยู่ในเกม
+		 *
+		 */
+		return this.entitys; // เป็น ArrayList ที่เก็บ object Entity ในเกม ต้องอัพเดตมันตลอดเวลาจะเพิ่ม / ลบ Entity อะไร
 	}
 
 	gameUpdate() {
+		/*
+		 * ในทุกๆ tick จะทำการ update เกม ซึ่ง function นี้จะทำเรียกตัวเองซ้ำๆ
+		 * เพื่ออัพเดตข้อมูลในเกม (การเคลื่อนที่ตัวละคร object)
+		 *
+		 */
+
 		// Clear screen
 		this.context.clearRect(0, 0, this.board.width, this.board.height);
 
@@ -143,11 +174,20 @@ class GameBoard {
 	}
 
 	updateCamera() {
+		/*
+		 * อัพเดตกล้อง ให้เคลื่อนที่ตามตัวละคร
+		 * (Not finished / Can't used)
+		 *
+		 */
 		this.camera.x = this.character.x - (this.camera.width / 2);
 		this.camera.y = this.character.y - (this.camera.height / 2);
 	}
 
 	generateMap() {
+		/*
+		 * Generate map ขึ้นมาใหม่
+		 *
+		 */
 		this.maps = []
 		for (let r = 0; r < this.board.height / 20; r++) {
 			let rows = []
@@ -160,6 +200,10 @@ class GameBoard {
 	}
 
 	drawMap() {
+		/*
+		 * วาดแผนที่ ลงไปใน canvas
+		 */
+
 		// Legacy
 		this.context.save();
 		this.context.fillStyle = "#1e7c3e";
@@ -181,6 +225,11 @@ class GameBoard {
 	}
 
 	drawRotatedBox(x, y, width, height, angle) { 
+		/*
+		 * วาดกล่องลงไปใน canvas
+		 * (Not used)
+		 *
+		 */
 		this.context.save();
 		this.context.translate(x, y);
 		this.context.rotate(angle * Math.PI / 180);
@@ -190,6 +239,10 @@ class GameBoard {
 	}
 
 	resizeCanvas() {
+		/*
+		 * ปรับ canvas size
+		 *
+		 */
 	  	this.board.style.width = window.innerWidth + "px";
   		this.board.style.height = window.innerHeight + "px";
 	  	console.log(this.board.style.width, this.board.style.height);
@@ -197,6 +250,9 @@ class GameBoard {
 }
 
 function randomColor(tone="Red") {
+	/*
+	 * Random สี
+	 */
 	colorCode = "0123456789ABCDEF"
 	color = "#"
 	for (let i = 0; i < 3; i++) {
@@ -214,5 +270,6 @@ function randomColor(tone="Red") {
 }
 
 
+/* Game declare */
 const game = new GameBoard("GameBoard");
 //game.init();
