@@ -9,7 +9,7 @@ class Character extends LivingEntity {
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'delete'));
 
-		window.addEventListener('click', (e) => this.fireBullet(e))
+		// window.addEventListener('click', (e) => this.fireBullet(e))
 	}
 
 	updateKey(e, action) {
@@ -18,6 +18,11 @@ class Character extends LivingEntity {
 				this.key.add(e.keyCode);
 			} else if (action === 'delete') {
 				this.key.delete(e.keyCode);
+			}
+		}
+		else if ([74, 75, 76].includes(e.keyCode)) {
+			if (action === 'add') {
+				this.fireBullet(e);
 			}
 		}
 	}
@@ -34,9 +39,11 @@ class Character extends LivingEntity {
 		}
 		if (this.key.has(87)) {
 			this.y = Math.max(this.y - speed, 0);
+			this.faced = "up";
 		}
 		if (this.key.has(83)) {
 			this.y = Math.min(this.y + speed, this.context.canvas.height - this.sprite_options.height * this.sprite_options.ratio);
+			this.faced = "down";
 		}
 
 		this.context.strokeStyle="blue";
@@ -63,8 +70,8 @@ class Character extends LivingEntity {
 
 	fireBullet(e) {
 		let direction = {
-			x: e.x - this.x,
-			y: e.y - this.y
+			x: this.x,
+			y: this.y
 		}
 
 		//Normalize
@@ -89,12 +96,12 @@ class Character extends LivingEntity {
 								ratio: 1.0,
 							},
 							this,
-							5,
+							10,			// velocity
 							direction,
 							12,
 							this.faced
 						);
-		
+
 		this.bullets.push(bullet);
 	}
 }

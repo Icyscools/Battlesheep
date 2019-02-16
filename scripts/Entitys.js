@@ -11,7 +11,7 @@ class Entity {
 
 		var entityImg = new Image();
 		entityImg.src = sprite_options.src;
-			
+
 		this.sprite = this.sprite({
 			context: this.context,
 			width: sprite_options.width,
@@ -36,7 +36,7 @@ class Entity {
 			},
 			frameIndex = 0,
 			tickCount = 0,
-			ticksPerFrame = options.ticksPerFrame || 0, 
+			ticksPerFrame = options.ticksPerFrame || 0,
 			numberOfFrames = options.numberOfFrames || 1,
 			ratio = options.ratio || 1.0;
 
@@ -59,7 +59,14 @@ class Entity {
 			}
 			that.pos_x = pos_x;
 			that.pos_y = pos_y;
-			that.flip = faced.toLowerCase() === "right" ? false : true;
+			// that.flip = faced.toLowerCase() === "right" ? false : true;
+			if (faced === "right") {
+				that.flip = false;
+			}
+
+			else if (faced === "left") {
+				that.flip = true;
+			}
 		}
 
 		that.render = function () {
@@ -158,8 +165,22 @@ class Bullet extends Entity {
 	}
 
 	render() {
-		this.x += this.direction.x * this.velocity;
-		this.y += this.direction.y * this.velocity;
+		if (this.faced === 'left') {
+			this.x -= this.velocity;
+		}
+
+		else if (this.faced === 'right') {
+			this.x += this.velocity;
+		}
+
+		else if (this.faced === 'up') {
+			this.y -= this.velocity
+		}
+		else if (this.faced === 'down') {
+			this.y += this.velocity
+		}
+		// this.x += this.direction.x * this.velocity;
+		// this.y += this.direction.y * this.velocity;
 		this.timer -= 1;
 		super.render();
 	}
