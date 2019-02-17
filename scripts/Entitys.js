@@ -9,7 +9,7 @@ class Entity {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
-		 * 
+		 *
 		 * It run when a new object is create, use on store a data which
 		 * coming in a list of parameter, or use to variable declaration
 		 *
@@ -111,17 +111,22 @@ class Entity {
 			that.pos_y = pos_y;
 			// that.flip = faced.toLowerCase() === "right" ? false : true;
 			if (faced === "right") {
-				that.flip = false;
+				that.flip = "right";
 			}
-
 			else if (faced === "left") {
-				that.flip = true;
+				that.flip = "left";
+			}
+			else if (faced === "up") {
+				that.flip = "up";
+			}
+			else if (faced === "down") {
+				that.flip = "down";
 			}
 		}
 
 		that.render = function () {
 			that.context.save();
-			if (!that.flip) {
+			if (that.flip === "right") {
 				that.context.drawImage(
 					that.image,
 					frameIndex * that.width,
@@ -133,7 +138,8 @@ class Entity {
 					that.width * ratio,
 					that.height * ratio
 				);
-			} else {
+			}
+			else if (that.flip === "left") {
 				that.context.scale(-1, 1);
 				that.context.translate(-that.width, 0);
 				that.context.drawImage(
@@ -148,6 +154,43 @@ class Entity {
 					that.height * ratio
 				);
 			}
+			else if (that.flip === "down") {
+				// that.context.scale(-1, -1);
+				// that.context.translate(-that.width, -that.height);
+				that.context.translate((2 * that.pos_x + that.width) / 2, (2 * that.pos_y + that.height) / 2)
+				that.context.rotate(Math.PI / 2)
+				that.context.translate(-(2 * that.pos_x + that.width) / 2, -(2 * that.pos_y + that.height) / 2)
+				that.context.drawImage(
+					that.image,
+					frameIndex * that.width,
+					0,
+					that.width,
+					that.height,
+					that.pos_x,
+					that.pos_y,
+					that.width * ratio,
+					that.height * ratio
+				);
+			}
+			else if (that.flip === "up") {
+				// that.context.scale(1, -1);
+				// that.context.translate(0, -that.height);
+				that.context.translate((2 * that.pos_x + that.width) / 2, (2 * that.pos_y + that.height) / 2)
+				that.context.rotate(-Math.PI / 2)
+				that.context.translate(-(2 * that.pos_x + that.width) / 2, -(2 * that.pos_y + that.height) / 2)
+				that.context.drawImage(
+					that.image,
+					frameIndex * that.width,
+					0,
+					that.width,
+					that.height,
+					that.pos_x,
+					that.pos_y,
+					that.width * ratio,
+					that.height * ratio
+				);
+			}
+
 			that.context.restore();
 			return 0;
 		}
@@ -187,10 +230,10 @@ class LivingEntity extends Entity {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
-		 * 
+		 *
 		 * It run when a new object is create, use on store a data which
 		 * coming in a list of parameter, or use to variable declaration
-		 * 
+		 *
 		 * Parameter
 		 *  - context: Context of canvas
 		 *  - name: Name of this object
@@ -254,10 +297,10 @@ class Bullet extends Entity {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
-		 * 
+		 *
 		 * It run when a new object is create, use on store a data which
 		 * coming in a list of parameter, or use to variable declaration
-		 * 
+		 *
 		 * Parameter
 		 *  - context: Context of canvas
 		 *  - name: Name of this object
