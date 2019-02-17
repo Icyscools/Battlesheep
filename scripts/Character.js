@@ -35,7 +35,9 @@ class Character extends LivingEntity {
 
 		/* Inventory (Not finish) */ 
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
-		this.inventory = new Inventory(this, [[item, item, item]], 1, 9);
+		this.inventory = new Inventory(this, [[item, item, item], [item]], 2, 9);
+
+		let textbox = new UITextBox("test");
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));

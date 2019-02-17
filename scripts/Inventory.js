@@ -17,7 +17,7 @@ class Inventory {
 	}
 
 	getItem(row, col) {
-		return row * col < this.items.length ? this.items[row][col] : 0;
+		return this.items[row][col] !== undefined ? this.items[row][col] : 0;
 	}
 
 	getUI() {

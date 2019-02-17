@@ -1,7 +1,6 @@
 class UI {
 	constructor(options) {
 		this.root = document.getElementById("interface");
-		console.log(options);
 		this.name = options.name !== undefined ? options.name : "Untitled";
 		this.id = options.id !== undefined ? options.id : 0;
 		this.class = options.class !== undefined ? options.class : 0;
@@ -11,7 +10,13 @@ class UI {
 		this.isPanel = options.isPanel !== undefined ? options.isPanel : false;
 		this.showName = options.showName !== undefined ? options.showName : false;
 		this.isShow = options.isShow !== undefined ? options.isShow : true;
+		this.dragAble = options.dragAble !== undefined ? options.dragAble : false;
+		
 		this.ui = 0;
+		this.pos = {
+			x: 0,
+			y: 0
+		};
 	}
 
 	createUI() {
@@ -19,12 +24,23 @@ class UI {
 		this.ui = ui;
 		if (this.id) this.ui.setAttribute("id", this.id);
 		if (this.class) this.ui.setAttribute("class", this.class);
-		if (this.showName) this.ui.innerText = this.name.capitalize();
+		if (this.showName) {
+			let header = document.createElement("div");
+			header.setAttribute("class", "header");
+			header.innerText = this.name.capitalize();
+			this.ui.appendChild(header);
+		}
 		if (this.width) this.ui.style.width = this.width + "px";
 		if (this.height) this.ui.style.height = this.height + "px";
 		if (this.padding) this.ui.style.padding = this.padding + "px";
 		if (this.isPanel) this.root.appendChild(this.ui);
+		if (this.dragAble) {
+			this.dragObject(this.ui);
+		}
+
 		this.isShow ? this.showUI() : this.hideUI();
+
+		this.setPosition(100, 200);
 		return ui;
 	}
 
@@ -34,7 +50,7 @@ class UI {
 	}
 
 	getUI() {
-		return this.UI;
+		return this.ui;
 	}
 
 	showUI() {
@@ -52,8 +68,62 @@ class UI {
 		this.isShow ? this.showUI() : this.hideUI();
 	}
 
-	dragElement(element) {
-		return 0;
+	appendUI(anotherUI) {
+		this.ui.appendChild(anotherUI.getUi());
+	}
+
+	setPosition(x, y) {
+		this.ui.style.top = y + "px";
+		this.ui.style.left = x + "px";
+	}
+
+	dragObject(ui) {
+		var element = ui;
+
+		var pos1 = 0,
+		    pos2 = 0,
+		    pos3 = 0,
+		    pos4 = 0;
+
+		let header = element.querySelector(".header");
+		if (header !== undefined) {
+			header.addEventListener("mousedown", (e) => dragMouseDown(e));
+			header.classList.add("draggable");
+		} else {
+			element.addEventListener("mousedown", (e) => dragMouseDown(e));
+			element.classList.add("draggable");
+		}
+
+		function dragMouseDown(e) {
+			e = e || window.event;
+			e.preventDefault();
+
+			pos3 = e.clientX;
+			pos4 = e.clientY;
+		    console.log(element);
+			document.onmouseup = closeDragElement;
+			document.onmousemove = elementDrag;
+			
+		}
+
+		function elementDrag(e) {
+			e = e || window.event;
+		    e.preventDefault();
+		    // calculate the new cursor position:
+		    pos1 = pos3 - e.clientX;
+		    pos2 = pos4 - e.clientY;
+		    pos3 = e.clientX;
+		    pos4 = e.clientY;
+		    // set the element's new position:
+		   	element.style.top = (element.offsetTop - pos2) + "px";
+		    element.style.left = (element.offsetLeft - pos1) + "px";
+		}
+
+		function closeDragElement() {
+		    // stop moving when mouse button is released:
+		    document.onmouseup = null;
+		    document.onmousemove = null;
+		}
 	}
 }
 
@@ -65,13 +135,13 @@ class UIInventory extends UI {
 			isPanel: true,
 			isShow: false,
 			showName: true,
+			dragAble: true,
 			padding: 5
 		});
 
 		this.inventory = inventory;
 
 		this.UI = this.createUI();
-		this.UI.style.cursor = "move";
 		this.UI.style.textAlign = "center";
 
 		this.inv_table = document.createElement("table");
@@ -81,7 +151,7 @@ class UIInventory extends UI {
 			for (let c = 0; c < this.inventory.cols; c++) {
 				let cell = row.insertCell(c);
 				let item = this.inventory.getItem(r, c);
-				if (item !== undefined) {
+				if (item !== undefined && item !== 0) {
 					let el_item = new UIItem(item);
 					cell.appendChild(el_item.getUI());
 				} else {
@@ -114,6 +184,7 @@ class UIItem extends UI {
 
 		this.item_element = document.createElement("img");
 		this.item_element.setAttribute("itemId", this.item.getItemId());
+		this.item_element.setAttribute("title", `${this.item.getName()}\u000dDamage: ${this.item.getAttribute().atk}`);
 		this.item_element.src = `assets\\items\\${item.getItemId()}.png`;
 
 		this.UI.appendChild(this.item_element);
@@ -132,7 +203,27 @@ class UIItem extends UI {
 
 class UITextBox extends UI {
 	constructor(text) {
+		super({
+			class: "textbox",
+			isPanel: true
+		});
+
+		this.text = "";
+		this.ui = this.createUI();
+
+		this.setText(text);
+		this.setPosition(300, 400);
+		this.deleteUI();
+	}
+
+	deleteUI() {
+		console.log(this.ui);
+		super.deleteUI(this.ui);
+	}
+
+	setText(text) {
 		this.text = text;
+		this.ui.innerHTML = this.text;
 	}
 }
 
