@@ -6,9 +6,9 @@
 }
    
 body {
-	background: url("assets/background.png"), #473F23;
+	background: url("assets/bg.jpg");
 	background-size: cover;
-	background-blend-mode: overlay;
+	background-blend-mode: normal;
    
 	text-align: center;
 }
