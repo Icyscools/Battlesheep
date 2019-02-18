@@ -6,52 +6,49 @@
 }
    
 body {
-	background: url("assets/bg.jpg");
+	background: url("assets/bgja.png");
 	background-size: cover;
 	background-blend-mode: normal;
-   
 	text-align: center;
 }
-   
-#menu {
-	position: absolute;
-	left: 20%;
-	z-index: 999;
-	transform: translate(-50%, 0);
-}
-   
+
 #GameBoard {
 	margin: 0 0;
 	padding: 0 0;
 	filter: drop-shadow(0 0 5px #000);
 	z-index: 0;
 }
+
+#menu {
+	position: absolute;
+	left: 20%;
+	z-index: 999;
+	transform: translate(-50%, 0);
+}
+
+#menu > div {
+	background-image: url("assets/btja.png");
+	background-size: 330px 80px;
+	width: 330px;
+	height: 80px;
+}
    
 #startGame {
-	/*background-image: url("assets/butt.png");*/
-	position: relative;
+	margin-top: 40vh;
+	background-size: cover;
 	display: block;
-	margin-top: 50vh;
-	padding: 20px 120px;
-	width: 320px;
 	text-align: center;
 }
    
 #loadGame {
-	position: relative;
 	display: block;
 	margin-top: 20px;
-	padding: 20px 120px;
-	width: 320px;
 	text-align: center;
 }
    
 #Options {
-	position: relative;
 	display: block;
 	margin-top: 20px;
-	padding: 20px 120px;
-	width: 320px;
 	text-align: center;
 }
 
