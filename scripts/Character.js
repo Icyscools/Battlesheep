@@ -28,16 +28,18 @@ class Character extends LivingEntity {
 
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(context, name, x, y, width, height, sprite_options, hp, atk, def);
+		super(context, name, x, y, width, height, sprite_options, hp, atk, def, 1);
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
 
 		/* Inventory (Not finish) */ 
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
-		this.inventory = new Inventory(this, [[item, item, item], [item]], 2, 9);
+		this.inventory = new Inventory(this, 2, 9, {});
+		this.inventory.addItem(item, 1, 2);
 
 		let textbox = new UITextBox("test");
+		let healthBar = new UIHealthBar(this);
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));

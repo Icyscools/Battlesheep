@@ -1,6 +1,6 @@
 class UI {
 	constructor(options) {
-		this.root = document.getElementById("interface");
+		this.root = options.root !== undefined ? options.root : document.getElementById("interface");
 		this.name = options.name !== undefined ? options.name : "Untitled";
 		this.id = options.id !== undefined ? options.id : 0;
 		this.class = options.class !== undefined ? options.class : 0;
@@ -146,6 +146,13 @@ class UIInventory extends UI {
 
 		this.inv_table = document.createElement("table");
 		this.inv_table.setAttribute("id", "player_inventory");
+		this.updateInventory();
+
+		this.UI.appendChild(this.inv_table);
+	}
+
+	updateInventory() {
+		this.inv_table.innerHTML = "";
 		for (let r = 0; r < this.inventory.rows; r++) {
 			let row = this.inv_table.insertRow(r);
 			for (let c = 0; c < this.inventory.cols; c++) {
@@ -159,7 +166,11 @@ class UIInventory extends UI {
 				}
 			}
 		}
-		this.UI.appendChild(this.inv_table);
+	}
+
+	toggleUI() {
+		this.updateInventory();
+		super.toggleUI();
 	}
 
 	getInventory() {
@@ -217,13 +228,49 @@ class UITextBox extends UI {
 	}
 
 	deleteUI() {
-		console.log(this.ui);
 		super.deleteUI(this.ui);
 	}
 
 	setText(text) {
 		this.text = text;
 		this.ui.innerHTML = this.text;
+	}
+}
+
+class UIHealthBar extends UI {
+	constructor(character) {
+		super({
+			id: "healthbar",
+			isPanel: true,
+			width: 280,
+			height: 55
+		});
+
+		this.character = character;
+		this.ui = this.createUI();
+		this.ui.innerText = this.character.getName();
+
+		this.hpbar = document.createElement("div");
+		this.hpbar.setAttribute("class", "bar");		
+		this.ui.appendChild(this.hpbar);
+
+		this.expbar = document.createElement("div");
+		this.expbar.setAttribute("class", "bar");		
+		//this.ui.appendChild(this.bar);
+
+		this.setPosition(0, 0);
+		this.render();
+
+	}
+
+	render() {
+		//this.ui.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`
+		this.hpbar.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
+		this.hpbar.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
+
+		setTimeout(() => {
+			this.render();
+		}, config.gameTick);
 	}
 }
 

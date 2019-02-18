@@ -30,6 +30,7 @@ class GameBoard {
 			height: 768
 		};
 
+		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
 	}
 
@@ -170,7 +171,7 @@ class GameBoard {
 
 		setTimeout(() => {
 			this.gameUpdate()
-		}, 20);
+		}, config.gameTick);
 	}
 
 	updateCamera() {
@@ -269,7 +270,12 @@ function randomColor(tone="Red") {
 	return color
 }
 
+/* Configuration */
+const config = {
+	gameTick: 20
+}
 
 /* Game declare */
 const game = new GameBoard("GameBoard");
+
 //game.init();

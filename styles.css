@@ -85,6 +85,17 @@ body {
 	padding: 2px;
 }
 
+#interface > #healthbar {
+	padding: 5px 5px;
+	text-align: left;
+}
+
+#interface > #healthbar > .bar {
+	background: rgba(224, 38, 40, 1);
+	width: 0px;
+	height: 33%;
+}
+
 #interface > div > .draggable {
 	cursor: move;
 }

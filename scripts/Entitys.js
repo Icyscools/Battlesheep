@@ -49,6 +49,30 @@ class Entity {
 		});
 	}
 
+	getContext() {
+		return this.context;
+	}
+
+	getName() {
+		return this.name;
+	}
+
+	getPosition() {
+		return (this.x, this.y);
+	}
+
+	getWidth() {
+		return this.width;
+	}
+
+	getHeight() {
+		return this.height;
+	}
+
+	getFaced() {
+		return this.faced;
+	}
+
 	render() {
 		/*
 		 * Render the object to the canvas
@@ -216,93 +240,6 @@ class Entity {
 				(this.y < entity.bottom) &&
 				(this.x + this.width > entity.left) &&
 				(this.y + this.height > entity.top)) ? true : false
-	}
-}
-
-class LivingEntity extends Entity {
-	/*
-	 * This is `LivingEntity` class which extends from `Entity` class
-	 *
-	 * LivingEntity object
-	 * Define to any creature on the game
-	 */
-	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
-		/*
-		 * Constructor
-		 * is a function to define new object, class declaration
-		 *
-		 * It run when a new object is create, use on store a data which
-		 * coming in a list of parameter, or use to variable declaration
-		 *
-		 * Parameter
-		 *  - context: Context of canvas
-		 *  - name: Name of this object
-		 *  - x: Position X of this object
-		 *  - y: Position Y of this object
-		 *  - width: Width of this object
-		 *  - height: Height of this object
-		 *  - sprite_option: Sprite option using render sprite image
-		 *  - hp: Health of this object
-		 *  - atk: Attack damage of this object
-		 *  - def: Defense of this object
-		 */
-
-		// This is a child class from `Entity` class, so we need to
-		// call super() function to put a parameter to super class
-		super(context, name, x, y, width, height, sprite_options);
-		this.hp = hp;
-		this.atk = atk;
-		this.def = def;
-		this.state = "idle";
-	}
-
-	getAttackDamage() {
-		/*
-		 * Get attack damage of this object
-		 */
-		return this.atk;
-	}
-
-	getDefense() {
-		/*
-		 * Get defense of this object
-		 */
-		return this.def;
-	}
-
-	getAttckSpd() {
-		/*
-		 * Get defense of this object
-		 */
-		return this.atkspd;
-	}
-
-	isDamage(){
-		if (state == "hit"){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	giveDamage(damage){
-		this.hp -= (damage-this.def);
-	}
-
-	isDead() {
-		/*
-		 * Check if this object is died
-		 */
-		return this.hp <= 0;
-	}
-
-	setDead() {
-		/*
-		 * Set health of this object to -99999
-		 * to make it died
-		 */
-		this.hp = -99999;
 	}
 }
 
