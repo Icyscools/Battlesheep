@@ -226,7 +226,7 @@ class LivingEntity extends Entity {
 	 * LivingEntity object
 	 * Define to any creature on the game
 	 */
-	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def) {
+	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -268,6 +268,26 @@ class LivingEntity extends Entity {
 		 * Get defense of this object
 		 */
 		return this.def;
+	}
+
+	getAttckSpd() {
+		/*
+		 * Get defense of this object
+		 */
+		return this.atkspd;
+	}
+
+	isDamage(){
+		if (state == "hit"){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+	giveDamage(damage){
+		this.hp -= (damage-this.def);
 	}
 
 	isDead() {
