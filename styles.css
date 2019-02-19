@@ -32,12 +32,24 @@ body {
 	width: 330px;
 	height: 80px;
 }
-   
+
 #startGame {
 	margin-top: 40vh;
 	background-size: cover;
 	display: block;
 	text-align: center;
+}
+
+@font-face {
+	font-family: pixelfont;
+	src: url(assets/PressStart2P.ttf);
+  }
+
+#startGame p, #loadGame p, #Options p {
+	letter-spacing: -2px;
+	font-size: 25px;
+	font-family: pixelfont;
+	padding-top: 25px;
 }
    
 #loadGame {
