@@ -9,10 +9,10 @@ class Character extends LivingEntity {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
-		 * 
+		 *
 		 * It run when a new object is create, use on store a data which
 		 * coming in a list of parameter, or use to variable declaration
-		 * 
+		 *
 		 * Parameter
 		 *  - context: Context of canvas
 		 *  - name: Name of this object
@@ -32,8 +32,9 @@ class Character extends LivingEntity {
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
+		this.state = "idle"
 
-		/* Inventory (Not finish) */ 
+		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
 		this.inventory.addItem(item, 1, 2);
@@ -51,7 +52,7 @@ class Character extends LivingEntity {
 
 	updateKey(e, action) {
 		/*
-		 * Run when player press a keys 
+		 * Run when player press a keys
 		 * It's use to trigger a event or control a controller
 		 */
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
@@ -62,7 +63,11 @@ class Character extends LivingEntity {
 			}
 		} else if ([74, 75, 76].includes(e.keyCode)) {
 			if (action === 'add') {
-				this.fireBullet(e);
+				if (this.state !== "atk") {
+					this.fireBullet(e);
+					this.state = "atk";
+					setTimeout(() => { this.state = "idle" }, 500);	// delay between each attack
+				}
 			}
 		} else if ([73].includes(e.keyCode)) {
 			if (action === 'add') {
@@ -122,7 +127,7 @@ class Character extends LivingEntity {
 
 	getBullet() {
 		/*
-		 * Get bullets object that this character shoot 
+		 * Get bullets object that this character shoot
 		 */
 		return this.bullets;
 	}
@@ -164,7 +169,7 @@ class Character extends LivingEntity {
 							12,
 							this.faced
 						);
-		
+
 		// Store new bullet object to ArrayList
 		this.bullets.push(bullet);
 	}

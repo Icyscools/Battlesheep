@@ -280,7 +280,7 @@ class Bullet extends Entity {
 		this.velocity = velocity;
 		this.faced = faced;
 		this.timer = timer * 100;
-		this.direction = direction
+		this.direction = direction;
 	}
 
 	isTimeOut() {
