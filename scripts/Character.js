@@ -5,7 +5,7 @@ class Character extends LivingEntity {
 	 * Player object
 	 * Define to playable object for player
 	 */
-	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -14,7 +14,6 @@ class Character extends LivingEntity {
 		 * coming in a list of parameter, or use to variable declaration
 		 *
 		 * Parameter
-		 *  - context: Context of canvas
 		 *  - name: Name of this object
 		 *  - x: Position X of this object
 		 *  - y: Position Y of this object
@@ -24,15 +23,17 @@ class Character extends LivingEntity {
 		 *  - hp: Health of this object
 		 *  - atk: Attack damage of this object
 		 *  - def: Defense of this object
+		 *  - atkspd: Attack speed of this object
 		 */
 
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(context, name, x, y, width, height, sprite_options, hp, atk, def, 1);
+		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd);
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
 		this.state = "idle"
+		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 
 		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
@@ -66,7 +67,7 @@ class Character extends LivingEntity {
 				if (this.state !== "atk") {
 					this.fireBullet(e);
 					this.state = "atk";
-					setTimeout(() => { this.state = "idle" }, 500);	// delay between each attack
+					setTimeout(() => { this.state = "idle" }, (1 / this.getAttackSpeed()) * 1000);	// delay between each attack
 				}
 			}
 		} else if ([73].includes(e.keyCode)) {
@@ -148,7 +149,6 @@ class Character extends LivingEntity {
 
 		// Create a new bullet object
 		let bullet = new Bullet(
-							this.context,
 							"Bullet",
 							this.x + (this.faced === "left" ? 0 : (this.width * 2/3)),
 							this.y + (this.height * 2/3) + (10 * Math.random() * (Math.random() > 0.5 ? -1 : 1)),

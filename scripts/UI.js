@@ -243,7 +243,7 @@ class UIHealthBar extends UI {
 			id: "healthbar",
 			isPanel: true,
 			width: 280,
-			height: 55
+			height: 45
 		});
 
 		this.character = character;

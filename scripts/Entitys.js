@@ -5,7 +5,7 @@ class Entity {
 	 * Entity object
 	 * Define to eveny object that belong in game
 	 */
-	constructor(context, name, x, y, width, height, sprite_options) {
+	constructor(name, x, y, width, height, sprite_options) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -25,7 +25,7 @@ class Entity {
 
 		// Store a value from a list of parameter to local variable
 		// We used keyword `this` to call local variable (or can call object data)
-		this.context = context;
+		this.context = game.getContext();
 		this.name = name;
 		this.x = x;
 		this.y = y;
@@ -57,8 +57,12 @@ class Entity {
 		return this.name;
 	}
 
-	getPosition() {
-		return (this.x, this.y);
+	getX() {
+		return this.x;
+	}
+
+	getY() {
+		return this.y;
 	}
 
 	getWidth() {
@@ -250,7 +254,7 @@ class Bullet extends Entity {
 	 * Bullet object
 	 * Define to any object that make from `Character` object on the game
 	 */
-	constructor(context, name, x, y, width, height, sprite_options, owner, velocity, direction, timer, faced) {
+	constructor(name, x, y, width, height, sprite_options, owner, velocity, direction, timer, faced) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -259,7 +263,6 @@ class Bullet extends Entity {
 		 * coming in a list of parameter, or use to variable declaration
 		 *
 		 * Parameter
-		 *  - context: Context of canvas
 		 *  - name: Name of this object
 		 *  - x: Position X of this object
 		 *  - y: Position Y of this object
@@ -275,12 +278,17 @@ class Bullet extends Entity {
 
 		// This is a child class from `Entity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(context, name, x, y, width, height, sprite_options);
+		super(name, x, y, width, height, sprite_options);
 		this.owner = owner;
 		this.velocity = velocity;
 		this.faced = faced;
 		this.timer = timer * 100;
 		this.direction = direction;
+	}
+
+
+	getOwner() {
+		return this.owner;
 	}
 
 	isTimeOut() {

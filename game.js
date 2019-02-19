@@ -34,6 +34,23 @@ class GameBoard {
 		window.addEventListener('resize', (e) => this.resizeCanvas());
 	}
 
+
+	getEntitys() {
+		/*
+		 * Return Object Entity ทั้งหมดที่อยู่ในเกม
+		 *
+		 */
+		return this.entitys; // เป็น ArrayList ที่เก็บ object Entity ในเกม ต้องอัพเดตมันตลอดเวลาจะเพิ่ม / ลบ Entity อะไร
+	}
+
+	getContext() {
+		/*
+		 * Return context of this canvas
+		 *
+		 */
+		return this.context;
+	}
+
 	showInterface() {
 		/*
 		 * โชว์ Interface menu (ปุ่มเริ่มเกม)
@@ -62,7 +79,6 @@ class GameBoard {
 		this.hiddenInterface();
 		this.resizeCanvas()
 		this.character = new Character(
-			this.context,
 			"Sheep",
 			0, 
 			0, 
@@ -79,12 +95,12 @@ class GameBoard {
 			},
 			100,
 			5,
-			5
+			5,
+			1.5
 		);
 
-		for (let n = 300; n > 0; n--) {
-			let ent = new Entity(
-				this.context,
+		for (let n = 50; n > 0; n--) {
+			let ent = new Enemy(
 				"Grass #" + n,
 				0 + Math.random() * (this.board.width - 32), 
 				0 + Math.random() * (this.board.height - 32), 
@@ -98,7 +114,10 @@ class GameBoard {
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				}
+				},
+				25,
+				2,
+				1
 			);
 
 			/*
@@ -111,14 +130,6 @@ class GameBoard {
 
 		this.generateMap();
 		this.gameUpdate();
-	}
-
-	getEntitys() {
-		/*
-		 * Return Object Entity ทั้งหมดที่อยู่ในเกม
-		 *
-		 */
-		return this.entitys; // เป็น ArrayList ที่เก็บ object Entity ในเกม ต้องอัพเดตมันตลอดเวลาจะเพิ่ม / ลบ Entity อะไร
 	}
 
 	gameUpdate() {
@@ -137,14 +148,25 @@ class GameBoard {
 		// Background update
 		this.drawMap();
 
-		//this.drawRotatedBox(100, 100, 50, 50, this.i);
-
-		// Remove grass when bullet hit
+		// Check for each entitys
 		this.entitys.forEach((ent) => {
+			// If entity collied with character and entity has a character to be a target
+			if (ent.collided(this.character) && ent.getTarget() === this.character) {
+				this.character.giveDamage(ent.getAttackDamage(), ent);
+				console.log(this.character.getHealth());
+			}
+
+			// Check for each bullets that character shoot
 			this.character.getBullet().forEach((bullet) => {
+				// If character bullet hit entity
 				if (bullet.collided(ent)) {
+					// Give entity a amount of damage
 					this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
-					this.entitys.splice(this.entitys.indexOf(ent), 1);
+					ent.giveDamage(this.character.getAttackDamage(), bullet.getOwner());
+					// If entity have health less than or equal 0, then remove it
+					if (ent.getHealth() <= 0) {
+						this.entitys.splice(this.entitys.indexOf(ent), 1);
+					}
 				}
 			})
 		})

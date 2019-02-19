@@ -5,7 +5,7 @@ class LivingEntity extends Entity {
 	 * LivingEntity object
 	 * Define to any creature on the game
 	 */
-	constructor(context, name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -14,7 +14,6 @@ class LivingEntity extends Entity {
 		 * coming in a list of parameter, or use to variable declaration
 		 *
 		 * Parameter
-		 *  - context: Context of canvas
 		 *  - name: Name of this object
 		 *  - x: Position X of this object
 		 *  - y: Position Y of this object
@@ -24,15 +23,17 @@ class LivingEntity extends Entity {
 		 *  - hp: Health of this object
 		 *  - atk: Attack damage of this object
 		 *  - def: Defense of this object
+		 *  - atkspd: Attack speed of this object
 		 */
 
 		// This is a child class from `Entity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(context, name, x, y, width, height, sprite_options);
+		super(name, x, y, width, height, sprite_options);
 		this.hp = hp;
 		this.maxhp = hp;
 		this.atk = atk;
 		this.def = def;
+		this.atkspd = atkspd;
 		this.state = "idle";
 	}
 
@@ -57,6 +58,13 @@ class LivingEntity extends Entity {
 		return this.atk;
 	}
 
+	getAttackSpeed() {
+		/*
+		 * Get attack speed of this object
+		 */
+		return this.atkspd;
+	}
+
 	getDefense() {
 		/*
 		 * Get defense of this object
@@ -64,30 +72,23 @@ class LivingEntity extends Entity {
 		return this.def;
 	}
 
-	getAttackSpd() {
-		/*
-		 * Get attack speed of this object
-		 */
-		return this.atkspd;
-	}
-
 	isDamage() {
 		/*
 		 * Check if this object have been recieved damage recently
 		 */
-		if (state == "hit") {
-			return true;
-		} else {
-			return false;
-		}
+		return this.state == "hit";
 	}
 
-	giveDamage(damage){
+	giveDamage(damage, damager) {
 		/*
 		 * Give damage to this object
 		 */
-		this.hp -= (damage-this.def);
-		this.state = "hit"
+		this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
+
+		if (damager !== undefined && this instanceof Enemy) {
+			this.state = "hit";
+			this.setTarget(damager);
+		}
 	}
 
 	isDead() {

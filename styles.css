@@ -98,6 +98,7 @@ body {
 }
 
 #interface > #healthbar > .bar {
+	position: absolute;
 	background: rgba(224, 38, 40, 1);
 	width: 0px;
 	height: 33%;
