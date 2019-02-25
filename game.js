@@ -15,10 +15,6 @@ class GameBoard {
 		 */
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
-		this.i = 0;
-
-		this.entitys = [];
-		this.maps = [];
 		this.camera = {
 			x: 0,
 			y: 0,
@@ -56,7 +52,9 @@ class GameBoard {
 		 * โชว์ Interface menu (ปุ่มเริ่มเกม)
 		 *
 		 */
-		document.getElementById("menu").style.display = "block";
+		document.querySelector("#menu").style.display = "block";
+		document.querySelector("#gameboard").style.display = "none";
+		document.querySelector("#gameover").style.display = "none";
 		return 1;
 	}
 
@@ -65,7 +63,9 @@ class GameBoard {
 		 * ซ่อน Interface menu (ปุ่มเริ่มเกม)
 		 *
 		 */
-		document.getElementById("menu").style.display = "none";
+		this.context.clearRect(0, 0, this.board.width, this.board.height);
+		document.querySelector("#gameboard").style.display = "block";
+		document.querySelector("#menu").style.display = "none";
 		return 0;
 	}
 
@@ -78,6 +78,12 @@ class GameBoard {
 		this.board.height = this.config.height;
 		this.hiddenInterface();
 		this.resizeCanvas()
+
+		this.i = 0;
+
+		this.entitys = [];
+		this.maps = [];
+
 		this.character = new Character(
 			"Sheep",
 			0, 
@@ -128,6 +134,7 @@ class GameBoard {
 			this.entitys.push(ent);
 		}
 
+		document.querySelector("#gameover").style.display = "none";
 		this.generateMap();
 		this.gameUpdate();
 	}
@@ -139,61 +146,66 @@ class GameBoard {
 		 *
 		 */
 
-		// Clear screen
-		this.context.clearRect(0, 0, this.board.width, this.board.height);
+		if (this.character.isAlive()) {
+			// Clear screen
+			this.context.clearRect(0, 0, this.board.width, this.board.height);
 
-		// Camera update
-		this.updateCamera();
+			// Camera update
+			this.updateCamera();
 
-		// Background update
-		this.drawMap();
+			// Background update
+			this.drawMap();
 
-		// Check for each entitys
-		this.entitys.forEach((ent) => {
-			// If entity collied with character and entity has a character to be a target
-			if (ent.collided(this.character) && ent.getTarget() === this.character) {
-				this.character.giveDamage(ent.getAttackDamage(), ent);
-				console.log(this.character.getHealth());
-			}
-
-			// Check for each bullets that character shoot
-			this.character.getBullet().forEach((bullet) => {
-				// If character bullet hit entity
-				if (bullet.collided(ent)) {
-					// Give entity a amount of damage
-					this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
-					ent.giveDamage(this.character.getAttackDamage(), bullet.getOwner());
-					// If entity have health less than or equal 0, then remove it
-					if (ent.getHealth() <= 0) {
-						this.entitys.splice(this.entitys.indexOf(ent), 1);
-					}
+			// Check for each entitys
+			this.entitys.forEach((ent) => {
+				// If entity collied with character and entity has a character to be a target
+				if (ent.collided(this.character) && ent.getTarget() === this.character) {
+					this.character.giveDamage(ent.getAttackDamage(), ent);
+					console.log(this.character.getHealth());
 				}
+
+				// Check for each bullets that character shoot
+				this.character.getBullet().forEach((bullet) => {
+					// If character bullet hit entity
+					if (bullet.collided(ent)) {
+						// Give entity a amount of damage
+						this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
+						ent.giveDamage(this.character.getAttackDamage(), bullet.getOwner());
+						// If entity have health less than or equal 0, then remove it
+						if (ent.getHealth() <= 0) {
+							this.entitys.splice(this.entitys.indexOf(ent), 1);
+						}
+					}
+				})
 			})
-		})
 
-		// Entity update
-		this.orderEntitys = [...this.entitys];
-		this.orderEntitys.sort(function (a, b) {
-			if (a.y > b.y) {
-				return 1;
-			} else if (a.y < b.y) {
-				return -1;
-			} else {
-				return 0;
-			}
-		});
+			// Entity update
+			this.orderEntitys = [...this.entitys];
+			this.orderEntitys.sort(function (a, b) {
+				if (a.y > b.y) {
+					return 1;
+				} else if (a.y < b.y) {
+					return -1;
+				} else {
+					return 0;
+				}
+			});
 
-		this.orderEntitys.forEach((entity) => {
-			entity.render();
-		}, this);
+			this.orderEntitys.forEach((entity) => {
+				entity.render();
+			}, this);
 
-		// Character update
-		this.character.render();
-		this.i++;
-
-		setTimeout(() => {
-			this.gameUpdate()
-		}, config.gameTick);
+			// Character update
+			this.character.render();
+			this.i++;
+			
+			setTimeout(() => {
+				this.gameUpdate()
+			}, config.gameTick);
+		} else {
+			console.log("Game over");
+			document.querySelector("#gameover").style.display = "block";
+		}
 	}
 
 	updateCamera() {
