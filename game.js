@@ -16,22 +16,23 @@ class GameBoard {
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
 		this.i = 0;
+		this.config = {
+			width: 1366,
+			height: 768
+		};
+
 
 		this.entitys = [];
-		this.maps = [];
 		this.camera = {
 			x: 0,
 			y: 0,
 			width: this.board.width,
 			height: this.board.height
 		};
-		this.config = {
-			width: 1366,
-			height: 768
-		};
 
 		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
+
 	}
 
 
@@ -77,13 +78,20 @@ class GameBoard {
 		this.board.width = this.config.width;
 		this.board.height = this.config.height;
 		this.hiddenInterface();
-		this.resizeCanvas()
+		this.resizeCanvas();
+
+		this.map = new Map(
+			this.context,
+			this.board.width,
+			this.board.height
+		);
+
 		this.character = new Character(
 			"Sheep",
-			0, 
-			0, 
-			64, 
-			64, 
+			0,
+			0,
+			64,
+			64,
 			{
 				src: "assets/character2.png",
 				width: 64,
@@ -102,10 +110,10 @@ class GameBoard {
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
 				"Grass #" + n,
-				0 + Math.random() * (this.board.width - 32), 
-				0 + Math.random() * (this.board.height - 32), 
-				32, 
-				32, 
+				0 + Math.random() * (this.board.width - 32),
+				0 + Math.random() * (this.board.height - 32),
+				32,
+				32,
 				{
 					src: "assets/grass.png",
 					width: 32,
@@ -128,8 +136,8 @@ class GameBoard {
 			this.entitys.push(ent);
 		}
 
-		this.generateMap();
 		this.gameUpdate();
+
 	}
 
 	gameUpdate() {
@@ -146,7 +154,7 @@ class GameBoard {
 		this.updateCamera();
 
 		// Background update
-		this.drawMap();
+		this.map.drawMap();
 
 		// Check for each entitys
 		this.entitys.forEach((ent) => {
@@ -206,22 +214,6 @@ class GameBoard {
 		this.camera.y = this.character.y - (this.camera.height / 2);
 	}
 
-	generateMap() {
-		/*
-		 * Generate map ขึ้นมาใหม่
-		 *
-		 */
-		this.maps = []
-		for (let r = 0; r < this.board.height / 20; r++) {
-			let rows = []
-			for (let c = 0; c < this.board.width / 20; c++) {
-				rows.push(randomColor("Blue"));
-			}
-			this.maps.push(rows)
-		}
-		//console.log(this.maps)
-	}
-
 	drawMap() {
 		/*
 		 * วาดแผนที่ ลงไปใน canvas
@@ -232,22 +224,17 @@ class GameBoard {
 		this.context.fillStyle = "#1e7c3e";
 		this.context.fillRect(0, 0, this.board.width, this.board.height);
 		this.context.restore();
-		
 		/*
 		for (let r = 0; r < this.board.height / 20; r++) {
 			for (let c = 0; c < this.board.width / 20; c++) {
 				this.context.fillStyle = this.maps[r][c];
-				this.context.fillRect(c * 20, r * 20, 20, 20);		
+				this.context.fillRect(c * 20, r * 20, 20, 20);
 			}
 		}*/
 
-		let tileSize = 20;
-		var onXTile = Math.floor((this.camera.x + (this.camera.width / 2)) / tileSize);
-		var onYTile = Math.floor((this.camera.y + (this.camera.height / 2)) / tileSize);
-		
 	}
 
-	drawRotatedBox(x, y, width, height, angle) { 
+	drawRotatedBox(x, y, width, height, angle) {
 		/*
 		 * วาดกล่องลงไปใน canvas
 		 * (Not used)
@@ -258,7 +245,7 @@ class GameBoard {
 		this.context.rotate(angle * Math.PI / 180);
 		this.context.fillStyle = "red";
 		this.context.fillRect(-width/2, -height/2, width, height);
-		this.context.restore(); 
+		this.context.restore();
 	}
 
 	resizeCanvas() {
@@ -270,26 +257,6 @@ class GameBoard {
   		this.board.style.height = window.innerHeight + "px";
 	  	console.log(this.board.style.width, this.board.style.height);
 	};
-}
-
-function randomColor(tone="Red") {
-	/*
-	 * Random สี
-	 */
-	colorCode = "0123456789ABCDEF"
-	color = "#"
-	for (let i = 0; i < 3; i++) {
-		if (i == 0 && tone === "Red") {
-			color += "F" + colorCode[Math.floor(Math.random() * 16)]
-		} else if (i == 1 && tone === "Green") {
-			color += (Math.random() >= 0.5 ? "F" : "E") + colorCode[Math.floor(Math.random() * 16)]
-		} else if (i == 2 && tone === "Blue") {
-			color += "F" + colorCode[Math.floor(Math.random() * 16)]
-		} else {
-			color += colorCode[Math.max(2, Math.floor(Math.random() * 13))] + colorCode[Math.floor(Math.random() * 16)]
-		}
-	}
-	return color
 }
 
 /* Configuration */
