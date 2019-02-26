@@ -127,29 +127,6 @@ class UI {
 	}
 }
 
-class UIPlayerStatus extends UI {
-	constructor(character) {
-		super({
-			name: "player status",
-			id: "player_status",
-			isPanel: true,
-			isShow: false,
-			showName: true,
-			dragAble: true,
-			padding: 5
-		})
-		this.character = character;
-
-		this.UI = this.createUI();
-		this.UI.style.textAlign = "center";
-
-		this.player_panel = document.createElement("div");
-		this.player_panel.setAttribute("id", "player_status");
-
-		this.UI.appendChild(this.player_panel);
-	}
-}
-
 class UIInventory extends UI {
 	constructor(inventory) {
 		super({
@@ -181,31 +158,12 @@ class UIInventory extends UI {
 			for (let c = 0; c < this.inventory.cols; c++) {
 				let cell = row.insertCell(c);
 				let item = this.inventory.getItem(r, c);
-				
-				/* Initialize the slot */
-				cell.id = "inventory_slot";
-				cell.setAttribute("slot", r * 9 + c);
-				cell.style.width = "32px";
-				cell.style.height = "32px";
-				
 				if (item !== undefined && item !== 0) {
-					let el_item = new UIItem(item, r * 9 + c);
+					let el_item = new UIItem(item);
 					cell.appendChild(el_item.getUI());
 				} else {
 					cell.innerHTML = `<img src="assets\\items\\0000.png">`;
 				}
-
-				/* Add Event listener to cell */
-				cell.addEventListener("dragover", function (e) {
-					e.preventDefault();
-				});
-
-				let inventory = this.inventory;
-				cell.addEventListener("drop", function (e) {
-					e.preventDefault();
-					let data = e.dataTransfer.getData("from-item-slot");
-					inventory.swapItem(data, this.getAttribute("slot"));
-				});
 			}
 		}
 	}
@@ -221,7 +179,7 @@ class UIInventory extends UI {
 }
 
 class UIItem extends UI {
-	constructor(item, slot) {
+	constructor(item) {
 		super({
 			name: "item",
 			class: "item",
@@ -231,7 +189,6 @@ class UIItem extends UI {
 			showName: false
 		});
 		this.item = item;
-		this.slot = slot;
 
 		this.UI = this.createUI();
 		this.UI.style.cursor = "pointer";
@@ -241,24 +198,9 @@ class UIItem extends UI {
 		this.item_element.setAttribute("title", `${this.item.getName()}\u000dDamage: ${this.item.getAttribute().atk}`);
 		this.item_element.src = `assets\\items\\${item.getItemId()}.png`;
 
-		/* Add Event Listener - On Drag & Drop Event */
-		this.item_element.addEventListener("dragstart", function (e) {
-			console.log(e);
-			e.dataTransfer.setData("from-item-slot", slot);
-		});
-
-		this.item_element.addEventListener("dragover", function (e) {
-			e.preventDefault();
-			console.log(e);
-		});
-		this.item_element.addEventListener("drop", function (e) {
-			console.log(e);
-		});
-
-		this.item_element.addEventListener("mouseover", (e) => this.getDetail());
-
 		this.UI.appendChild(this.item_element);
-		//this.UI.addEventListener("drag", (e) => console.log(e));
+
+		this.UI.addEventListener("mouseover", (e) => this.getDetail());
 	}
 
 	getItem() {
@@ -309,21 +251,11 @@ class UIHealthBar extends UI {
 		this.ui.innerText = this.character.getName();
 
 		this.hpbar = document.createElement("div");
-		this.hpbar.classList.add("bar");
-		this.hpbar.id = "healthbar";
-
-		this.health = document.createElement("div");
-		this.health.classList.add("health");
-		this.hpbar.appendChild(this.health);
-
-		this.hp_text = document.createElement("span");
-		this.hp_text.classList.add("floatText")
-		this.hpbar.appendChild(this.hp_text);
-
+		this.hpbar.setAttribute("class", "bar");		
 		this.ui.appendChild(this.hpbar);
 
 		this.expbar = document.createElement("div");
-		this.expbar.classList.add("bar");
+		this.expbar.setAttribute("class", "bar");		
 		//this.ui.appendChild(this.bar);
 
 		this.setPosition(0, 0);
@@ -333,10 +265,8 @@ class UIHealthBar extends UI {
 
 	render() {
 		//this.ui.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`
-		this.health.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
-
-		this.hp_text.style.top = "0px";
-		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
+		this.hpbar.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
+		this.hpbar.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 
 		setTimeout(() => {
 			this.render();

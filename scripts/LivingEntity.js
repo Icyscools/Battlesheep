@@ -91,13 +91,6 @@ class LivingEntity extends Entity {
 		}
 	}
 
-	isAlive() {
-		/*
-		 * Check if this object is alived
-		 */
-		return this.hp > 0;
-	}
-
 	isDead() {
 		/*
 		 * Check if this object is died

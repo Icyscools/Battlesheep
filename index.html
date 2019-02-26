@@ -13,22 +13,9 @@
 			<div id="loadGame"><p>Load Game</p></div>
 			<div id="Options"><p>Options</p></div>
 		</div>
-		<div id="gameover">
-			<p style="font-size: 5em;">
-				<span> Game Over </span>
-			</p>
-			<p>
-				<span onclick="game.init()" clickable> Play Again ? </span>
-			</p>
-			<p >
-				<span onclick="game.showInterface()" clickable> Go back to menu </span>
-			</p>
+		<div id="interface">
 		</div>
-		<div id="gameboard">
-			<div id="interface">
-			</div>
-			<canvas id="GameBoard">Your browser may not be support Javascript</canvas>
-		</div>
+		<canvas id="GameBoard">Your browser may not be support Javascript</canvas>
 	</div>
 
 	<script src="scripts/Entitys.js"></script>
@@ -38,6 +25,5 @@
 	<script src="scripts/Item.js"></script>
 	<script src="scripts/Inventory.js"></script>
 	<script src="scripts/Character.js"></script>
-	<script src="scripts/Map.js"></script>
 	<script src="game.js"></script>
 </body>

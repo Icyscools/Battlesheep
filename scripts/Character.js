@@ -39,7 +39,6 @@ class Character extends LivingEntity {
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
 		this.inventory.addItem(item, 1, 2);
-		console.log(this.inventory.swapItem(11, 12));
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
