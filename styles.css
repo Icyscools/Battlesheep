@@ -34,16 +34,23 @@ body {
 }
 
 #startGame {
-	margin-top: 40vh;
+	margin-top: 50vh;
 	background-size: cover;
 	display: block;
 	text-align: center;
 }
+
 #startGame:hover, #loadGame:hover, #Options:hover{
 	text-shadow: 0px 0px 10px #91fbe7;
 	color: #7a4952;
+	cursor: pointer;
 }
 
+#startGame:active, #loadGame:active, #Options:active{
+	transform: translate(0px, 5px);
+    -webkit-transform: translate(0px, 5px);
+    box-shadow: 0px 1px 0px 0px;
+}
 #startGame p, #loadGame p, #Options p {
 	font-family: 'Press Start 2P', cursive;
 	letter-spacing: -2px;
