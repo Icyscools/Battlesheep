@@ -32,8 +32,23 @@ class Inventory {
 		return (this.storages[row][col] !== undefined && this.storages[row][col] !== 0) ? this.storages[row][col] : 0;
 	}
 
+	getItemBySlot(slot) {
+		return (this.storages[slot / this.cols][slot % this.cols] !== undefined && this.storages[slot / this.cols][slot % this.cols] !== 0) ? this.storages[slot / this.cols][slot % this.cols] : 0;
+	}
+
 	getUI() {
 		return this.UI;
+	}
+
+	swapItem(slot, to_slot) {
+		let first_item = {"row": Math.floor(slot / this.cols), "col": slot % this.cols};
+		let second_item = {"row": Math.floor(to_slot / this.cols), "col": to_slot % this.cols};
+
+		let temp = this.getItem(first_item.row, first_item.col);
+		this.addItem(this.getItem(second_item.row, second_item.col), first_item.row, first_item.col);
+		this.addItem(temp, second_item.row, second_item.col);
+
+		this.UI.updateInventory();
 	}
 
 	addItem(item, row, col) {

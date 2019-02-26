@@ -37,22 +37,34 @@ class Enemy extends LivingEntity {
 	}
 
 	getTarget() {
+		/*
+		 * Get this object target to attack
+		 */
 		return this.target;
 	}
 
 	setTarget(target) {
+		/*
+		 * Set this object target to attack
+		 */
 		this.target = target;
 	}
 
 	render() {
+		/*
+		 * Render
+		 */
+		this.context.save();
 		if (this.isDamage()) {
 			this.context.fillStyle = "red";
 			this.context.fillRect(this.x, this.y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
 		} else {
 			this.context.fillStyle = "black";
 			this.context.font = "11px Georgia";
-			this.context.fillText(this.name, this.x, this.y);
+			this.context.textAlign = "center";
+			this.context.fillText(this.name, this.x + this.width / 2, this.y);
 		}
+		this.context.restore();
 
 		if (this.getTarget() !== "" && this.getTarget() !== undefined) {
 			let target_posX = this.getTarget().getX() + this.getTarget().getWidth() / 2,
