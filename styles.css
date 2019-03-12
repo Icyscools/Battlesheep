@@ -45,12 +45,104 @@ body {
 
 #gameover p {
 	margin: 1.25em 0;
-	font-size: 1.25em;
+	font-size: 1.5em;
 	font-family: 'Press Start 2P', cursive;
 }
+@keyframes game-over {
+	100% { opacity: 1; }
+}
 
-#gameover p > span[clickable]:hover {
-	background: rgba(245, 121, 121, 0.4);
+@-webkit-keyframes animacao2 { from {-webkit-transform: scale(1);} 
+								to {-webkit-transform: scale(1.2);} }
+
+@-moz-keyframes animacao2 { from {-moz-transform: scale(1);} 
+								to {-moz-transform: scale(1.1);} }
+
+@keyframes animacao2 { from {transform: scale(1);} 
+								to {transform: scale(1.1);} }
+
+
+#playagain:hover {
+		cursor: pointer;
+		color: #ffffff;
+		-webkit-animation-name: animacao2;
+		-webkit-animation-duration: 0.8s;
+		-webkit-animation-timing-function:  linear;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-direction: alternate;
+
+		-moz-animation-name: animacao2;
+		-moz-animation-duration: 0.8s;
+		-moz-animation-timing-function:  linear;
+		-moz-animation-iteration-count: infinite;
+		-moz-animation-direction: alternate;
+
+		animation-name: animacao2;
+		animation-duration: 0.8s;
+		animation-timing-function:  linear;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+
+@-webkit-keyframes animacao3 { 0% {-webkit-transform: translate(-5px,0px);} 
+							   25% {-webkit-transform: translate(-2.5px, 0px);}
+							   50% {-webkit-transform: translate(0px, 0px);}
+							   75% {-webkit-transform: translate(2.5px, 0px);}
+							   100% {-webkit-transform: translate(5px, 0px);} }
+
+@-moz-keyframes animacao3 { 0% {-moz-transform: translate(-5px,0px);} 
+							   25% {-moz-transform: translate(-2.5px, 0px);}
+							   50% {-moz-transform: translate(0px, 0px);}
+							   75% {-moz-transform: translate(2.5px, 0px);}
+							   100% {-moz-transform: translate(5px, 0px);} }
+
+@keyframes animacao3 { 0% {transform: translate(-5px,0px);} 
+							   25% {transform: translate(-2.5px, 0px);}
+							   50% {transform: translate(0px, 0px);}
+							   75% {transform: translate(2.5px, 0px);}
+							   100% {transform: translate(5px, 0px);} }
+
+
+#backtomenu:hover {
+		cursor: pointer;
+		-webkit-animation-name: animacao3;
+		-webkit-animation-duration: 0.15s;
+		-webkit-animation-timing-function:  linear;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-direction: alternate;
+
+		-moz-animation-name: animacao3;
+		-moz-animation-duration: 0.15s;
+		-moz-animation-timing-function:  linear;
+		-moz-animation-iteration-count: infinite;
+		-moz-animation-direction: alternate;
+
+		animation-name: animacao3;
+		animation-duration: 0.15s;
+		animation-timing-function:  linear;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+	}
+
+#playagain > span[clickable] {
+	outline: solid 5px #4caf50;
+	transition: outline 0.3s linear;
+	margin: 0.5em;
+}
+
+#playagain > span[clickable]:hover {
+	color: #ffffff;
+	outline-width: 20px;
+}
+#backtomenu > span[clickable] {
+	outline: solid 5px #ec4747;
+	transition: outline 0.3s linear;
+	margin: 0.5em;
+}
+
+#backtomenu > span[clickable]:hover {
+	color: #ffffff;
+	outline-width: 20px;
 }
 
 #startGame {
@@ -71,13 +163,21 @@ body {
     -webkit-transform: translate(0px, 5px);
     box-shadow: 0px 1px 0px 0px;
 }
+
 #startGame p, #loadGame p, #Options p {
 	font-family: 'Press Start 2P', cursive;
 	letter-spacing: -2px;
 	font-size: 25px;
 	padding-top: 25px;
 }
-   
+/*@font-face {
+	font-family: Sabo-Filled;
+	src: url(Sabo-Filled.otf);
+  }
+@font-face{
+	font-family: Sabo-Regular;
+	src: url(Sabo-Regular.otf)
+}*/
 #loadGame {
 	display: block;
 	margin-top: 20px;
@@ -99,7 +199,7 @@ body {
 
 #interface > div {
 	position: absolute;
-	background: rgba(120, 120, 120, 0.96);
+	background: rgba(120, 120, 120, 0.5);
 	z-index: 10;
 }
 
@@ -149,6 +249,9 @@ body {
 	position: absolute;
 	color: #FFF;
 	z-index: 23;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
+	margin: 4px;
 }
 
 #interface > div > .draggable {
