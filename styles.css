@@ -19,11 +19,21 @@ body {
 	z-index: 0;
 }
 
+#battlesheep{
+	position: absolute;
+	background-image: url("assets/title.png");
+	background-size: 800px 201px;
+	width: 800px;
+	height: 201px;
+	margin: 50px;
+}
+
 #menu {
 	position: absolute;
 	left: 20%;
 	z-index: 999;
 	transform: translate(-50%, 0);
+	margin-top: 25vh; 
 }
 
 #menu > div {
@@ -146,7 +156,7 @@ body {
 }
 
 #startGame {
-	margin-top: 50vh;
+	margin-top: 20vh;
 	background-size: cover;
 	display: block;
 	text-align: center;
