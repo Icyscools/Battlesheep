@@ -3,6 +3,12 @@ class Map {
         this.context = context;
         this.width = width;
         this.height = height;
+        this.camera = {
+            x: 0,
+            y: 0,
+            width: this.width,
+            height: this.height
+        };
         let tileSize = 20;
         //var onXTile = Math.floor((this.camera.x + (this.camera.width / 2)) / tileSize);
         //var onYTile = Math.floor((this.camera.y + (this.camera.height / 2)) / tileSize);
@@ -19,8 +25,8 @@ class Map {
             }
             this.maps.push(rows)
         }
+        this.drawMap();
     }
-
 
     drawMap() {
         /*
@@ -41,7 +47,26 @@ class Map {
                 this.context.fillRect(c * 20, r * 20, 20, 20);
             }
         }
+    }
 
+    updateCamera() {
+		/*
+		 * อัพเดตกล้อง ให้เคลื่อนที่ตามตัวละคร
+		 * (Not finished / Can't used)
+		 *
+		 */
+        this.camera.x = game.character.x - (this.camera.width / 2);
+        this.camera.y = game.character.y - (this.camera.height / 2);
+        this.renderCamera();
+    }
+
+    renderCamera() {
+        for (let r = this.camera.y; r < this.camera.y + game.character.y; r++) {
+            for (let c = this.camera.x; c < this.camera.x + game.character.x; c++) {
+                this.context.fillStyle = this.maps[r][c];
+                this.context.fillRect(c * 20, r * 20, 20, 20);
+            }
+        }
     }
 
 }

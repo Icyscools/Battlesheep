@@ -152,7 +152,7 @@ class Character extends LivingEntity {
 		let bullet = new Bullet(
 							"Bullet",
 							this.x + (this.faced === "left" ? 0 : (this.width * 2/3)),
-							this.y + (this.height * 2/3) + (10 * Math.random() * (Math.random() > 0.5 ? -1 : 1)),
+							this.y + (this.height * 1/2),
 							13,
 							13,
 							{

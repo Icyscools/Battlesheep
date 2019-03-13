@@ -15,12 +15,6 @@ class GameBoard {
 		 */
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
-		this.camera = {
-			x: 0,
-			y: 0,
-			width: this.board.width,
-			height: this.board.height
-		};
 		this.config = {
 			width: 1366,
 			height: 768
@@ -155,7 +149,7 @@ class GameBoard {
 			this.context.clearRect(0, 0, this.board.width, this.board.height);
 
 			// Camera update
-			this.updateCamera();
+			this.map.updateCamera();
 
 			// Background update
 			this.map.drawMap();
@@ -212,15 +206,6 @@ class GameBoard {
 		}
 	}
 
-	updateCamera() {
-		/*
-		 * อัพเดตกล้อง ให้เคลื่อนที่ตามตัวละคร
-		 * (Not finished / Can't used)
-		 *
-		 */
-		this.camera.x = this.character.x - (this.camera.width / 2);
-		this.camera.y = this.character.y - (this.camera.height / 2);
-	}
 
 	drawRotatedBox(x, y, width, height, angle) {
 		/*
