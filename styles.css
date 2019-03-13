@@ -134,24 +134,13 @@ body {
 		animation-direction: alternate;
 	}
 
-#playagain > span[clickable] {
-	outline: solid 5px #4caf50;
-	transition: outline 0.3s linear;
-	margin: 0.5em;
-}
-
 #playagain > span[clickable]:hover {
-	color: #ffffff;
+	color: #4caf50;
 	outline-width: 20px;
-}
-#backtomenu > span[clickable] {
-	outline: solid 5px #ec4747;
-	transition: outline 0.3s linear;
-	margin: 0.5em;
 }
 
 #backtomenu > span[clickable]:hover {
-	color: #ffffff;
+	color: #ec4747;
 	outline-width: 20px;
 }
 
@@ -180,14 +169,14 @@ body {
 	font-size: 25px;
 	padding-top: 25px;
 }
-/*@font-face {
-	font-family: Sabo-Filled;
-	src: url(Sabo-Filled.otf);
+@font-face {
+	font-family: pixelmix;
+	src: url(pixelmix.ttf);
   }
 @font-face{
-	font-family: Sabo-Regular;
-	src: url(Sabo-Regular.otf)
-}*/
+	font-family: pixelmix_bold;
+	src: url(pixelmix_bold.ttf)
+}
 #loadGame {
 	display: block;
 	margin-top: 20px;
@@ -209,7 +198,7 @@ body {
 
 #interface > div {
 	position: absolute;
-	background: rgba(120, 120, 120, 0.5);
+	background: rgba(120, 120, 120, 0.1);
 	z-index: 10;
 }
 
@@ -243,16 +232,19 @@ body {
 	width: 100%;
 	height: 38.5%;
 	margin-left: 0;
-	background: #000;
+	background: #ddd;
 	z-index: 21;
+	border-radius: 10px;
 }
 
 #interface > #healthbar > .bar > .health {
 	position: relative;
 	height: 100%;
 	margin-left: 0;
-	background: rgba(224, 38, 40, 1);
+	background: #c54;
+	/*background: rgba(224, 38, 40, 1);*/
 	z-index: 22;
+	border-radius: 10px;
 }
 
 #interface > #healthbar > .bar > .floatText {
@@ -262,6 +254,7 @@ body {
 	font-family: 'Press Start 2P', cursive;
 	font-size: 10px;
 	margin: 4px;
+	margin-left: 10px;
 }
 
 #interface > div > .draggable {
@@ -271,7 +264,6 @@ body {
 #interface > .textbox {
 	background: rgba(240, 240, 240, 0.97);
 	padding: 5px;
-	border: 1px solid #000;
 	border-radius: 4px;
 	z-index: 11;
 }
