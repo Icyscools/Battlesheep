@@ -9,10 +9,10 @@ class Enemy extends LivingEntity {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
-		 * 
+		 *
 		 * It run when a new object is create, use on store a data which
 		 * coming in a list of parameter, or use to variable declaration
-		 * 
+		 *
 		 * Parameter
 		 *  - name: Name of this object
 		 *  - x: Position X of this object
@@ -55,7 +55,7 @@ class Enemy extends LivingEntity {
 		 * Render
 		 */
 		this.context.save();
-		if (this.isDamage()) {
+		if (this.status.isAttacked) {
 			this.context.fillStyle = "red";
 			this.context.fillRect(this.x, this.y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
 		} else {

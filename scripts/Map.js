@@ -57,7 +57,7 @@ class Map {
 		 */
         this.camera.x = game.character.x - (this.camera.width / 2);
         this.camera.y = game.character.y - (this.camera.height / 2);
-        this.renderCamera();
+        // this.renderCamera();
     }
 
     renderCamera() {

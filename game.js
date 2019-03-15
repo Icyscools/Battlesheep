@@ -90,11 +90,11 @@ class GameBoard {
 			64,
 			64,
 			{
-				src: "assets/character2.png",
-				width: 64,
+				src: "assets/sheepy_idle.png",
+				width: 84,
 				height: 64,
 				ticksPerFrame: 10,
-				numberOfFrames: 7,
+				numberOfFrames: 4,
 				loop: true,
 				ratio: 1.0
 			},
@@ -106,16 +106,16 @@ class GameBoard {
 
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
-				"Grass #" + n,
+				"Spirit #" + n,
 				0 + Math.random() * (this.board.width - 32),
 				0 + Math.random() * (this.board.height - 32),
 				32,
 				32,
 				{
-					src: "assets/grass.png",
-					width: 32,
-					height: 32,
-					ticksPerFrame: 12,
+					src: "assets/monster.png",
+					width: 43.75,
+					height: 40,
+					ticksPerFrame: 7.5,
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
