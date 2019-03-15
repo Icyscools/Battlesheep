@@ -32,7 +32,6 @@ class Character extends LivingEntity {
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
-		this.state = "idle"
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 
 		/* Inventory (Not finish) */
@@ -65,10 +64,10 @@ class Character extends LivingEntity {
 			}
 		} else if ([74, 75, 76].includes(e.keyCode)) {
 			if (action === 'add') {
-				if (this.state !== "atk") {
+				if (this.status.isAttacking !== true) {
 					this.fireBullet(e);
-					this.state = "atk";
-					setTimeout(() => { this.state = "idle" }, (1 / this.getAttackSpeed()) * 1000);	// delay between each attack
+					this.status.isAttacking = true;
+					setTimeout(() => { this.status.isAttacking = false }, (1 / this.getAttackSpeed()) * 1000);	// delay between each attack
 				}
 			}
 		} else if ([73].includes(e.keyCode)) {

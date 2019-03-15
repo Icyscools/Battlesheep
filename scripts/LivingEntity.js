@@ -34,7 +34,10 @@ class LivingEntity extends Entity {
 		this.atk = atk;
 		this.def = def;
 		this.atkspd = atkspd;
-		this.state = "idle";
+		this.status = {
+			isAttacked: false,
+			isAttacking: false,
+		};
 	}
 
 	getHealth() {
@@ -72,11 +75,11 @@ class LivingEntity extends Entity {
 		return this.def;
 	}
 
-	isDamage() {
+	getStatus() {
 		/*
-		 * Check if this object have been recieved damage recently
+		 * Get status of this object
 		 */
-		return this.state == "hit";
+		return this.status;
 	}
 
 	giveDamage(damage, damager) {
@@ -86,7 +89,7 @@ class LivingEntity extends Entity {
 		this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
 
 		if (damager !== undefined && this instanceof Enemy) {
-			this.state = "hit";
+			this.status.isAttacked = true;
 			this.setTarget(damager);
 		}
 	}
