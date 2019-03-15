@@ -11,7 +11,7 @@ class UI {
 		this.showName = options.showName !== undefined ? options.showName : false;
 		this.isShow = options.isShow !== undefined ? options.isShow : true;
 		this.dragAble = options.dragAble !== undefined ? options.dragAble : false;
-		
+		this.game_identity = game.identity
 		this.ui = 0;
 		this.pos = {
 			x: 0,
@@ -335,11 +335,16 @@ class UIHealthBar extends UI {
 		//this.ui.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`
 		this.health.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
 
+		if (this.character.getHealth() <= 30) {
+			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
+		}
+		
 		this.hp_text.style.top = "0px";
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 
 		setTimeout(() => {
-			this.render();
+			if (this.game_identity == config.identity) 
+				this.render();
 		}, config.gameTick);
 	}
 }

@@ -232,19 +232,25 @@ body {
 	width: 100%;
 	height: 38.5%;
 	margin-left: 0;
-	background: #ddd;
+	background: #e7b9b7;
+	/*background: #ddd;*/
 	z-index: 21;
 	border-radius: 10px;
+	border: solid #b9312c 2px;
+}
+
+@keyframes blink { 
+	50% { background: #fff; } 
 }
 
 #interface > #healthbar > .bar > .health {
 	position: relative;
 	height: 100%;
 	margin-left: 0;
-	background: #c54;
-	/*background: rgba(224, 38, 40, 1);*/
+	background:#b9312c;
 	z-index: 22;
 	border-radius: 10px;
+	/* animation: blink .2s step-end infinite alternate; */
 }
 
 #interface > #healthbar > .bar > .floatText {
