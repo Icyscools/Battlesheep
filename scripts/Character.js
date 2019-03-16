@@ -44,7 +44,8 @@ class Character extends LivingEntity {
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
-		let statusUI = new UIPlayerStatus(this);
+		this.playerStatusBox = new UIPlayerStatus(this);
+
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
@@ -80,6 +81,11 @@ class Character extends LivingEntity {
 		} else if ([73].includes(e.keyCode)) {
 			if (action === 'add') {
 				let ui = this.inventory.getUI();
+				ui.toggleUI();
+			}
+		} else if ([67].includes(e.keyCode)) {
+			if (action === 'add') {
+				let ui = this.playerStatusBox;
 				ui.toggleUI();
 			}
 		}
