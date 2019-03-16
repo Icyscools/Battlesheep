@@ -62,6 +62,7 @@ body {
 #playagain:hover {
 	cursor: pointer;
 	color: #ffffff;
+	text-shadow: 5px 5px #000000;
 	-webkit-animation-name: animacao2;
 	-webkit-animation-duration: 0.8s;
 	-webkit-animation-timing-function:  linear;
@@ -83,6 +84,7 @@ body {
 
 #backtomenu:hover {
 	cursor: pointer;
+	text-shadow: 5px 5px #000000;
 	-webkit-animation-name: animacao3;
 	-webkit-animation-duration: 0.15s;
 	-webkit-animation-timing-function:  linear;
@@ -136,6 +138,7 @@ body {
 	letter-spacing: -2px;
 	font-size: 25px;
 	padding-top: 25px;
+	color: #441521;
 }
 
 #loadGame {
@@ -170,28 +173,45 @@ body {
 #interface div > .header {
 	text-align: left;
 	margin: 2px 0;
-	padding: 2px 0 2px 0.67vw;
-	border: 1px solid #000;
+	padding: 4px 0 4px 0.67vw;
+	border: 1px solid #6b4840c4;
+	border-radius: 3px;
+	background: #815950c4;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 12px;
 }
 
 #interface > #inventory > table, tr, td {
-	border: 1px solid #000;
+	border: 1px solid #6b4840c4;
+	border-radius: 3px;
+	background: #815950c4;
+}
+
+#interface > #inventory > table, tr, td :hover{
+	background-color: #fff4;
+	cursor: grab;
 }
 
 #interface > #inventory > td {
 	position: absolute;
 	padding: 2px;
+	
 }
 
 #interface > #healthbar {
-	padding: 5px 5px;
+	padding: 8px 12px;
 	text-align: left;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 12px;
 }
 
 #interface > #healthbar > .bar {
 	position: relative;
 	width: 100%;
 	height: 38.5%;
+	margin-top: 4px;
 	margin-left: 0;
 	background: #e7b9b7;
 	z-index: 21;
@@ -210,7 +230,7 @@ body {
 
 #interface > #healthbar > .bar > .floatText {
 	position: absolute;
-	color: #adadad;
+	color: #fff;
 	z-index: 23;
 	font-family: 'Press Start 2P', cursive;
 	font-size: 10px;
