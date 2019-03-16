@@ -30,7 +30,7 @@ class Character extends LivingEntity {
 		// call super() function to put a parameter to super class
 		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation);
 		this.key = new Set();
-		this.faced = "right";
+		this.faced = "down";
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
