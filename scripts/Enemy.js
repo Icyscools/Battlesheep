@@ -55,16 +55,6 @@ class Enemy extends LivingEntity {
 		 * Render
 		 */
 		this.context.save();
-		if (this.status.isAttacked) {
-			this.context.fillStyle = "red";
-			this.context.fillRect(this.x, this.y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
-		} else {
-			this.context.fillStyle = "black";
-			this.context.font = "11px Georgia";
-			this.context.textAlign = "center";
-			this.context.fillText(this.name, this.x + this.width / 2, this.y);
-		}
-		this.context.restore();
 
 		if (this.getTarget() !== "" && this.getTarget() !== undefined) {
 			let target_posX = this.getTarget().getX() + this.getTarget().getWidth() / 2,
@@ -75,6 +65,22 @@ class Enemy extends LivingEntity {
 			this.y += target_posY > center_posY ? 1 : (target_posY < center_posY) ? -1 : 0
 		}
 
-		super.render()
+		if (this.collided(game.map.camera)) {
+			let camera_offset_x = this.width / 2;
+			let camera_offset_y = this.height / 2;
+			let ent_to_x = this.x - game.map.camera.x;
+			let ent_to_y = this.y - game.map.camera.y;
+			if (this.status.isAttacked) {
+				this.context.fillStyle = "red";
+				this.context.fillRect(ent_to_x, ent_to_y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
+			} else {
+				this.context.fillStyle = "black";
+				this.context.font = "11px Georgia";
+				this.context.textAlign = "center";
+				this.context.fillText(this.name, ent_to_x + this.width / 2, ent_to_y);
+			}
+			this.context.restore();
+			super.render()
+		}
 	}
 }
