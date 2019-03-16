@@ -5,7 +5,7 @@ class Enemy extends LivingEntity {
 	 * Enemy object
 	 * Define as attacker to player
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, velocity, accelaration, state) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -32,6 +32,11 @@ class Enemy extends LivingEntity {
 		this.faced = "right";
 		this.bullets = [];
 		this.def = 0;
+		this.velocity = velocity;
+		this.acceralation = accelaration;
+		this.status = {
+			state: state,
+		}
 
 		this.target = "";
 	}
@@ -54,6 +59,23 @@ class Enemy extends LivingEntity {
 		/*
 		 * Render
 		 */
+
+		setTimeout(() => {
+			this.status.state = "idle-walk";
+		}, 2000);
+
+		if (this.status.state === "aggressive") {
+			this.setTarget(game.character);
+		}
+
+		if (this.status.state === "idle-walk") {
+			this.x += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
+			this.y += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
+			setTimeout(() => {
+				this.status.state = "idle";
+			}, 2000);
+		}
+
 		this.context.save();
 		if (this.status.isAttacked) {
 			this.context.fillStyle = "red";

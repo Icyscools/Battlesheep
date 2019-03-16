@@ -5,7 +5,7 @@ class Character extends LivingEntity {
 	 * Player object
 	 * Define to playable object for player
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -23,16 +23,17 @@ class Character extends LivingEntity {
 		 *  - hp: Health of this object
 		 *  - atk: Attack damage of this object
 		 *  - def: Defense of this object
-		 *  - atkspd: Attack speed of this object
+		 *  - atkspd: Attack this.velocity of this object
 		 */
 
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd);
+		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation);
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
+		this.walkTime = 0;
 
 		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
@@ -87,21 +88,51 @@ class Character extends LivingEntity {
 		 * to move the character on that direction
 		 *
 		 */
-		let speed = 4;
+
+		// Knockback
+		if (this.status.isAttacked && !this.status.isInvincible) {
+			this.status.isInvincible = true;
+
+			// let direction = Math.sqrt(this.x)
+
+			if (this.faced === "left" || this.key.has(65)) {
+				this.x = Math.min(this.x + 70, this.context.canvas.width - this.sprite_options.width * this.sprite_options.ratio);
+			}
+			if (this.faced === "right" || this.key.has(68)) {
+				this.x = Math.max(this.x - 70, 0);
+			}
+			if (this.faced === "up" || this.key.has(87)) {
+				this.y = Math.min(this.y + 70, this.context.canvas.height - this.sprite_options.height * this.sprite_options.ratio);
+			}
+			if (this.faced === "down" || this.key.has(83)) {
+				this.y = Math.max(this.y - 70, 0);
+			}
+			setTimeout(() => {
+				this.status.isInvincible = false;
+				this.status.isAttacked = false;
+			}, 1500);
+		}
+
+
+		 // Moving
 		if (this.key.has(65)) {
-			this.x = Math.max(this.x - speed, 0);
+			(this.faced === "left") ? this.walkTime += 1 : this.walkTime = 0;
+			this.x = Math.max(this.x - Math.min(this.velocity + (this.acceralation * this.walkTime), 4), 0);
 			this.faced = "left";
 		}
 		if (this.key.has(68)) {
-			this.x = Math.min(this.x + speed, this.context.canvas.width - this.sprite_options.width * this.sprite_options.ratio);
+			(this.faced === "right") ? this.walkTime += 1 : this.walkTime = 0;
+			this.x = Math.min(this.x + Math.min(this.velocity + (this.acceralation * this.walkTime), 4), this.context.canvas.width - this.sprite_options.width * this.sprite_options.ratio);
 			this.faced = "right";
 		}
 		if (this.key.has(87)) {
-			this.y = Math.max(this.y - speed, 0);
+			(this.faced === "up") ? this.walkTime += 1 : this.walkTime = 0;
+			this.y = Math.max(this.y - Math.min(this.velocity + (this.acceralation * this.walkTime), 4), 0);
 			this.faced = "up";
 		}
 		if (this.key.has(83)) {
-			this.y = Math.min(this.y + speed, this.context.canvas.height - this.sprite_options.height * this.sprite_options.ratio);
+			(this.faced === "down") ? this.walkTime += 1 : this.walkTime = 0;
+			this.y = Math.min(this.y + Math.min(this.velocity + (this.acceralation * this.walkTime), 4), this.context.canvas.height - this.sprite_options.height * this.sprite_options.ratio);
 			this.faced = "down";
 		}
 
