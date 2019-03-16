@@ -8,8 +8,11 @@
 </head>
 <body>
 	<iframe  src="assets/sound/Silent.wav" allow="autoplay" style="display:none"></iframe> 
-	<audio autoplay loop preload="auto">
+	<audio autoplay loop preload="auto" id="Audio">
 			<source src="assets/sound/bgm.wav" type="audio/wav">
+	</audio>
+	<audio autoplay loop preload="auto" id="SFX">
+		<source src="assets/sound/silent.wav" type="audio/wav">
 	</audio>
 	<div class="board" id="board">
 		<div id="title">
@@ -46,5 +49,7 @@
 	<script src="scripts/Item.js"></script>
 	<script src="scripts/Inventory.js"></script>
 	<script src="scripts/Character.js"></script>
+	<script src="scripts/Sound.js"></script>
 	<script src="game.js"></script>
+
 </body>

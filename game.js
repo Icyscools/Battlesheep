@@ -13,15 +13,12 @@ class GameBoard {
 		 * เป็นฟังก์ชันที่เอาไว้ใช้ กำหนดว่า class นี้
 		 * ต้องสร้างจะต้องมี parameter อะไร สร้างตัวแปรอะไรบ้ง
 		 */
-		this.identity = Math.floor(Math.random() * 1000000);
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
 		this.config = {
 			width: 1366,
 			height: 768
 		};
-
-		config.identity = this.identity;
 
 		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
@@ -75,6 +72,7 @@ class GameBoard {
 		 * ตั้งค่าพื้นฐาน เพื่อเริ่มเกม
 		 *
 		 */
+		startGame();
 		var list = document.getElementById("interface");
 		while (list.hasChildNodes()) {
 			list.removeChild(list.childNodes[0]);
@@ -108,7 +106,7 @@ class GameBoard {
 				numberOfFrames: 4,
 				loop: true,
 				ratio: 1.0
-			}, 100, 5, 5, 1.5
+			}, 100, 5, 5, 1.5, 2, 0.5
 		);
 
 		for (let n = 50; n > 0; n--) {
@@ -118,11 +116,11 @@ class GameBoard {
 					src: "assets/monster.png",
 					width: 43.75,
 					height: 40,
-					ticksPerFrame: 7.5,
+					ticksPerFrame: 8,
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				}, 25, 2, 1
+				}, 25, 2, 1, 1.5, 0.25, "idle"
 			);
 
 			/*
@@ -130,7 +128,7 @@ class GameBoard {
 				continue
 			}*/
 
-			this.entitys.push(ent);
+			this.entitys.unshift(ent);
 		}
 
 		document.querySelector("#gameover").style.display = "none";
@@ -199,6 +197,7 @@ class GameBoard {
 		} else {
 			console.log("Game over");
 			document.querySelector("#gameover").style.display = "block";
+			gameOver();
 		}
 	}
 
@@ -229,10 +228,10 @@ class GameBoard {
 
 /* Configuration */
 const config = {
-	gameTick: 20,
-	identity: 0
+	gameTick: 20
 }
 
 /* Game declare */
 const game = new GameBoard("GameBoard");
+
 //game.init();
