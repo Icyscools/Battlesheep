@@ -183,8 +183,9 @@ class UIPlayerStatus extends UI {
 		}
 
 		
-		let ui = document.createElement("span");
+		let ui = document.createElement("div");
 		ui.innerText = this.character.getName();
+		ui.id = "p_name";
 		this.player_panel.appendChild(ui);
 		this.player_panel.appendChild(p_table);
 	}

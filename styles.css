@@ -220,11 +220,14 @@ body {
 	padding: 2px;
 }
 
-#interface > #player_status > span {
+#interface > #player_status > #p_name {
 	position: absolute;
+	margin: 10px;
 	padding: 2px;
 	text-align: left;
 	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
 }
 
 #interface > #healthbar {
