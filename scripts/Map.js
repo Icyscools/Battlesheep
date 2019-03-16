@@ -92,14 +92,6 @@ class Map {
     }
 
     renderCamera() {
-        /*
-        for (let r = this.camera.y; r < this.camera.y + game.character.y; r++) {
-            for (let c = this.camera.x; c < this.camera.x + game.character.x; c++) {
-                this.context.drawImage(this.mapCanvas, this.x, this.y, this.tileSize * this.width, this.tileSize, 0, 0, this.width, this.height);
-                this.context.fillRect(c * 20, r * 20, 20, 20);
-            }
-        } */
-
         let gameBoard = game.getContext("2d");
         gameBoard.drawImage(this.mapCanvas, this.camera.x, this.camera.y, this.camera.width, this.camera.height, 0, 0, this.camera.width, this.camera.height);
 

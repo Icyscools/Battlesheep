@@ -130,25 +130,22 @@ class Character extends LivingEntity {
 		}
 
 
-		 // Moving
+		// Moving
+		let speed = 4
 		if (this.key.has(65)) {
-			(this.faced === "left") ? this.walkTime += 1 : this.walkTime = 0;
-			this.x = Math.max(this.x - Math.min(this.velocity + (this.acceralation * this.walkTime), 4), 0);
+			this.x = Math.max(this.x - speed, 0);
 			this.faced = "left";
 		}
 		if (this.key.has(68)) {
-			(this.faced === "right") ? this.walkTime += 1 : this.walkTime = 0;
-			this.x = Math.min(this.x + Math.min(this.velocity + (this.acceralation * this.walkTime), 4), this.context.canvas.width - this.sprite_options.width * this.sprite_options.ratio);
+			this.x = Math.min(this.x + speed, map.width - (this.sprite_options.width - 20) * this.sprite_options.ratio);
 			this.faced = "right";
 		}
 		if (this.key.has(87)) {
-			(this.faced === "up") ? this.walkTime += 1 : this.walkTime = 0;
-			this.y = Math.max(this.y - Math.min(this.velocity + (this.acceralation * this.walkTime), 4), 0);
+			this.y = Math.max(this.y - speed, 0);
 			this.faced = "up";
 		}
 		if (this.key.has(83)) {
-			(this.faced === "down") ? this.walkTime += 1 : this.walkTime = 0;
-			this.y = Math.min(this.y + Math.min(this.velocity + (this.acceralation * this.walkTime), 4), this.context.canvas.height - this.sprite_options.height * this.sprite_options.ratio);
+			this.y = Math.min(this.y + speed, map.height - this.sprite_options.height * this.sprite_options.ratio);
 			this.faced = "down";
 		}
 
