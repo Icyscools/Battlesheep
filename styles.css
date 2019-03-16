@@ -58,80 +58,48 @@ body {
 	font-size: 1.5em;
 	font-family: 'Press Start 2P', cursive;
 }
-@keyframes game-over {
-	100% { opacity: 1; }
-}
-
-@-webkit-keyframes animacao2 { from {-webkit-transform: scale(1);} 
-								to {-webkit-transform: scale(1.2);} }
-
-@-moz-keyframes animacao2 { from {-moz-transform: scale(1);} 
-								to {-moz-transform: scale(1.1);} }
-
-@keyframes animacao2 { from {transform: scale(1);} 
-								to {transform: scale(1.1);} }
-
 
 #playagain:hover {
-		cursor: pointer;
-		color: #ffffff;
-		-webkit-animation-name: animacao2;
-		-webkit-animation-duration: 0.8s;
-		-webkit-animation-timing-function:  linear;
-		-webkit-animation-iteration-count: infinite;
-		-webkit-animation-direction: alternate;
+	cursor: pointer;
+	color: #ffffff;
+	-webkit-animation-name: animacao2;
+	-webkit-animation-duration: 0.8s;
+	-webkit-animation-timing-function:  linear;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
 
-		-moz-animation-name: animacao2;
-		-moz-animation-duration: 0.8s;
-		-moz-animation-timing-function:  linear;
-		-moz-animation-iteration-count: infinite;
-		-moz-animation-direction: alternate;
+	-moz-animation-name: animacao2;
+	-moz-animation-duration: 0.8s;
+	-moz-animation-timing-function:  linear;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: alternate;
 
-		animation-name: animacao2;
-		animation-duration: 0.8s;
-		animation-timing-function:  linear;
-		animation-iteration-count: infinite;
-		animation-direction: alternate;
+	animation-name: animacao2;
+	animation-duration: 0.8s;
+	animation-timing-function:  linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 	}
 
-@-webkit-keyframes animacao3 { 0% {-webkit-transform: translate(-5px,0px);} 
-							   25% {-webkit-transform: translate(-2.5px, 0px);}
-							   50% {-webkit-transform: translate(0px, 0px);}
-							   75% {-webkit-transform: translate(2.5px, 0px);}
-							   100% {-webkit-transform: translate(5px, 0px);} }
-
-@-moz-keyframes animacao3 { 0% {-moz-transform: translate(-5px,0px);} 
-							   25% {-moz-transform: translate(-2.5px, 0px);}
-							   50% {-moz-transform: translate(0px, 0px);}
-							   75% {-moz-transform: translate(2.5px, 0px);}
-							   100% {-moz-transform: translate(5px, 0px);} }
-
-@keyframes animacao3 { 0% {transform: translate(-5px,0px);} 
-							   25% {transform: translate(-2.5px, 0px);}
-							   50% {transform: translate(0px, 0px);}
-							   75% {transform: translate(2.5px, 0px);}
-							   100% {transform: translate(5px, 0px);} }
-
-
 #backtomenu:hover {
-		cursor: pointer;
-		-webkit-animation-name: animacao3;
-		-webkit-animation-duration: 0.15s;
-		-webkit-animation-timing-function:  linear;
-		-webkit-animation-iteration-count: infinite;
-		-webkit-animation-direction: alternate;
+	cursor: pointer;
+	-webkit-animation-name: animacao3;
+	-webkit-animation-duration: 0.15s;
+	-webkit-animation-timing-function:  linear;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
 
-		-moz-animation-name: animacao3;
-		-moz-animation-duration: 0.15s;
-		-moz-animation-timing-function:  linear;
-		-moz-animation-iteration-count: infinite;
-		-moz-animation-direction: alternate;
+	-moz-animation-name: animacao3;
+	-moz-animation-duration: 0.15s;
+	-moz-animation-timing-function:  linear;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: alternate;
 
-		animation-name: animacao3;
-		animation-duration: 0.15s;
-		animation-timing-function:  linear;
-		animation-iteration-count: infinite;
-		animation-direction: alternate;
+	animation-name: animacao3;
+	animation-duration: 0.15s;
+	animation-timing-function:  linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
 	}
 
 #playagain > span[clickable]:hover {
@@ -159,8 +127,8 @@ body {
 
 #startGame:active, #loadGame:active, #Options:active{
 	transform: translate(0px, 5px);
-    -webkit-transform: translate(0px, 5px);
-    box-shadow: 0px 1px 0px 0px;
+	-webkit-transform: translate(0px, 5px);
+	box-shadow: 0px 1px 0px 0px;
 }
 
 #startGame p, #loadGame p, #Options p {
@@ -169,20 +137,13 @@ body {
 	font-size: 25px;
 	padding-top: 25px;
 }
-@font-face {
-	font-family: pixelmix;
-	src: url(pixelmix.ttf);
-  }
-@font-face{
-	font-family: pixelmix_bold;
-	src: url(pixelmix_bold.ttf)
-}
+
 #loadGame {
 	display: block;
 	margin-top: 20px;
 	text-align: center;
 }
-   
+
 #Options {
 	display: block;
 	margin-top: 20px;
@@ -198,7 +159,7 @@ body {
 
 #interface > div {
 	position: absolute;
-	background: rgba(120, 120, 120, 0.1);
+	background: #875a50c4;
 	z-index: 10;
 }
 
@@ -233,14 +194,9 @@ body {
 	height: 38.5%;
 	margin-left: 0;
 	background: #e7b9b7;
-	/*background: #ddd;*/
 	z-index: 21;
 	border-radius: 10px;
 	border: solid #b9312c 2px;
-}
-
-@keyframes blink { 
-	50% { background: #fff; } 
 }
 
 #interface > #healthbar > .bar > .health {
@@ -249,13 +205,12 @@ body {
 	margin-left: 0;
 	background:#b9312c;
 	z-index: 22;
-	border-radius: 10px;
 	/* animation: blink .2s step-end infinite alternate; */
 }
 
 #interface > #healthbar > .bar > .floatText {
 	position: absolute;
-	color: #FFF;
+	color: #adadad;
 	z-index: 23;
 	font-family: 'Press Start 2P', cursive;
 	font-size: 10px;
@@ -273,3 +228,43 @@ body {
 	border-radius: 4px;
 	z-index: 11;
 }
+
+@keyframes game-over {
+	100% { opacity: 1; }
+}
+
+@keyframes blink { 
+	50% { background: #fff; } 
+}
+
+@keyframes blinktxt { 
+	0% { color: red; }
+	50% { color: #000000}
+}
+
+@-webkit-keyframes animacao2 { from {-webkit-transform: scale(1);} 
+	to {-webkit-transform: scale(1.2);} }
+
+@-moz-keyframes animacao2 { from {-moz-transform: scale(1);} 
+	to {-moz-transform: scale(1.1);} }
+
+@keyframes animacao2 { from {transform: scale(1);} 
+	to {transform: scale(1.1);} }
+
+@-webkit-keyframes animacao3 { 0% {-webkit-transform: translate(-5px,0px);} 
+	25% {-webkit-transform: translate(-2.5px, 0px);}
+	50% {-webkit-transform: translate(0px, 0px);}
+	75% {-webkit-transform: translate(2.5px, 0px);}
+	100% {-webkit-transform: translate(5px, 0px);} }
+
+@-moz-keyframes animacao3 { 0% {-moz-transform: translate(-5px,0px);} 
+	25% {-moz-transform: translate(-2.5px, 0px);}
+	50% {-moz-transform: translate(0px, 0px);}
+	75% {-moz-transform: translate(2.5px, 0px);}
+	100% {-moz-transform: translate(5px, 0px);} }
+
+@keyframes animacao3 { 0% {transform: translate(-5px,0px);} 
+	25% {transform: translate(-2.5px, 0px);}
+	50% {transform: translate(0px, 0px);}
+	75% {transform: translate(2.5px, 0px);}
+	100% {transform: translate(5px, 0px);} }
