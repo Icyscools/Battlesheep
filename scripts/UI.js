@@ -337,6 +337,7 @@ class UIHealthBar extends UI {
 
 		if (this.character.getHealth() <= 30) {
 			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
+			document.querySelector('#interface > #healthbar > .bar > .floatText').style.animation = "blinktxt .2s step-end infinite alternate";
 		}
 		
 		this.hp_text.style.top = "0px";

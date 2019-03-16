@@ -13,7 +13,6 @@ class GameBoard {
 		 * เป็นฟังก์ชันที่เอาไว้ใช้ กำหนดว่า class นี้
 		 * ต้องสร้างจะต้องมี parameter อะไร สร้างตัวแปรอะไรบ้ง
 		 */
-		this.identity = Math.floor(Math.random() * 1000000);
 		this.board = document.getElementById(canvasName);
 		this.context = this.board.getContext("2d");
 		this.config = {
@@ -21,12 +20,9 @@ class GameBoard {
 			height: 768
 		};
 
-		config.identity = this.identity;
-
 		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
 	}
-
 
 	getEntitys() {
 		/*
@@ -49,9 +45,12 @@ class GameBoard {
 		 * โชว์ Interface menu (ปุ่มเริ่มเกม)
 		 *
 		 */
+		document.querySelector("#title").style.display = "block";
 		document.querySelector("#menu").style.display = "block";
 		document.querySelector("#gameboard").style.display = "none";
 		document.querySelector("#gameover").style.display = "none";
+		document.querySelector("#backdrop").style.display = "none";
+		this.resizeCanvas();
 		return 1;
 	}
 
@@ -61,8 +60,10 @@ class GameBoard {
 		 *
 		 */
 		this.context.clearRect(0, 0, this.board.width, this.board.height);
+		document.querySelector("#title").style.display = "none";
 		document.querySelector("#gameboard").style.display = "block";
 		document.querySelector("#menu").style.display = "none";
+		document.querySelector("#backdrop").style.display = "block";
 		return 0;
 	}
 
@@ -71,6 +72,7 @@ class GameBoard {
 		 * ตั้งค่าพื้นฐาน เพื่อเริ่มเกม
 		 *
 		 */
+		startGame();
 		var list = document.getElementById("interface");
 		while (list.hasChildNodes()) {
 			list.removeChild(list.childNodes[0]);
@@ -90,16 +92,12 @@ class GameBoard {
 
 		this.map = new Map(
 			this.context,
-			this.board.width,
-			this.board.height
+			16 * 100,
+			9 * 100
 		);
 
 		this.character = new Character(
-			"Sheep",
-			0,
-			0,
-			64,
-			64,
+			"Sheep", Math.random() * this.map.width, Math.random() * this.map.height, 64, 64,
 			{
 				src: "assets/sheepy_idle.png",
 				width: 84,
@@ -108,32 +106,21 @@ class GameBoard {
 				numberOfFrames: 4,
 				loop: true,
 				ratio: 1.0
-			},
-			100,
-			5,
-			5,
-			1.5
+			}, 100, 5, 5, 1.5, 2, 0.5
 		);
 
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
-				"Spirit #" + n,
-				0 + Math.random() * (this.board.width - 32),
-				0 + Math.random() * (this.board.height - 32),
-				32,
-				32,
+				"Spirit #" + n, 0 + Math.random() * (this.map.width - 32), 0 + Math.random() * (this.map.height - 32), 32, 32,
 				{
 					src: "assets/monster.png",
 					width: 43.75,
 					height: 40,
-					ticksPerFrame: 7.5,
+					ticksPerFrame: 8,
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				},
-				25,
-				2,
-				1
+				}, 25, 2, 1, 1.5, 0.25, "idle"
 			);
 
 			/*
@@ -141,7 +128,7 @@ class GameBoard {
 				continue
 			}*/
 
-			this.entitys.push(ent);
+			this.entitys.unshift(ent);
 		}
 
 		document.querySelector("#gameover").style.display = "none";
@@ -161,9 +148,6 @@ class GameBoard {
 
 			// Camera update
 			this.map.updateCamera();
-
-			// Background update
-			this.map.drawMap();
 
 			// Check for each entitys
 			this.entitys.forEach((ent) => {
@@ -205,15 +189,15 @@ class GameBoard {
 			}, this);
 
 			// Character update
-			this.character.render();
 			this.i++;
-
+			this.character.render();
 			setTimeout(() => {
 				this.gameUpdate()
 			}, config.gameTick);
 		} else {
 			console.log("Game over");
 			document.querySelector("#gameover").style.display = "block";
+			gameOver();
 		}
 	}
 
@@ -239,16 +223,15 @@ class GameBoard {
 		 */
 	  	this.board.style.width = window.innerWidth + "px";
   		this.board.style.height = window.innerHeight + "px";
-	  	console.log(this.board.style.width, this.board.style.height);
 	};
 }
 
 /* Configuration */
 const config = {
-	gameTick: 20,
-	identity: 0
+	gameTick: 20
 }
 
 /* Game declare */
 const game = new GameBoard("GameBoard");
+
 //game.init();

@@ -7,6 +7,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
+	<iframe  src="assets/sound/Silent.wav" allow="autoplay" style="display:none"></iframe> 
+	<audio autoplay loop preload="auto" id="Audio">
+			<source src="assets/sound/bgm.wav" type="audio/wav">
+	</audio>
+	<audio autoplay loop preload="auto" id="SFX">
+		<source src="assets/sound/silent.wav" type="audio/wav">
+	</audio>
 	<div class="board" id="board">
 		<div id="title">
 			<div id="battlesheep"></div>
@@ -17,22 +24,23 @@
 			<div id="Options"><p>Options</p></div>
 		</div>
 		<div id="gameover">
-			<p style="font-size: 5em;">
+			<p style="font-size: 8em;">
 				<span> Game Over </span>
 			</p>
-			<p id='playagain'>
+			<p id='playagain' style='font-size: 2.5em;'>
 				<span onclick="game.init()" clickable> Play Again ? </span>
 			</p>
-			<p id='backtomenu'>
+			<p id='backtomenu' style='font-size: 2.5em;'>
 				<span onclick="game.showInterface()" clickable> Go back to menu </span>
 			</p>
 		</div>
 		<div id="gameboard">
 			<div id="interface"></div>
 			<canvas id="GameBoard">Your browser may not be support Javascript</canvas>
+			<canvas id="GameMap">Your browser may not be support Javascript</canvas>
+			<div id="backdrop"></div>
 		</div>
 	</div>
-
 	<script src="scripts/Map.js"></script>
 	<script src="scripts/Entitys.js"></script>
 	<script src="scripts/LivingEntity.js"></script>
@@ -41,5 +49,7 @@
 	<script src="scripts/Item.js"></script>
 	<script src="scripts/Inventory.js"></script>
 	<script src="scripts/Character.js"></script>
+	<script src="scripts/Sound.js"></script>
 	<script src="game.js"></script>
+
 </body>
