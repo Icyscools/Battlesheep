@@ -22,3 +22,14 @@ class Item {
 		return this.attrs;
 	}
 }
+
+class ItemStack {
+	constructor(item, stack) {
+		this.item = item;
+		this.amount = stack;
+	}
+
+	getAmount() {
+		return this.amount;
+	}
+}

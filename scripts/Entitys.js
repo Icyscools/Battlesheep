@@ -117,6 +117,7 @@ class Entity {
 			ticksPerFrame = options.ticksPerFrame || 0,
 			numberOfFrames = options.numberOfFrames || 1,
 			ratio = options.ratio || 1.0;
+		let ent = this;
 
 		that.context = options.context;
 		that.width = options.width;
@@ -154,66 +155,44 @@ class Entity {
 
 		that.render = function () {
 			that.context.save();
-			if (that.flip === "right") {
-				that.context.drawImage(
+			let camera_offset_x = game.map.camera.width / 2 - ent.width;
+			let camera_offset_y = game.map.camera.height / 2 - ent.height;
+			let ent_to_x = ent.x - game.map.camera.x;
+			let ent_to_y = ent.y - game.map.camera.y;
+			let gameBoard = game.map.getGameBoard().getContext("2d");
+			if (ent instanceof Character) {
+				/*
+				if (ent.x < camera_offset_x || game.map.width - ent.x > game.map.width - camera_offset_x) {
+					ent_to_x = camera_offset_x
+				}
+				if (ent.y < camera_offset_y || game.map.height - ent.y > game.map.width - camera_offset_y) {
+					ent_to_y = camera_offset_y
+				}*/
+
+				gameBoard.drawImage(
 					that.image,
 					frameIndex * that.width,
 					0,
 					that.width,
 					that.height,
-					that.pos_x,
-					that.pos_y,
+					ent_to_x,
+					ent_to_y,
 					that.width * ratio,
 					that.height * ratio
 				);
-			}
-			else if (that.flip === "left") {
-				that.context.scale(-1, 1);
-				that.context.translate(-that.width, 0);
-				that.context.drawImage(
+
+
+				gameBoard.fillStyle = "red";
+				gameBoard.fillRect(ent_to_x, ent_to_y, 1, 1);
+			} else {
+				gameBoard.drawImage(
 					that.image,
 					frameIndex * that.width,
 					0,
 					that.width,
 					that.height,
-					-that.pos_x,
-					that.pos_y,
-					that.width * ratio,
-					that.height * ratio
-				);
-			}
-			else if (that.flip === "down") {
-				// that.context.scale(-1, -1);
-				// that.context.translate(-that.width, -that.height);
-				that.context.translate((2 * that.pos_x + that.width) / 2, (2 * that.pos_y + that.height) / 2)
-				that.context.rotate(Math.PI / 2)
-				that.context.translate(-(2 * that.pos_x + that.width) / 2, -(2 * that.pos_y + that.height) / 2)
-				that.context.drawImage(
-					that.image,
-					frameIndex * that.width,
-					0,
-					that.width,
-					that.height,
-					that.pos_x,
-					that.pos_y,
-					that.width * ratio,
-					that.height * ratio
-				);
-			}
-			else if (that.flip === "up") {
-				// that.context.scale(1, -1);
-				// that.context.translate(0, -that.height);
-				that.context.translate((2 * that.pos_x + that.width) / 2, (2 * that.pos_y + that.height) / 2)
-				that.context.rotate(-Math.PI / 2)
-				that.context.translate(-(2 * that.pos_x + that.width) / 2, -(2 * that.pos_y + that.height) / 2)
-				that.context.drawImage(
-					that.image,
-					frameIndex * that.width,
-					0,
-					that.width,
-					that.height,
-					that.pos_x,
-					that.pos_y,
+					ent_to_x,
+					ent_to_y,
 					that.width * ratio,
 					that.height * ratio
 				);
@@ -302,7 +281,7 @@ class Bullet extends Entity {
 		/*
 		 * Check if the bullet is out frame
 		 */
-		return (0 > this.x) || (this.x > this.context.canvas.width);
+		return (0 > this.x) || (this.x > game.map.width);
 	}
 
 	render() {

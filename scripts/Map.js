@@ -3,29 +3,58 @@ class Map {
         this.context = context;
         this.width = width;
         this.height = height;
+        this.tileSize = 10;
+        this.map = {
+            width: this.width,
+            height: this.height,
+            data: []
+        };
         this.camera = {
             x: 0,
             y: 0,
-            width: this.width,
-            height: this.height
+            width: 854 * 0.8,
+            height: 480 * 0.8
         };
-        let tileSize = 20;
         //var onXTile = Math.floor((this.camera.x + (this.camera.width / 2)) / tileSize);
         //var onYTile = Math.floor((this.camera.y + (this.camera.height / 2)) / tileSize);
+        
+        console.log(this.map)
+        console.log(this.camera)
+
+        this.mapCanvas = document.querySelector("#GameMap");
+        this.mapCanvas.width = this.map.width;
+        this.mapCanvas.height = this.map.height;
+        this.mapCanvas.style.width = this.map.width;
+        this.mapCanvas.style.height = this.map.height;
+
+        this.gameCanvas = document.querySelector("#GameBoard");
+        this.gameCanvas.width = this.camera.width;
+        this.gameCanvas.height = this.camera.height;
+        this.gameCanvas.style.width = this.map.width;
+        this.gameCanvas.style.height = this.map.height;
 
         this.generateMap();
+        this.drawMap()
+    }
+
+    getGameBoard() {
+        return this.gameCanvas;
+    }
+
+    getMapCanvas() {
+        return this.mapCanvas;
     }
 
     generateMap() {
-        this.maps = []
-        for (let r = 0; r < this.height / 20; r++) {
+        let element = document.querySelector("#GameMap");
+        this.map.data = []
+        for (let r = 0; r < this.height; r++) {
             let rows = []
-            for (let c = 0; c < this.width / 20; c++) {
+            for (let c = 0; c < this.width; c++) {
                 rows.push(randomColor("Green"));
             }
-            this.maps.push(rows)
+            this.map.data.push(rows)
         }
-        this.drawMap();
     }
 
     drawMap() {
@@ -40,11 +69,13 @@ class Map {
         this.context.fillRect(0, 0, this.width, this.height);
         this.context.restore();
         */
-
-        for (let r = 0; r < this.height / 20; r++) {
-            for (let c = 0; c < this.width / 20; c++) {
-                this.context.fillStyle = this.maps[r][c];
-                this.context.fillRect(c * 20, r * 20, 20, 20);
+       
+        let canvas = document.querySelector("#GameMap");
+        let context = canvas.getContext("2d");
+        for (let r = 0; r < this.height; r++) {
+            for (let c = 0; c < this.width; c++) {
+                context.fillStyle = this.map.data[r][c];
+                context.fillRect(c * this.tileSize, r * this.tileSize, this.tileSize, this.tileSize);
             }
         }
     }
@@ -55,20 +86,26 @@ class Map {
 		 * (Not finished / Can't used)
 		 *
 		 */
-        this.camera.x = game.character.x - (this.camera.width / 2);
-        this.camera.y = game.character.y - (this.camera.height / 2);
-        // this.renderCamera();
+        this.camera.x = game.character.x + game.character.width / 2 - this.camera.width / 2;
+        this.camera.y = game.character.y + game.character.height / 2 - this.camera.height / 2;
+        this.renderCamera();
     }
 
     renderCamera() {
-        for (let r = this.camera.y; r < this.camera.y + game.character.y; r++) {
-            for (let c = this.camera.x; c < this.camera.x + game.character.x; c++) {
-                this.context.fillStyle = this.maps[r][c];
-                this.context.fillRect(c * 20, r * 20, 20, 20);
-            }
-        }
-    }
+        let gameBoard = game.getContext("2d");
+        gameBoard.drawImage(this.mapCanvas, this.camera.x, this.camera.y, this.camera.width, this.camera.height, 0, 0, this.camera.width, this.camera.height);
 
+        /*
+        // Draw Rectangle around the character; Can remove this
+        gameBoard.strokeStyle="blue";
+        gameBoard.beginPath();
+        //gameBoard.rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width * 2, this.height * 2, 0);
+        gameBoard.rect(this.camera.x, this.camera.y, this.camera.width, this.camera.height, 0);
+        gameBoard.lineWidth=1;
+        gameBoard.stroke();
+        gameBoard.restore();
+        */
+    }
 }
 
 function randomColor(tone = "Red") {

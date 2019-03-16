@@ -5,7 +5,7 @@ class LivingEntity extends Entity {
 	 * LivingEntity object
 	 * Define to any creature on the game
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralation) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -34,9 +34,12 @@ class LivingEntity extends Entity {
 		this.atk = atk;
 		this.def = def;
 		this.atkspd = atkspd;
+		this.velocity = velocity;
+		this.acceralation = acceralation;
 		this.status = {
 			isAttacked: false,
 			isAttacking: false,
+			isInvincible: false,
 		};
 	}
 
@@ -86,11 +89,13 @@ class LivingEntity extends Entity {
 		/*
 		 * Give damage to this object
 		 */
-		this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
-
-		if (damager !== undefined && this instanceof Enemy) {
+		if (!this.status.isInvincible) {
+			this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
 			this.status.isAttacked = true;
-			this.setTarget(damager);
+			if (damager !== undefined && this instanceof Enemy && !this.status.isInvincible) {
+				console.log(this.name);
+				this.setTarget(damager);
+			}
 		}
 	}
 

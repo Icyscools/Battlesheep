@@ -4,20 +4,13 @@ class Inventory {
 		this.slot = rows * cols;
 		this.rows = rows;
 		this.cols = cols;
+		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 		this.storages = attribute.storages ? [...attribute.storages] : this.createEmptyInventory();
 		this.UI = new UIInventory(this);
 	}
 
-	createEmptyInventory() {
-		let inventory = [];
-		for (let r = 0; r < this.rows; r++) {
-			let row = []
-			for (let c = 0; c < this.cols; c++) {
-				row.push(0);
-			}
-			inventory.push(row);
-		}
-		return inventory;
+	getUI() {
+		return this.UI;
 	}
 
 	getOwner() {
@@ -36,8 +29,48 @@ class Inventory {
 		return (this.storages[slot / this.cols][slot % this.cols] !== undefined && this.storages[slot / this.cols][slot % this.cols] !== 0) ? this.storages[slot / this.cols][slot % this.cols] : 0;
 	}
 
-	getUI() {
-		return this.UI;
+	getEquipment() {
+		that.getWeapon = function() {
+			return this.equipment[0];
+		}
+		that.getHead = function () {
+			return this.equipment[1];
+		}
+		that.getArmour = function () {
+			return this.equipment[2];
+		}
+		that.getArms = function () {
+			return this.equipment[3];
+		}
+		that.getLegs = function () {
+			return this.equipment[4];
+		}
+		that.getBoots = function () {
+			return this.equipment[5];
+		}
+		return this.equipment;
+	}
+
+	setEquipment(equip) {
+		that.setWeapon = function (item) {
+			this.equipment[0] = item;
+		}
+		that.setHead = function (item) {
+			this.equipment[1] = item;
+		}
+		that.setArmour = function (item) {
+			this.equipment[2] = item;
+		}
+		that.setArms = function (item) {
+			this.equipment[3] = item;
+		}
+		that.setLegs = function (item) {
+			this.equipment[4] = item;
+		}
+		that.setBoots = function (item) {
+			this.equipment[5] = item;
+		}
+		this.equipment = equip
 	}
 
 	swapItem(slot, to_slot) {
@@ -54,5 +87,17 @@ class Inventory {
 	addItem(item, row, col) {
 		this.storages[row][col] = item;
 		console.log(this.storages)
+	}
+
+	createEmptyInventory() {
+		let inventory = [];
+		for (let r = 0; r < this.rows; r++) {
+			let row = []
+			for (let c = 0; c < this.cols; c++) {
+				row.push(0);
+			}
+			inventory.push(row);
+		}
+		return inventory;
 	}
 }

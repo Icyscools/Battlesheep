@@ -5,7 +5,7 @@ class Enemy extends LivingEntity {
 	 * Enemy object
 	 * Define as attacker to player
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def) {
+	constructor(name, x, y, width, height, sprite_options, hp, atk, def, velocity, accelaration, state) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -32,6 +32,11 @@ class Enemy extends LivingEntity {
 		this.faced = "right";
 		this.bullets = [];
 		this.def = 0;
+		this.velocity = velocity;
+		this.acceralation = accelaration;
+		this.status = {
+			state: state,
+		}
 
 		this.target = "";
 	}
@@ -54,17 +59,24 @@ class Enemy extends LivingEntity {
 		/*
 		 * Render
 		 */
-		this.context.save();
-		if (this.status.isAttacked) {
-			this.context.fillStyle = "red";
-			this.context.fillRect(this.x, this.y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
-		} else {
-			this.context.fillStyle = "black";
-			this.context.font = "11px Georgia";
-			this.context.textAlign = "center";
-			this.context.fillText(this.name, this.x + this.width / 2, this.y);
+
+		setTimeout(() => {
+			this.status.state = "idle-walk";
+		}, 2000);
+
+		if (this.status.state === "aggressive") {
+			this.setTarget(game.character);
 		}
-		this.context.restore();
+
+		if (this.status.state === "idle-walk") {
+			this.x += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
+			this.y += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
+			setTimeout(() => {
+				this.status.state = "idle";
+			}, 2000);
+		}
+
+		this.context.save();
 
 		if (this.getTarget() !== "" && this.getTarget() !== undefined) {
 			let target_posX = this.getTarget().getX() + this.getTarget().getWidth() / 2,
@@ -75,6 +87,22 @@ class Enemy extends LivingEntity {
 			this.y += target_posY > center_posY ? 1 : (target_posY < center_posY) ? -1 : 0
 		}
 
-		super.render()
+		if (this.collided(game.map.camera)) {
+			let camera_offset_x = this.width / 2;
+			let camera_offset_y = this.height / 2;
+			let ent_to_x = this.x - game.map.camera.x;
+			let ent_to_y = this.y - game.map.camera.y;
+			if (this.status.isAttacked) {
+				this.context.fillStyle = "red";
+				this.context.fillRect(ent_to_x, ent_to_y - 5, this.width * (this.getHealth() / this.getMaxHealth()), 5);
+			} else {
+				this.context.fillStyle = "black";
+				this.context.font = "11px Georgia";
+				this.context.textAlign = "center";
+				this.context.fillText(this.name, ent_to_x + this.width / 2, ent_to_y);
+			}
+			this.context.restore();
+			super.render()
+		}
 	}
 }
