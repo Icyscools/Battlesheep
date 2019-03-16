@@ -31,6 +31,7 @@ class Character extends LivingEntity {
 		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd);
 		this.key = new Set();
 		this.faced = "right";
+		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 
@@ -88,6 +89,14 @@ class Character extends LivingEntity {
 		 *
 		 */
 		let speed = 4;
+		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
+			this.isWalking = true;
+			walking(); // sound walking
+		} else if (!(this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && this.isWalking) {
+			this.isWalking = false;
+			stopWalking() // sound silent
+		}
+		
 		if (this.key.has(65)) {
 			this.x = Math.max(this.x - speed, 0);
 			this.faced = "left";

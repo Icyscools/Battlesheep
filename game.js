@@ -71,6 +71,7 @@ class GameBoard {
 		 * ตั้งค่าพื้นฐาน เพื่อเริ่มเกม
 		 *
 		 */
+		startGame();
 		var list = document.getElementById("interface");
 		while (list.hasChildNodes()) {
 			list.removeChild(list.childNodes[0]);
@@ -214,6 +215,7 @@ class GameBoard {
 		} else {
 			console.log("Game over");
 			document.querySelector("#gameover").style.display = "block";
+			gameOver();
 		}
 	}
 
