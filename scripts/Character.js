@@ -95,7 +95,7 @@ class Character extends LivingEntity {
 		 *
 		 */
 		let map = game.map;
-		
+
 		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
 			this.isWalking = true;
 			walking(); // sound walking
@@ -103,7 +103,7 @@ class Character extends LivingEntity {
 			this.isWalking = false;
 			stopWalking() // sound silent
 		}
-		
+
 
 		// Knockback
 		if (this.status.isAttacked && !this.status.isInvincible) {
@@ -182,7 +182,7 @@ class Character extends LivingEntity {
 
 	attack(e) {
 		/*
-		 * Attack action 
+		 * Attack action
 		 */
 	}
 

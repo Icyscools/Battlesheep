@@ -99,8 +99,8 @@ class GameBoard {
 		this.character = new Character(
 			"Sheep", Math.random() * this.map.width, Math.random() * this.map.height, 64, 64,
 			{
-				src: "assets/sheepy_idle.png",
-				width: 84,
+				src: "assets/sheepy-idle-walk.png",
+				width: 64,
 				height: 64,
 				ticksPerFrame: 10,
 				numberOfFrames: 4,

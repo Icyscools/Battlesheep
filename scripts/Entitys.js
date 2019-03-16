@@ -166,7 +166,7 @@ class Entity {
 					ent_to_x = camera_offset_x
 				}
 				if (ent.y < camera_offset_y || game.map.height - ent.y > game.map.width - camera_offset_y) {
-					ent_to_y = camera_offset_y	
+					ent_to_y = camera_offset_y
 				}*/
 
 				gameBoard.drawImage(
@@ -197,7 +197,7 @@ class Entity {
 					that.height * ratio
 				);
 			}
-	
+
 			that.context.restore();
 			return 0;
 		}
