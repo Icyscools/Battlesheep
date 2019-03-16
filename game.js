@@ -24,7 +24,6 @@ class GameBoard {
 		window.addEventListener('resize', (e) => this.resizeCanvas());
 	}
 
-
 	getEntitys() {
 		/*
 		 * Return Object Entity ทั้งหมดที่อยู่ในเกม
@@ -46,9 +45,12 @@ class GameBoard {
 		 * โชว์ Interface menu (ปุ่มเริ่มเกม)
 		 *
 		 */
+		document.querySelector("#title").style.display = "block";
 		document.querySelector("#menu").style.display = "block";
 		document.querySelector("#gameboard").style.display = "none";
 		document.querySelector("#gameover").style.display = "none";
+		document.querySelector("#backdrop").style.display = "none";
+		this.resizeCanvas();
 		return 1;
 	}
 
@@ -58,8 +60,10 @@ class GameBoard {
 		 *
 		 */
 		this.context.clearRect(0, 0, this.board.width, this.board.height);
+		document.querySelector("#title").style.display = "none";
 		document.querySelector("#gameboard").style.display = "block";
 		document.querySelector("#menu").style.display = "none";
+		document.querySelector("#backdrop").style.display = "block";
 		return 0;
 	}
 
@@ -88,16 +92,12 @@ class GameBoard {
 
 		this.map = new Map(
 			this.context,
-			this.board.width,
-			this.board.height
+			16 * 100,
+			9 * 100
 		);
 
 		this.character = new Character(
-			"Sheep",
-			0,
-			0,
-			64,
-			64,
+			"Sheep", Math.random() * this.map.width, Math.random() * this.map.height, 64, 64,
 			{
 				src: "assets/sheepy_idle.png",
 				width: 84,
@@ -106,22 +106,12 @@ class GameBoard {
 				numberOfFrames: 4,
 				loop: true,
 				ratio: 1.0
-			},
-			100,
-			5,
-			5,
-			1.5,
-			2,
-			0.5,
+			}, 100, 5, 5, 1.5, 2, 0.5
 		);
 
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
-				"Spirit #" + n,
-				0 + Math.random() * (this.board.width - 32),
-				0 + Math.random() * (this.board.height - 32),
-				32,
-				32,
+				"Spirit #" + n, 0 + Math.random() * (this.map.width - 32), 0 + Math.random() * (this.map.height - 32), 32, 32,
 				{
 					src: "assets/monster.png",
 					width: 43.75,
@@ -130,13 +120,7 @@ class GameBoard {
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				},
-				25,
-				2,
-				1,
-				1.5,
-				0.25,
-				"idle",
+				}, 25, 2, 1, 1.5, 0.25, "idle"
 			);
 
 			/*
@@ -164,9 +148,6 @@ class GameBoard {
 
 			// Camera update
 			this.map.updateCamera();
-
-			// Background update
-			this.map.drawMap();
 
 			// Check for each entitys
 			this.entitys.forEach((ent) => {
@@ -208,9 +189,8 @@ class GameBoard {
 			}, this);
 
 			// Character update
-			this.character.render();
 			this.i++;
-
+			this.character.render();
 			setTimeout(() => {
 				this.gameUpdate()
 			}, config.gameTick);
@@ -243,7 +223,6 @@ class GameBoard {
 		 */
 	  	this.board.style.width = window.innerWidth + "px";
   		this.board.style.height = window.innerHeight + "px";
-	  	console.log(this.board.style.width, this.board.style.height);
 	};
 }
 

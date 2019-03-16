@@ -34,8 +34,8 @@ class Character extends LivingEntity {
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
+		this.state = "idle"
 		this.walkTime = 0;
-
 		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
@@ -44,10 +44,12 @@ class Character extends LivingEntity {
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
+		let statusUI = new UIPlayerStatus(this);
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
+		window.addEventListener('PlayerMove', (e) => console.log(e));
 
 		// window.addEventListener('touchstart', (e) => this.fireBullet()); Tablet supported
 		// window.addEventListener('click', (e) => this.fireBullet(e)); PC supported
@@ -64,6 +66,9 @@ class Character extends LivingEntity {
 			} else if (action === 'remove') {
 				this.key.delete(e.keyCode);
 			}
+
+			//var playerMove = new CustomEvent("PlayerMove", {detail: {text: "test"}});
+			//window.dispatchEvent(playerMove);
 		} else if ([74, 75, 76].includes(e.keyCode)) {
 			if (action === 'add') {
 				if (this.status.isAttacking !== true) {
@@ -89,7 +94,8 @@ class Character extends LivingEntity {
 		 * to move the character on that direction
 		 *
 		 */
-		let speed = 4;
+		let map = game.map;
+		
 		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
 			this.isWalking = true;
 			walking(); // sound walking
@@ -146,13 +152,16 @@ class Character extends LivingEntity {
 			this.faced = "down";
 		}
 
+		/*
 		// Draw Rectangle around the character; Can remove this
 		this.context.strokeStyle="blue";
 		this.context.beginPath();
-		this.context.rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width * 2, this.height * 2, 0);
+		//this.context.rect(this.x - (this.width / 2), this.y - (this.height / 2), this.width * 2, this.height * 2, 0);
+		this.context.rect(this.x, this.y, this.width, this.height, 0);
 		this.context.lineWidth=1;
 		this.context.stroke();
 		this.context.restore();
+		*/
 
 		this.bullets.forEach((bullet) => {
 			// If bullet is time out or bullet is out frame
@@ -172,6 +181,12 @@ class Character extends LivingEntity {
 		 * Get bullets object that this character shoot
 		 */
 		return this.bullets;
+	}
+
+	attack(e) {
+		/*
+		 * Attack action 
+		 */
 	}
 
 	fireBullet(e) {
