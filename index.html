@@ -7,6 +7,10 @@
 	<link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
 <body>
+	<iframe  src="assets/sound/Silent.wav" allow="autoplay" style="display:none"></iframe> 
+	<audio autoplay loop preload="auto">
+			<source src="assets/sound/bgm.wav" type="audio/wav">
+	</audio>
 	<div class="board" id="board">
 		<div id="title">
 			<div id="battlesheep"></div>
@@ -32,7 +36,6 @@
 			<canvas id="GameBoard">Your browser may not be support Javascript</canvas>
 		</div>
 	</div>
-
 	<script src="scripts/Map.js"></script>
 	<script src="scripts/Entitys.js"></script>
 	<script src="scripts/LivingEntity.js"></script>
