@@ -226,9 +226,6 @@ class Entity {
 						that.height * ratio
 					);
 				}
-
-				gameBoard.fillStyle = "red";
-				gameBoard.fillRect(ent_to_x + ent.width / 2, ent_to_y + ent.height, 1, 1);
 			}
 			else if (ent instanceof Bullet) {
 				if (ent.faced === "right") {

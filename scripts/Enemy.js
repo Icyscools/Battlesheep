@@ -41,7 +41,17 @@ class Enemy extends LivingEntity {
 		this.target = "";
 		this.asyncWalking();
 
-		window.addEventListener("EntityOnDamage", (e) => this.addKnockback(e));
+		window.addEventListener("EntityOnDamage", (e) => {
+			this.addKnockback(e);
+			/*
+			if (e.detail.entity == this) {
+				let vector_ent = new Vector2D(this.x, this.y);
+				let vector_damager = new Vector2D(e.detail.damager.x, e.detail.damager.y);
+				let distance = vector_ent.distance(vector_damager);
+				let volume = Math.max(1 - (distance / 80), 0);
+				getHit(volume);
+			}*/
+		});
 	}
 
 	getTarget() {
@@ -113,7 +123,6 @@ class Enemy extends LivingEntity {
 				this.x = Math.min(Math.max(this.x + to_target.x, 0), map.width);
 				this.y = Math.min(Math.max(this.y + to_target.y, 0), map.height);
 
-				
 				//Decay Velocity
 				let acc = 0.2;
 				if (this.vector.x !== 0) {

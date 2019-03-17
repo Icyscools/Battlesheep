@@ -112,6 +112,16 @@ class Map {
         gameBoard.restore();
         */
     }
+
+    isWalkable(x, y) {
+        let c = Math.floor(x / this.tileSize);
+        let r = Math.floor(y / this.tileSize);
+        if (this.map.data[r][c] != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 var tileMapping = {

@@ -50,7 +50,10 @@ class Character extends LivingEntity {
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
-		window.addEventListener('CharacterOnDamage', (e) => this.addKnockback(e));
+		window.addEventListener('CharacterOnDamage', (e) => {
+			this.addKnockback(e);
+			getHit();
+		});
 
 		// window.addEventListener('touchstart', (e) => this.fireBullet()); Tablet supported
 		// window.addEventListener('click', (e) => this.fireBullet(e)); PC supported
@@ -171,8 +174,12 @@ class Character extends LivingEntity {
 		}
 
 		vec = vec.add(this.velocity);
-		this.x = Math.min(Math.max(this.x + vec.x, 0), map.width - this.sprite_options.width * this.sprite_options.ratio);
-		this.y = Math.min(Math.max(this.y + vec.y, 0), map.height - this.sprite_options.height * this.sprite_options.ratio);
+		let x = Math.min(Math.max(this.x + vec.x, 0), map.width - this.sprite_options.width * this.sprite_options.ratio);
+		let y = Math.min(Math.max(this.y + vec.y, 0), map.height - this.sprite_options.height * this.sprite_options.ratio);
+		if (game.map.isWalkable(x + this.width / 2, y + this.height)) {
+			this.x = x;
+			this.y = y;
+		}
 
 		if (vec.magnitude() && !this.isWalking) {
 			this.isWalking = true;

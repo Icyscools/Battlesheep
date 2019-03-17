@@ -53,12 +53,15 @@ class GameBoard {
 		this.resizeCanvas();
 		return 1;
 	}
+
 	showAnnounce(){
 		document.querySelector("#howtoplay").style.display = "block";
 	}
+
 	hideAnnounce(){
 		document.querySelector("#howtoplay").style.display = "none";
 	}
+
 	hiddenInterface() {
 		/*
 		 * ซ่อน Interface menu (ปุ่มเริ่มเกม)
@@ -112,7 +115,7 @@ class GameBoard {
 				numberOfFrames: 4,
 				loop: true,
 				ratio: 1.0
-			}, 100, 5, 5, 1.5, 2, 0.5
+			}, 100, 5, 0, 1, 2, 0.5
 		);
 
 		for (let n = 50; n > 0; n--) {
@@ -126,7 +129,7 @@ class GameBoard {
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				}, 25, 2, 1, 1.5, 0.25, "idle"
+				}, 25, 10, 1, 1.5, 0.25, "idle"
 			);
 
 			/*
@@ -160,7 +163,6 @@ class GameBoard {
 				// If entity collied with character and entity has a character to be a target
 				if (ent.collided(this.character) && ent.getTarget() === this.character) {
 					this.character.giveDamage(ent.getAttackDamage(), ent);
-					getHit();
 				}
 
 				// Check for each bullets that character shoot
