@@ -120,7 +120,7 @@ class LivingEntity extends Entity {
 				window.dispatchEvent(event);
 			} else {
 				if (this.isDead()) {
-					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
+					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15}, true);
 					damager.inventory.appendItem(loot);
 
 					event = new CustomEvent("EntityDied", {
@@ -132,7 +132,7 @@ class LivingEntity extends Entity {
 
 					window.dispatchEvent(event);
 				}
-				
+
 				event = new CustomEvent('EntityOnDamage', {
 					bubbles: true,
 					detail: {

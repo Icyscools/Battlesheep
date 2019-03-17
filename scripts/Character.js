@@ -38,7 +38,7 @@ class Character extends LivingEntity {
 		this.velocity = new Vector2D(0, 0);
 
 		/* Inventory (Not finish) */
-		let item = new Item("0001", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30});
+		let item = new Item("0001", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30}, false);
 		this.inventory = new Inventory(this, 2, 9, {});
 		this.inventory.addItem(item, 1, 2);
 		console.log(this.inventory.swapItem(11, 12));

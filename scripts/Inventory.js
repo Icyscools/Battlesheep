@@ -92,9 +92,18 @@ class Inventory {
 	appendItem(item) {
 		for (let r = 0; r < this.rows; r++) {
 			for (let c = 0; c < this.cols; c++) {
-				if (this.storages[r][c] === 0) {
+				if (this.storages[r][c] === 0 && !item.stackable) {
 					this.storages[r][c] = item;
 					return [item, r, c];
+				}
+				if (this.storages[r][c] === 0 && item.stackable) {
+					let stackableItem = new ItemStack(item, 1);
+					this.storages[r][c] = stackableItem;
+					return [item, r, c, 1];
+				}
+				if (this.storages[r][c] instanceof ItemStack && item.stackable) {
+					this.storages[r][c].amount += 1;
+					return [item, r, c, this.storages[r][c].amount];
 				}
 			}
 		}
