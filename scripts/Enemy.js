@@ -164,9 +164,5 @@ class Enemy extends LivingEntity {
 			this.context.restore();
 			super.render()
 		}
-
-		if (this.isDead()) {
-			console.log('wow');
-		}
 	}
 }

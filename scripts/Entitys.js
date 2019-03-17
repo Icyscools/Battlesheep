@@ -175,7 +175,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						frameIndex * that.width,
-						0 + movingRow,
+						movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -189,7 +189,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(4 + frameIndex) * that.width,
-						0 + movingRow,
+						movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -203,7 +203,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(8 + frameIndex) * that.width,
-						0 + movingRow,
+						movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -217,7 +217,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(12 + frameIndex) * that.width,
-						0 + movingRow,
+						movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
