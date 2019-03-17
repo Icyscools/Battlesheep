@@ -42,14 +42,18 @@ function stopWalking(){
 
 function getHit(){
     var sfx = document.getElementById("hit");
-    sfx.src = "assets/sound/hit.wav";
-    sfx.load();
+    if (sfx.src != "assets/sound/hit.wav") {
+        sfx.src = "assets/sound/hit.wav";
+        sfx.load();
+    }
     sfx.play();
 }
 
 function fireBullet(){
     var sfx = document.getElementById("hit");
-    sfx.src = "assets/sound/laser.wav";
-    sfx.load();
+    if (sfx.src != "assets/sound/laser.wav") {
+        sfx.src = "assets/sound/laser.wav";
+        sfx.load();
+    }
     sfx.play();
 }

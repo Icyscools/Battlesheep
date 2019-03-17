@@ -40,6 +40,8 @@ class Enemy extends LivingEntity {
 
 		this.target = "";
 		this.asyncWalking();
+
+		window.addEventListener("EntityOnDamage", (e) => this.addKnockback(e));
 	}
 
 	getTarget() {
@@ -56,16 +58,42 @@ class Enemy extends LivingEntity {
 		this.target = target;
 	}
 
+	addKnockback(e) {
+		/*
+		 * Add Entity knockback when hit
+		 */
+		// Knockback
+		if (e.detail.entity == this) {
+			this.vector = new Vector2D(0, 0);
+			let ent = e.detail.damager
+			if (ent instanceof Bullet) {
+				let bullet = ent;
+				let center_posX = this.x + this.width / 2,
+				    center_posY = this.y + this.height / 2;
+				let vector_bullet = bullet.direction.normalize();
+				this.vector = this.vector.add(vector_bullet.multiple(4));
+			}
+		}
+	}
+
 	asyncWalking() {
 		let ent = this;
-		this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
-		setTimeout(function() {
-			ent.vector = new Vector2D(0, 0);
+		if (ent.status.state != "aggressive") {
+			this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
+			setTimeout(function() {
+				ent.vector = new Vector2D(0, 0);
+				setTimeout(function () {
+					if (ent.status.state != "aggressive") {
+						ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
+					}
+					ent.asyncWalking();
+				}, Math.random() * 10000);
+			}, 1000);
+		} else {
 			setTimeout(function () {
-				ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
-				ent.asyncWalking();
-			}, Math.random() * 10000);
-		}, 1000);
+				ent.asyncWalking()
+			}, 1000);
+		}
 	}
 
 	render() {
@@ -81,9 +109,27 @@ class Enemy extends LivingEntity {
 				    center_posY = this.y + this.height / 2;
 				let vector_target = new Vector2D(target_posX, target_posY);
 				let vector_ent = new Vector2D(center_posX, center_posY);
-				let to_target = vector_target.subtract(vector_ent).normalize();
-				this.x += to_target.x;
-				this.y += to_target.y;
+				let to_target = vector_target.subtract(vector_ent).normalize().add(this.vector);
+				this.x = Math.min(Math.max(this.x + to_target.x, 0), map.width);
+				this.y = Math.min(Math.max(this.y + to_target.y, 0), map.height);
+
+				
+				//Decay Velocity
+				let acc = 0.2;
+				if (this.vector.x !== 0) {
+					if (this.vector.x > 0) {
+						this.vector.x = Math.max(this.vector.x - acc, 0);
+					} else if (this.vector.x < 0) {
+						this.vector.x = Math.min(this.vector.x + acc, 0);
+					}
+				}
+				if (this.vector.y !== 0) {
+					if (this.vector.y > 0) {
+						this.vector.y = Math.max(this.vector.y - acc, 0);
+					} else if (this.vector.y < 0) {
+						this.vector.y = Math.min(this.vector.y + acc, 0);
+					}
+				}
 			}
 		} else {
 			this.x = Math.min(Math.max(this.x + this.vector.x, 0), map.width - this.width);

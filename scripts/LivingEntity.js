@@ -95,7 +95,11 @@ class LivingEntity extends Entity {
 			this.status.isAttacked = true;
 			if (damager !== undefined && this instanceof Enemy && !this.status.isInvincible) {
 				this.status.state = "aggressive";
-				this.setTarget(damager);
+				if (damager instanceof Bullet) {
+					this.setTarget(damager.getOwner());
+				} else {
+					this.setTarget(damager);
+				}
 			}
 
 			let event;
@@ -120,12 +124,17 @@ class LivingEntity extends Entity {
 				window.dispatchEvent(event);
 			} else {
 				if (this.isDead()) {
-					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15}, true);
-					damager.inventory.appendItem(loot);
+					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
+					if (damager instanceof Bullet) {
+						damager.getOwner().inventory.appendItem(loot);
+					} else {
+						damager.inventory.appendItem(loot);
+					}
 
 					event = new CustomEvent("EntityDied", {
 						bubbles: true,
 						detail: {
+							entity: this,
 							lastDamager: damager
 						}
 					})
@@ -136,6 +145,7 @@ class LivingEntity extends Entity {
 				event = new CustomEvent('EntityOnDamage', {
 					bubbles: true,
 					detail: {
+						entity: this,
 						damage: damage,
 						damager: damager
 					}
