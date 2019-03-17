@@ -88,7 +88,7 @@ class LivingEntity extends Entity {
 	giveDamage(damage, damager) {
 		/*
 		 * Give damage to this object
-		 * 
+		 *
 		 */
 		if (!this.status.isInvincible) {
 			this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
@@ -116,11 +116,14 @@ class LivingEntity extends Entity {
 					damager: damager
 				}
 			});
+			if (this.isDead()) {
+				let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
+				damager.inventory.appendItem(loot);
+			}
 		}
 
 		window.dispatchEvent(event);
 	}
-
 	isAlive() {
 		/*
 		 * Check if this object is alived
@@ -141,5 +144,12 @@ class LivingEntity extends Entity {
 		 * to make it died
 		 */
 		this.hp = -99999;
+	}
+
+	setHealth(hp) {
+		/*
+		 * Set Health of this object via parameter hp
+		*/
+		this.hp = hp;
 	}
 }

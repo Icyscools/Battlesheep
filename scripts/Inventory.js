@@ -89,6 +89,17 @@ class Inventory {
 		console.log(this.storages)
 	}
 
+	appendItem(item) {
+		for (let r = 0; r < this.rows; r++) {
+			for (let c = 0; c < this.cols; c++) {
+				if (this.storages[r][c] === 0) {
+					this.storages[r][c] = item;
+					return [item, r, c];
+				}
+			}
+		}
+	}
+
 	createEmptyInventory() {
 		let inventory = [];
 		for (let r = 0; r < this.rows; r++) {
