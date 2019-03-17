@@ -34,7 +34,6 @@ class Character extends LivingEntity {
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
-		this.state = "idle"
 		this.velocity = new Vector2D(0, 0);
 
 		/* Inventory (Not finish) */
@@ -65,8 +64,10 @@ class Character extends LivingEntity {
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
 			if (action === 'add') {
 				this.key.add(e.keyCode);
+				this.status.isMoving = true;
 			} else if (action === 'remove') {
 				this.key.delete(e.keyCode);
+				this.status.isMoving = false;
 			}
 
 			//var playerMove = new CustomEvent("PlayerMove", {detail: {text: "test"}});
@@ -74,6 +75,7 @@ class Character extends LivingEntity {
 		} else if ([74, 75, 76].includes(e.keyCode)) {
 			if (action === 'add') {
 				if (this.status.isAttacking !== true) {
+					fireBullet();
 					this.fireBullet(e);
 					this.status.isAttacking = true;
 					setTimeout(() => { this.status.isAttacking = false }, (1 / this.getAttackSpeed()) * 1000);	// delay between each attack
@@ -108,7 +110,7 @@ class Character extends LivingEntity {
 			let vector_target = new Vector2D(target_posX, target_posY);
 			let vector_ent = new Vector2D(center_posX, center_posY);
 			let to_target = vector_target.subtract(vector_ent).normalize();
-			this.velocity = this.velocity.add(to_target.multiple(-10));
+			this.velocity = this.velocity.add(to_target.multiple(-8));
 
 			setTimeout(() => {
 				this.status.isInvincible = false;
@@ -127,14 +129,6 @@ class Character extends LivingEntity {
 		 *
 		 */
 		let map = game.map.map;
-		if (this.velocity.normalize() && !this.isWalking) {
-			this.isWalking = true;
-			walking(); // sound walking
-		} else if (!this.velocity.normalize() && this.isWalking) {
-			this.isWalking = false;
-			stopWalking() // sound silent
-		}
-
 		// Moving
 		let vec = new Vector2D(0, 0);
 		let acc = 0.25
@@ -177,9 +171,16 @@ class Character extends LivingEntity {
 		}
 
 		vec = vec.add(this.velocity);
-
 		this.x = Math.min(Math.max(this.x + vec.x, 0), map.width - this.sprite_options.width * this.sprite_options.ratio);
 		this.y = Math.min(Math.max(this.y + vec.y, 0), map.height - this.sprite_options.height * this.sprite_options.ratio);
+
+		if (vec.magnitude() && !this.isWalking) {
+			this.isWalking = true;
+			walking(); // sound walking
+		} else if (!vec.magnitude() && this.isWalking) {
+			this.isWalking = false;
+			stopWalking() // sound silent
+		}
 
 		/*
 		// Draw Rectangle around the character; Can remove this
@@ -222,21 +223,10 @@ class Character extends LivingEntity {
 		/*
 		 * Fire a bullet to belong a direction
 		 */
-		let direction = {
-			x: this.x,
-			y: this.y
-		}
-
-		// Normalize to get a direction
-		let length = Math.sqrt(direction.x * direction.x + direction.y * direction.y);
-		direction.x /= length;
-		direction.y /= length;
-
-		// Create a new bullet object
 		let bullet = new Bullet(
 							"Bullet",
-							this.x + (this.faced === "left" ? 0 : (this.width * 2/3)),
-							this.y + (this.height * 1/2),
+							this.x + this.width / 2,
+							this.y + this.height / 2,
 							13,
 							13,
 							{
@@ -250,7 +240,6 @@ class Character extends LivingEntity {
 							},
 							this,
 							10,			// velocity
-							direction,
 							12,
 							this.faced
 						);

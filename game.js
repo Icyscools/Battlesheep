@@ -71,9 +71,6 @@ class GameBoard {
 		document.querySelector("#backdrop").style.display = "block";
 		return 0;
 	}
-	howtoplay(){
-
-	}
 
 	init() {
 		/*
@@ -81,6 +78,7 @@ class GameBoard {
 		 *
 		 */
 		startGame();
+		document.querySelector("#howtoplay").style.display = "none";
 		var list = document.getElementById("interface");
 		while (list.hasChildNodes()) {
 			list.removeChild(list.childNodes[0]);
@@ -169,9 +167,10 @@ class GameBoard {
 				this.character.getBullet().forEach((bullet) => {
 					// If character bullet hit entity
 					if (bullet.collided(ent)) {
+						monsterHit(); // Monster Sound
 						// Give entity a amount of damage
 						this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
-						ent.giveDamage(this.character.getAttackDamage(), bullet.getOwner());
+						ent.giveDamage(this.character.getAttackDamage(), bullet);
 						// If entity have health less than or equal 0, then remove it
 						if (ent.getHealth() <= 0) {
 							this.entitys.splice(this.entitys.indexOf(ent), 1);

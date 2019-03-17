@@ -169,11 +169,13 @@ class Entity {
 					ent_to_y = camera_offset_y
 				}*/
 
+				let movingRow = 64 * ent.status.isMoving;
+
 				if (ent.faced === "down") {
 					gameBoard.drawImage(
 						that.image,
 						frameIndex * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -187,7 +189,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(4 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -201,7 +203,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(8 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -215,7 +217,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(12 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -226,7 +228,7 @@ class Entity {
 				}
 
 				gameBoard.fillStyle = "red";
-				gameBoard.fillRect(ent_to_x, ent_to_y, 1, 1);
+				gameBoard.fillRect(ent_to_x + ent.width / 2, ent_to_y + ent.height, 1, 1);
 			}
 			else if (ent instanceof Bullet) {
 				if (ent.faced === "right") {
@@ -343,7 +345,7 @@ class Bullet extends Entity {
 	 * Bullet object
 	 * Define to any object that make from `Character` object on the game
 	 */
-	constructor(name, x, y, width, height, sprite_options, owner, velocity, direction, timer, faced) {
+	constructor(name, x, y, width, height, sprite_options, owner, velocity, timer, faced) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -372,7 +374,10 @@ class Bullet extends Entity {
 		this.velocity = velocity;
 		this.faced = faced;
 		this.timer = timer * 100;
-		this.direction = direction;
+		if (this.faced === 'left') this.direction = new Vector2D(-this.velocity, 0);
+		else if (this.faced === 'right') this.direction = new Vector2D(this.velocity, 0);
+		else if (this.faced === 'up') this.direction = new Vector2D(0, -this.velocity);
+		else if (this.faced === 'down') this.direction = new Vector2D(0, this.velocity);
 	}
 
 
@@ -391,7 +396,7 @@ class Bullet extends Entity {
 		/*
 		 * Check if the bullet is out frame
 		 */
-		return (0 > this.x) || (this.x > game.map.map.width) || (0 > this.y) || (this.y > game.map.map.height);
+		return (0 > this.x) || (this.x + this.width > game.map.map.width) || (0 > this.y) || (this.y + this.height > game.map.map.height);
 	}
 
 	render() {
@@ -399,23 +404,9 @@ class Bullet extends Entity {
 		 * Render this object
 		 * and decrease a living time
 		 */
-		if (this.faced === 'left') {
-			this.x -= this.velocity;
-		}
-
-		else if (this.faced === 'right') {
-			this.x += this.velocity;
-		}
-
-		else if (this.faced === 'up') {
-			this.y -= this.velocity
-		}
-		else if (this.faced === 'down') {
-			this.y += this.velocity
-		}
-		// this.x += this.direction.x * this.velocity;
-		// this.y += this.direction.y * this.velocity;
-		this.timer -= 1;
+		this.x += this.direction.x;
+		this.y += this.direction.y;
+		this.timer -= 5;
 		super.render();
 	}
 }

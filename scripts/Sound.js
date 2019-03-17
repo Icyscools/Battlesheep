@@ -42,14 +42,25 @@ function stopWalking(){
 
 function getHit(){
     var sfx = document.getElementById("hit");
-    sfx.src = "assets/sound/hit.wav";
-    sfx.load();
+    if (sfx.src != "assets/sound/hit.wav") {
+        sfx.src = "assets/sound/hit.wav";
+        sfx.load();
+    }
     sfx.play();
 }
 
 function fireBullet(){
     var sfx = document.getElementById("hit");
-    sfx.src = "assets/sound/laser.wav";
+    if (sfx.src != "assets/sound/shoot.wav") {
+        sfx.src = "assets/sound/shoot.wav";
+    sfx.load();
+    sfx.volume = 0.5;
+    sfx.play();
+}
+
+function monsterHit(){
+    var sfx = document.getElementById("mob");
+    sfx.src = "assets/sound/ghost.wav";
     sfx.load();
     sfx.play();
 }
