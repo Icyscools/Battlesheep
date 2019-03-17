@@ -30,7 +30,7 @@ class Character extends LivingEntity {
 		// call super() function to put a parameter to super class
 		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation);
 		this.key = new Set();
-		this.faced = "right";
+		this.faced = "down";
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
@@ -45,7 +45,8 @@ class Character extends LivingEntity {
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
-		let statusUI = new UIPlayerStatus(this);
+		this.playerStatusBox = new UIPlayerStatus(this);
+
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
@@ -83,6 +84,11 @@ class Character extends LivingEntity {
 				let ui = this.inventory.getUI();
 				ui.toggleUI();
 			}
+		} else if ([67].includes(e.keyCode)) {
+			if (action === 'add') {
+				let ui = this.playerStatusBox;
+				ui.toggleUI();
+			}
 		}
 	}
 
@@ -96,7 +102,6 @@ class Character extends LivingEntity {
 		 *
 		 */
 		let map = game.map.map;
-		
 		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
 			this.isWalking = true;
 			walking(); // sound walking
@@ -104,7 +109,7 @@ class Character extends LivingEntity {
 			this.isWalking = false;
 			stopWalking() // sound silent
 		}
-		
+
 
 		// Knockback
 		if (this.status.isAttacked && !this.status.isInvincible) {
@@ -183,7 +188,7 @@ class Character extends LivingEntity {
 
 	attack(e) {
 		/*
-		 * Attack action 
+		 * Attack action
 		 */
 	}
 
