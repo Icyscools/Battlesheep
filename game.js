@@ -73,7 +73,7 @@ class GameBoard {
 				document.querySelector("#howtoplay").style.display = "none";
 			}
 		}
-			
+
 
 	}
 
@@ -226,6 +226,7 @@ class GameBoard {
 			}, config.gameTick);
 		} else {
 			console.log("Game over");
+			this.character.render();
 			document.querySelector("#gameover").style.display = "block";
 			gameOver();
 		}
