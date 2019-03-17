@@ -54,10 +54,10 @@ function fireBullet(){
     if (sfx.src != "assets/sound/shoot.wav") {
         sfx.src = "assets/sound/shoot.wav";
     sfx.load();
+    }
     sfx.volume = 0.5;
     sfx.play();
 }
-
 function monsterHit(){
     var sfx = document.getElementById("mob");
     sfx.src = "assets/sound/ghost.wav";
