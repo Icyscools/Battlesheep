@@ -40,6 +40,7 @@ class LivingEntity extends Entity {
 			isAttacked: false,
 			isAttacking: false,
 			isInvincible: false,
+			isMoving: false,
 		};
 	}
 

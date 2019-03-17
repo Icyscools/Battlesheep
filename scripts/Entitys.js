@@ -169,11 +169,13 @@ class Entity {
 					ent_to_y = camera_offset_y
 				}*/
 
+				let movingRow = 64 * ent.status.isMoving;
+
 				if (ent.faced === "down") {
 					gameBoard.drawImage(
 						that.image,
 						frameIndex * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -187,7 +189,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(4 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -201,7 +203,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(8 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -215,7 +217,7 @@ class Entity {
 					gameBoard.drawImage(
 						that.image,
 						(12 + frameIndex) * that.width,
-						0,
+						0 + movingRow,
 						that.width,
 						that.height,
 						ent_to_x,

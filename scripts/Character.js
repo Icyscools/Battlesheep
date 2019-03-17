@@ -34,7 +34,6 @@ class Character extends LivingEntity {
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
-		this.state = "idle"
 		this.velocity = new Vector2D(0, 0);
 
 		/* Inventory (Not finish) */
@@ -65,8 +64,10 @@ class Character extends LivingEntity {
 		if ([65, 68, 87, 83].includes(e.keyCode)) { // A D W S
 			if (action === 'add') {
 				this.key.add(e.keyCode);
+				this.status.isMoving = true;
 			} else if (action === 'remove') {
 				this.key.delete(e.keyCode);
+				this.status.isMoving = false;
 			}
 
 			//var playerMove = new CustomEvent("PlayerMove", {detail: {text: "test"}});
