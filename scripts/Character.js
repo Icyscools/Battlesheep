@@ -30,12 +30,13 @@ class Character extends LivingEntity {
 		// call super() function to put a parameter to super class
 		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation);
 		this.key = new Set();
-		this.faced = "right";
+		this.faced = "down";
 		this.isWalking = false;
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 		this.state = "idle"
-		this.walkTime = 0;
+		this.velocity = new Vector2D(0, 0);
+
 		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
@@ -44,12 +45,13 @@ class Character extends LivingEntity {
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
-		let statusUI = new UIPlayerStatus(this);
+		this.playerStatusBox = new UIPlayerStatus(this);
+
 
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
-		window.addEventListener('PlayerMove', (e) => console.log(e));
+		window.addEventListener('CharacterOnDamage', (e) => console.log(e));
 
 		// window.addEventListener('touchstart', (e) => this.fireBullet()); Tablet supported
 		// window.addEventListener('click', (e) => this.fireBullet(e)); PC supported
@@ -82,6 +84,11 @@ class Character extends LivingEntity {
 				let ui = this.inventory.getUI();
 				ui.toggleUI();
 			}
+		} else if ([67].includes(e.keyCode)) {
+			if (action === 'add') {
+				let ui = this.playerStatusBox;
+				ui.toggleUI();
+			}
 		}
 	}
 
@@ -94,8 +101,7 @@ class Character extends LivingEntity {
 		 * to move the character on that direction
 		 *
 		 */
-		let map = game.map;
-
+		let map = game.map.map;
 		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
 			this.isWalking = true;
 			walking(); // sound walking

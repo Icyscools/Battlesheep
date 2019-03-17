@@ -32,7 +32,7 @@ class Entity {
 		this.width = width;
 		this.height = height;
 		this.sprite_options = sprite_options;
-		this.faced = "right"
+		this.faced = "down"
 
 		var entityImg = new Image();
 		entityImg.src = sprite_options.src;
@@ -169,22 +169,132 @@ class Entity {
 					ent_to_y = camera_offset_y
 				}*/
 
-				gameBoard.drawImage(
-					that.image,
-					frameIndex * that.width,
-					0,
-					that.width,
-					that.height,
-					ent_to_x,
-					ent_to_y,
-					that.width * ratio,
-					that.height * ratio
-				);
+				if (ent.faced === "down") {
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
 
+				if (ent.faced === "left") {
+					gameBoard.drawImage(
+						that.image,
+						(4 + frameIndex) * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				if (ent.faced === "right") {
+					gameBoard.drawImage(
+						that.image,
+						(8 + frameIndex) * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				if (ent.faced === "up") {
+					gameBoard.drawImage(
+						that.image,
+						(12 + frameIndex) * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
 
 				gameBoard.fillStyle = "red";
 				gameBoard.fillRect(ent_to_x, ent_to_y, 1, 1);
-			} else {
+			}
+			else if (ent instanceof Bullet) {
+				if (ent.faced === "right") {
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				if (ent.faced === "left") {
+					gameBoard.scale(-1, 1);
+					gameBoard.translate(-that.width, 0);
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						-ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				if (ent.faced === "up") {
+					gameBoard.translate((2 * ent_to_x + that.width) / 2, (2 * ent_to_y + that.height) / 2);
+					gameBoard.rotate(-Math.PI / 2);
+					gameBoard.translate(-(2 * ent_to_x + that.width) / 2, -(2 * ent_to_y + that.height) / 2);
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				if (ent.faced === "down") {
+					gameBoard.translate((2 * ent_to_x + that.width) / 2, (2 * ent_to_y + that.height) / 2);
+					gameBoard.rotate(Math.PI / 2);
+					gameBoard.translate(-(2 * ent_to_x + that.width) / 2, -(2 * ent_to_y + that.height) / 2);
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+			}
+
+			else {
 				gameBoard.drawImage(
 					that.image,
 					frameIndex * that.width,
@@ -281,7 +391,7 @@ class Bullet extends Entity {
 		/*
 		 * Check if the bullet is out frame
 		 */
-		return (0 > this.x) || (this.x > game.map.width);
+		return (0 > this.x) || (this.x > game.map.map.width) || (0 > this.y) || (this.y > game.map.map.height);
 	}
 
 	render() {

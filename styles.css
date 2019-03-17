@@ -106,12 +106,10 @@ body {
 
 #playagain > span[clickable]:hover {
 	color: #4caf50;
-	outline-width: 20px;
 }
 
 #backtomenu > span[clickable]:hover {
 	color: #ec4747;
-	outline-width: 20px;
 }
 
 #startGame {
@@ -197,6 +195,50 @@ body {
 	position: absolute;
 	padding: 2px;
 	
+}
+
+#interface div > .header {
+	text-align: left;
+	margin: 2px 0;
+	padding: 4px 0 4px 0.67vw;
+	border: 1px solid #6b4840c4;
+	border-radius: 3px;
+	background: #815950c4;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 12px;
+}
+
+#interface > #player_status > div, tr, td {
+	border: 1px solid #6b4840c4;	
+	border-radius: 3px;
+	background: #815950c4;
+}
+
+#interface > #player_status > td {
+	position: absolute;
+	padding: 2px;
+}
+
+#interface > #player_status > div #p_name {
+	/* position: absolute; */
+	margin: 10px;
+	padding: 2px;
+	text-align: left;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
+}
+
+#player_panel_slot {
+	cursor: default;
+	margin: 10px;
+	padding: 2px;
+	padding-left: 10px;
+	text-align: left;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
 }
 
 #interface > #healthbar {

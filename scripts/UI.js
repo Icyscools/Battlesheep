@@ -13,9 +13,9 @@ class UI {
 		this.dragAble = options.dragAble !== undefined ? options.dragAble : false;
 		this.game_identity = game.identity
 		this.ui = 0;
-		this.pos = {
-			x: 0,
-			y: 0
+		this.pos = options.pos !== undefined ? options.pos : {
+			x: 100,
+			y: 100
 		};
 	}
 
@@ -40,7 +40,7 @@ class UI {
 
 		this.isShow ? this.showUI() : this.hideUI();
 
-		this.setPosition(100, 200);
+		this.setPosition(this.pos.x, this.pos.y);
 		return ui;
 	}
 
@@ -136,7 +136,11 @@ class UIPlayerStatus extends UI {
 			isShow: false,
 			showName: true,
 			dragAble: true,
-			padding: 5
+			padding: 5,
+			pos: {
+				x: 100,
+				y: 400
+			}
 		})
 		this.character = character;
 
@@ -147,6 +151,53 @@ class UIPlayerStatus extends UI {
 		this.player_panel.setAttribute("id", "player_status");
 
 		this.UI.appendChild(this.player_panel);
+	}
+
+	update() {
+		this.player_panel.innerHTML = "";
+		let p_table = document.createElement("table")
+		for (let r = 0; r < 5; r++) {
+			let row = p_table.insertRow(r);
+			for (let c = 0; c < 1; c++) {
+				let cell = row.insertCell(c);
+
+				/* Initialize the slot */
+				cell.id = "player_panel_slot";
+				cell.setAttribute("slot", r * 5 + c);
+				cell.style.width = "320px";
+				cell.style.height = "32px";
+				cell.innerHTML = "";
+
+				/* Add Event listener to cell */
+				cell.addEventListener("dragover", function (e) {
+					e.preventDefault();
+				});
+
+				let player_panel = this.player_panel;
+				cell.addEventListener("drop", function (e) {
+					e.preventDefault();
+					let data = e.dataTransfer.getData("from-item-slot");
+					player_panel.swapItem(data, this.getAttribute("slot"));
+				});
+			}
+		}
+
+		
+		let ui = document.createElement("div");
+		ui.innerText = this.character.getName();
+		ui.id = "p_name";
+		this.player_panel.appendChild(ui);
+		this.player_panel.appendChild(p_table);
+	}
+
+	randomRNG() {
+		let sp = document.createElement("div");
+		this.player_panel.appenccsdChild(sp);	
+	}
+
+	toggleUI() {
+		this.update();
+		super.toggleUI();
 	}
 }
 
@@ -339,7 +390,11 @@ class UIHealthBar extends UI {
 			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
 			document.querySelector('#interface > #healthbar > .bar > .floatText').style.animation = "blinktxt .2s step-end infinite alternate";
 		}
-		
+
+		if (document.querySelectorAll('#player_panel_slot').length > 0) {
+			document.querySelectorAll('#player_panel_slot')[0].innerHTML = this.character.getHealth();
+		}
+
 		this.hp_text.style.top = "0px";
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 
