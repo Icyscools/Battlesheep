@@ -14,14 +14,34 @@
 	<audio autoplay loop preload="auto" id="SFX">
 		<source src="assets/sound/silent.wav" type="audio/wav">
 	</audio>
-	<audio autoplay  preload="auto" id="hit"></audio>
+	<audio autoplay preload="auto" id="hit"></audio>
+	<div class="announcement">
+		<div id="howtoplay">
+			<div class="textbox">
+				<div class="box">
+					<p><code onclick="game.hideAnnounce()">X</code></p>
+					<p>How to play!</p>	
+					<p>
+						<code>W</code> <code>A</code> <code>S</code> <code>D</code> Move 
+					</p>
+					<p>
+						<code></code> <code></code> <code>I</code> <code></code> Inventory
+					</p>
+					<p>
+						<code></code> <code>J</code> <code>K</code> <code>L</code> Shoot
+					</p>
+					<p>Game end when all the monsters has die!</p><p>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="board" id="board">
 		<div id="title">
 			<div id="battlesheep"></div>
 		</div>
 		<div id="menu">
 			<div id="startGame" onclick="game.init()"><p>Start Game</p></div>
-			<div id="loadGame"><p>Load Game</p></div>
+			<div id="loadGame" onclick="game.showAnnounce()"><p>How to play</p></div>
 			<div id="Options"><p>Options</p></div>
 		</div>
 		<div id="gameover">

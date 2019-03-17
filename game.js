@@ -53,7 +53,12 @@ class GameBoard {
 		this.resizeCanvas();
 		return 1;
 	}
-
+	showAnnounce(){
+		document.querySelector("#howtoplay").style.display = "block";
+	}
+	hideAnnounce(){
+		document.querySelector("#howtoplay").style.display = "none";
+	}
 	hiddenInterface() {
 		/*
 		 * ซ่อน Interface menu (ปุ่มเริ่มเกม)
@@ -65,6 +70,9 @@ class GameBoard {
 		document.querySelector("#menu").style.display = "none";
 		document.querySelector("#backdrop").style.display = "block";
 		return 0;
+	}
+	howtoplay(){
+
 	}
 
 	init() {
@@ -92,8 +100,8 @@ class GameBoard {
 
 		this.map = new Map(
 			this.context,
-			16 * 10,
-			9 * 10
+			16 * 100,
+			9 * 100
 		);
 
 		this.character = new Character(
@@ -111,7 +119,7 @@ class GameBoard {
 
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
-				"Spirit #" + n, 0 + Math.random() * (this.map.map.width - 43.75), 0 + Math.random() * (this.map.map.height - 40), 43.75, 40,
+				"Spirit #" + n, 0 + Math.random() * (this.map.width - 32), 0 + Math.random() * (this.map.height - 32), 32, 32,
 				{
 					src: "assets/monster.png",
 					width: 43.75,
