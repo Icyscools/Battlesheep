@@ -97,33 +97,54 @@ class LivingEntity extends Entity {
 				this.status.state = "aggressive";
 				this.setTarget(damager);
 			}
-		}
 
-		let event;
-		if (this instanceof Character) {
-			event = new CustomEvent('CharacterOnDamage', {
-				bubbles: true,
-				detail: {
-					damage: damage,
-					damager: damager
+			let event;
+			if (this instanceof Character) {
+				if (this.isDead()) {
+					event = new CustomEvent("CharacterDied", {
+						bubbles: true,
+						detail: {
+							lastDamager: damager
+						}
+					})
+					window.dispatchEvent(event);
 				}
-			});
-		} else {
-			event = new CustomEvent('EntityOnDamage', {
-				bubbles: true,
-				detail: {
-					damage: damage,
-					damager: damager
+
+				event = new CustomEvent('CharacterOnDamage', {
+					bubbles: true,
+					detail: {
+						damage: damage,
+						damager: damager
+					}
+				});
+				window.dispatchEvent(event);
+			} else {
+				if (this.isDead()) {
+					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
+					damager.inventory.appendItem(loot);
+
+					event = new CustomEvent("EntityDied", {
+						bubbles: true,
+						detail: {
+							lastDamager: damager
+						}
+					})
+
+					window.dispatchEvent(event);
 				}
-			});
-			if (this.isDead()) {
-				let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
-				damager.inventory.appendItem(loot);
+				
+				event = new CustomEvent('EntityOnDamage', {
+					bubbles: true,
+					detail: {
+						damage: damage,
+						damager: damager
+					}
+				});
+				window.dispatchEvent(event);
 			}
 		}
-
-		window.dispatchEvent(event);
 	}
+
 	isAlive() {
 		/*
 		 * Check if this object is alived

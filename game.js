@@ -97,7 +97,7 @@ class GameBoard {
 		);
 
 		this.character = new Character(
-			"Sheep", Math.random() * this.map.width, Math.random() * this.map.height, 64, 64,
+			"Sheep", Math.random() * this.map.map.width, Math.random() * this.map.map.height, 64, 64,
 			{
 				src: "assets/sheepy-idle-walk.png",
 				width: 64,
@@ -154,7 +154,6 @@ class GameBoard {
 				// If entity collied with character and entity has a character to be a target
 				if (ent.collided(this.character) && ent.getTarget() === this.character) {
 					this.character.giveDamage(ent.getAttackDamage(), ent);
-					console.log(this.character.getHealth());
 					getHit();
 				}
 
