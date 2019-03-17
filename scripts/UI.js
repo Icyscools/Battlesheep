@@ -166,7 +166,7 @@ class UIPlayerStatus extends UI {
 				cell.setAttribute("slot", r * 5 + c);
 				cell.style.width = "320px";
 				cell.style.height = "32px";
-				cell.innerHTML = `<img src="assets\\items\\0000.png">`;
+				cell.innerHTML = "";
 
 				/* Add Event listener to cell */
 				cell.addEventListener("dragover", function (e) {
@@ -390,7 +390,11 @@ class UIHealthBar extends UI {
 			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
 			document.querySelector('#interface > #healthbar > .bar > .floatText').style.animation = "blinktxt .2s step-end infinite alternate";
 		}
-		
+
+		if (document.querySelectorAll('#player_panel_slot').length > 0) {
+			document.querySelectorAll('#player_panel_slot')[0].innerHTML = this.character.getHealth();
+		}
+
 		this.hp_text.style.top = "0px";
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 

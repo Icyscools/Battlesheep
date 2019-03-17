@@ -210,7 +210,7 @@ body {
 }
 
 #interface > #player_status > div, tr, td {
-	border: 1px solid #6b4840c4;
+	border: 1px solid #6b4840c4;	
 	border-radius: 3px;
 	background: #815950c4;
 }
@@ -220,10 +220,21 @@ body {
 	padding: 2px;
 }
 
-#interface > #player_status > #p_name {
-	position: absolute;
+#interface > #player_status > div #p_name {
+	/* position: absolute; */
 	margin: 10px;
 	padding: 2px;
+	text-align: left;
+	color: #fff;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
+}
+
+#player_panel_slot {
+	cursor: default;
+	margin: 10px;
+	padding: 2px;
+	padding-left: 10px;
 	text-align: left;
 	color: #fff;
 	font-family: 'Press Start 2P', cursive;
