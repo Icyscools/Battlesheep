@@ -88,7 +88,7 @@ class LivingEntity extends Entity {
 	giveDamage(damage, damager) {
 		/*
 		 * Give damage to this object
-		 * 
+		 *
 		 */
 		if (!this.status.isInvincible) {
 			this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
@@ -97,28 +97,52 @@ class LivingEntity extends Entity {
 				this.status.state = "aggressive";
 				this.setTarget(damager);
 			}
-		}
 
-		let event;
-		if (this instanceof Character) {
-			event = new CustomEvent('CharacterOnDamage', {
-				bubbles: true,
-				detail: {
-					damage: damage,
-					damager: damager
+			let event;
+			if (this instanceof Character) {
+				if (this.isDead()) {
+					event = new CustomEvent("CharacterDied", {
+						bubbles: true,
+						detail: {
+							lastDamager: damager
+						}
+					})
+					window.dispatchEvent(event);
 				}
-			});
-		} else {
-			event = new CustomEvent('EntityOnDamage', {
-				bubbles: true,
-				detail: {
-					damage: damage,
-					damager: damager
-				}
-			});
-		}
 
-		window.dispatchEvent(event);
+				event = new CustomEvent('CharacterOnDamage', {
+					bubbles: true,
+					detail: {
+						damage: damage,
+						damager: damager
+					}
+				});
+				window.dispatchEvent(event);
+			} else {
+				if (this.isDead()) {
+					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15}, true);
+					damager.inventory.appendItem(loot);
+
+					event = new CustomEvent("EntityDied", {
+						bubbles: true,
+						detail: {
+							lastDamager: damager
+						}
+					})
+
+					window.dispatchEvent(event);
+				}
+
+				event = new CustomEvent('EntityOnDamage', {
+					bubbles: true,
+					detail: {
+						damage: damage,
+						damager: damager
+					}
+				});
+				window.dispatchEvent(event);
+			}
+		}
 	}
 
 	isAlive() {
@@ -141,5 +165,12 @@ class LivingEntity extends Entity {
 		 * to make it died
 		 */
 		this.hp = -99999;
+	}
+
+	setHealth(hp) {
+		/*
+		 * Set Health of this object via parameter hp
+		*/
+		this.hp = hp;
 	}
 }

@@ -59,10 +59,10 @@ class Enemy extends LivingEntity {
 	asyncWalking() {
 		let ent = this;
 		this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
-		setTimeout(function() {	
+		setTimeout(function() {
 			ent.vector = new Vector2D(0, 0);
 			setTimeout(function () {
-				ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2); 
+				ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
 				ent.asyncWalking();
 			}, Math.random() * 10000);
 		}, 1000);
@@ -92,8 +92,6 @@ class Enemy extends LivingEntity {
 
 		this.context.save();
 
-		
-
 		if (this.collided(game.map.camera)) {
 			let camera_offset_x = this.width / 2;
 			let camera_offset_y = this.height / 2;
@@ -110,6 +108,10 @@ class Enemy extends LivingEntity {
 			}
 			this.context.restore();
 			super.render()
+		}
+
+		if (this.isDead()) {
+			console.log('wow');
 		}
 	}
 }
