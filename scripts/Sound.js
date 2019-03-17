@@ -14,6 +14,7 @@ function startGame(){
         audio.src = "assets/sound/bgm.wav";
         audio.loop = true;
         audio.load();
+        audio.volume = 0.25;
         audio.playbackRate = 1;
         audio.play();
 }
@@ -23,6 +24,7 @@ function walking(){
     if (sfx.src != "assets/sound/walk.wav") {
         sfx.src = "assets/sound/walk.wav";
         sfx.load();
+        sfx.volume = 0.5;
     }
     sfx.loop = true;
     sfx.play();
@@ -35,5 +37,19 @@ function stopWalking(){
         sfx.load();
     }
     sfx.loop = true;
+    sfx.play();
+}
+
+function getHit(){
+    var sfx = document.getElementById("hit");
+    sfx.src = "assets/sound/hit.wav";
+    sfx.load();
+    sfx.play();
+}
+
+function fireBullet(){
+    var sfx = document.getElementById("hit");
+    sfx.src = "assets/sound/laser.wav";
+    sfx.load();
     sfx.play();
 }

@@ -155,6 +155,7 @@ class GameBoard {
 				if (ent.collided(this.character) && ent.getTarget() === this.character) {
 					this.character.giveDamage(ent.getAttackDamage(), ent);
 					console.log(this.character.getHealth());
+					getHit();
 				}
 
 				// Check for each bullets that character shoot
