@@ -281,7 +281,7 @@ class Bullet extends Entity {
 		/*
 		 * Check if the bullet is out frame
 		 */
-		return (0 > this.x) || (this.x > game.map.width);
+		return (0 > this.x) || (this.x > game.map.map.width) || (0 > this.y) || (this.y > game.map.map.height);
 	}
 
 	render() {

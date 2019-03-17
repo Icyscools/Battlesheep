@@ -32,13 +32,14 @@ class Enemy extends LivingEntity {
 		this.faced = "right";
 		this.bullets = [];
 		this.def = 0;
-		this.velocity = velocity;
+		this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
 		this.acceralation = accelaration;
 		this.status = {
 			state: state,
 		}
 
 		this.target = "";
+		this.asyncWalking();
 	}
 
 	getTarget() {
@@ -55,37 +56,43 @@ class Enemy extends LivingEntity {
 		this.target = target;
 	}
 
+	asyncWalking() {
+		let ent = this;
+		this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
+		setTimeout(function() {	
+			ent.vector = new Vector2D(0, 0);
+			setTimeout(function () {
+				ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2); 
+				ent.asyncWalking();
+			}, Math.random() * 10000);
+		}, 1000);
+	}
+
 	render() {
 		/*
 		 * Render
 		 */
-
-		setTimeout(() => {
-			this.status.state = "idle-walk";
-		}, 2000);
-
+		let map = game.map.map;
 		if (this.status.state === "aggressive") {
-			this.setTarget(game.character);
-		}
-
-		if (this.status.state === "idle-walk") {
-			this.x += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
-			this.y += this.velocity * ((Math.random() >= 0.5) ? -1 : 1);
-			setTimeout(() => {
-				this.status.state = "idle";
-			}, 2000);
+			if (this.getTarget() !== "" && this.getTarget() !== undefined) {
+				let target_posX = this.getTarget().getX() + this.getTarget().getWidth() / 2,
+				    target_posY = this.getTarget().getY() + this.getTarget().getHeight() / 2,
+				    center_posX = this.x + this.width / 2,
+				    center_posY = this.y + this.height / 2;
+				let vector_target = new Vector2D(target_posX, target_posY);
+				let vector_ent = new Vector2D(center_posX, center_posY);
+				let to_target = vector_target.subtract(vector_ent).normalize();
+				this.x += to_target.x;
+				this.y += to_target.y;
+			}
+		} else {
+			this.x = Math.min(Math.max(this.x + this.vector.x, 0), map.width - this.width);
+			this.y = Math.min(Math.max(this.y + this.vector.y, 0), map.height - this.height);
 		}
 
 		this.context.save();
 
-		if (this.getTarget() !== "" && this.getTarget() !== undefined) {
-			let target_posX = this.getTarget().getX() + this.getTarget().getWidth() / 2,
-			    target_posY = this.getTarget().getY() + this.getTarget().getHeight() / 2,
-			    center_posX = this.x + this.width / 2,
-			    center_posY = this.y + this.height / 2;
-			this.x += target_posX > center_posX ? 1 : (target_posX < center_posX) ? -1 : 0
-			this.y += target_posY > center_posY ? 1 : (target_posY < center_posY) ? -1 : 0
-		}
+		
 
 		if (this.collided(game.map.camera)) {
 			let camera_offset_x = this.width / 2;

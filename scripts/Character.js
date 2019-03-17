@@ -35,7 +35,8 @@ class Character extends LivingEntity {
 		this.bullets = [];
 		this.equipment = []; // to do [Weapon, Head, Armour, Arms, Legs, Boots]
 		this.state = "idle"
-		this.walkTime = 0;
+		this.velocity = new Vector2D(0, 0);
+
 		/* Inventory (Not finish) */
 		let item = new Item("0001", "Newbie's Sword", "", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
@@ -49,7 +50,7 @@ class Character extends LivingEntity {
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
-		window.addEventListener('PlayerMove', (e) => console.log(e));
+		window.addEventListener('CharacterOnDamage', (e) => console.log(e));
 
 		// window.addEventListener('touchstart', (e) => this.fireBullet()); Tablet supported
 		// window.addEventListener('click', (e) => this.fireBullet(e)); PC supported
@@ -94,7 +95,7 @@ class Character extends LivingEntity {
 		 * to move the character on that direction
 		 *
 		 */
-		let map = game.map;
+		let map = game.map.map;
 		
 		if ((this.key.has(65) || this.key.has(68) || this.key.has(87) || this.key.has(83)) && !this.isWalking) {
 			this.isWalking = true;

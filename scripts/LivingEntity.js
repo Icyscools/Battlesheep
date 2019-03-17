@@ -88,15 +88,37 @@ class LivingEntity extends Entity {
 	giveDamage(damage, damager) {
 		/*
 		 * Give damage to this object
+		 * 
 		 */
 		if (!this.status.isInvincible) {
 			this.hp = Math.max(this.hp - Math.max(damage - this.def, 1), 0);
 			this.status.isAttacked = true;
 			if (damager !== undefined && this instanceof Enemy && !this.status.isInvincible) {
-				console.log(this.name);
+				this.status.state = "aggressive";
 				this.setTarget(damager);
 			}
 		}
+
+		let event;
+		if (this instanceof Character) {
+			event = new CustomEvent('CharacterOnDamage', {
+				bubbles: true,
+				detail: {
+					damage: damage,
+					damager: damager
+				}
+			});
+		} else {
+			event = new CustomEvent('EntityOnDamage', {
+				bubbles: true,
+				detail: {
+					damage: damage,
+					damager: damager
+				}
+			});
+		}
+
+		window.dispatchEvent(event);
 	}
 
 	isAlive() {

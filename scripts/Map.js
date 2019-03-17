@@ -3,10 +3,10 @@ class Map {
         this.context = context;
         this.width = width;
         this.height = height;
-        this.tileSize = 10;
+        this.tileSize = 25;
         this.map = {
-            width: this.width,
-            height: this.height,
+            width: this.width * this.tileSize,
+            height: this.height * this.tileSize,
             data: []
         };
         this.camera = {
@@ -51,7 +51,7 @@ class Map {
         for (let r = 0; r < this.height; r++) {
             let rows = []
             for (let c = 0; c < this.width; c++) {
-                rows.push(randomColor("Green"));
+                rows.push(Math.floor(Math.random() * 10));
             }
             this.map.data.push(rows)
         }
@@ -72,9 +72,15 @@ class Map {
        
         let canvas = document.querySelector("#GameMap");
         let context = canvas.getContext("2d");
+        let tile;
         for (let r = 0; r < this.height; r++) {
             for (let c = 0; c < this.width; c++) {
-                context.fillStyle = this.map.data[r][c];
+                if (this.map.data[r][c] <= 5) {
+                    tile = tileMapping[this.map.data[r][c]];
+                } else {
+                    tile = "#F33";
+                }
+                context.fillStyle = tile;
                 context.fillRect(c * this.tileSize, r * this.tileSize, this.tileSize, this.tileSize);
             }
         }
@@ -106,6 +112,15 @@ class Map {
         gameBoard.restore();
         */
     }
+}
+
+var tileMapping = {
+    "0": "#000",
+    "1": "#DDD",
+    "2": "#CCC",
+    "3": "#BBB",
+    "4": "#AAA",
+    "5": "#F99"
 }
 
 function randomColor(tone = "Red") {
