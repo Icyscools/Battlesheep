@@ -37,72 +37,6 @@ body {
 	top: calc(50vh - 250px);
 }
 
-#howtoplay > .textbox {
-	font-family: 'Press Start 2P', cursive;
-	letter-spacing: -2px;
-	font-size: 25px;
-	padding-top: 25px;
-	color: #441521;
-	position: absolute;
-	display: block;
-	left: calc(50% - 200px);
-	top: calc(50% - 180px);
-	width: 500px;
-	height: 300px;
-	z-index: 1000;
-}
-
-#howtoplay > .textbox > .box {
-	text-align: left;
-	padding-left: 22px;
-}
-
-#howtoplay > .textbox > .box code {
-	font-family: 'Press Start 2P', cursive;
-	padding-top: 10px;
-	font-size: 15px;
-	margin-top: 5%;
-	text-align: center;
-	display: inline-block;
-	background:  #441521;
-	color: white;
-	width: 32px;
-	height: 25px;
-}
-#howtoplay > .textbox > .box p:nth-child(n+3) {
-	margin-bottom: 14px;
-	font-size: 20px;
-}
-#howtoplay > .textbox > .box p:first-child {
-	left: 70%;
-	margin-bottom: 10px;
-	padding: 0%;
-	top: 0%;
-	position: absolute;
-}
-#howtoplay > .textbox > .box p:first-child:hover {
-	cursor: pointer;
-	color: #ffffff;
-	text-shadow: 5px 5px #000000;
-	-webkit-animation-name: animacao2;
-	-webkit-animation-duration: 0.8s;
-	-webkit-animation-timing-function:  linear;
-	-webkit-animation-iteration-count: infinite;
-	-webkit-animation-direction: alternate;
-
-	-moz-animation-name: animacao2;
-	-moz-animation-duration: 0.8s;
-	-moz-animation-timing-function:  linear;
-	-moz-animation-iteration-count: infinite;
-	-moz-animation-direction: alternate;
-
-	animation-name: animacao2;
-	animation-duration: 0.8s;
-	animation-timing-function:  linear;
-	animation-iteration-count: infinite;
-	animation-direction: alternate;
-}
-
 #howtoplay::after {
 	content: "";
 	position: absolute;
@@ -124,6 +58,139 @@ body {
 	width: 350px;
 	height: 500px;
 	z-index: 999;
+}
+
+#option{
+	display: none;
+	position: absolute;
+	width: 600px;
+	height: 500px;
+	background-size: cover;
+	left: calc(50vw - 300px);
+	top: calc(50vh - 250px);
+}
+
+#option > .textbox > .box > p > span {
+	padding-left: 30px;
+	padding-bottom: 10px;
+	font-size: 30px;
+}	
+
+#option > .textbox > .box > p code[sound] {
+	width: 100px;
+	height: 100px;
+}
+
+
+#option::after {
+	content: "";
+	position: absolute;
+	display: block;
+	background: url("assets/btja.png");
+	background-position: right;
+	left: 300px;
+	width: 300px;
+	height: 500px;
+	z-index: 998;
+}
+#option::before {
+	content: "";
+	position: absolute;
+	display: block;
+	background: url("assets/btja.png");
+	background-position: left;
+	left: 0px;
+	width: 350px;
+	height: 500px;
+	z-index: 999;
+}
+
+.textbox {
+	font-family: 'Press Start 2P', cursive;
+	letter-spacing: -2px;
+	font-size: 25px;
+	padding-top: 25px;
+	color: #441521;
+	position: absolute;
+	display: block;
+	left: calc(50% - 200px);
+	top: calc(50% - 180px);
+	width: 500px;
+	height: 300px;
+	z-index: 1000;
+}
+
+.textbox > .box {
+	text-align: left;
+	padding-left: 22px;
+}
+
+.textbox > .box code {
+	font-family: 'Press Start 2P', cursive;
+	padding-top: 10px;
+	font-size: 15px;
+	margin-top: 5%;
+	text-align: center;
+	display: inline-block;
+	background:  #441521;
+	color: white;
+	width: 32px;
+	height: 25px;
+}
+.textbox > .box p:nth-child(n+3) {
+	margin-bottom: 14px;
+	font-size: 20px;
+}
+.textbox > .box p:first-child {
+	left: 70%;
+	margin-bottom: 10px;
+	padding: 0%;
+	top: 0%;
+	position: absolute;
+}
+#option > .textbox > .box code:hover{
+	cursor: pointer;
+	color: #ffffff;
+	text-shadow: 5px 5px #000000;
+	-webkit-animation-name: animacao2;
+	-webkit-animation-duration: 0.8s;
+	-webkit-animation-timing-function:  linear;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+
+	-moz-animation-name: animacao2;
+	-moz-animation-duration: 0.8s;
+	-moz-animation-timing-function:  linear;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-direction: alternate;
+
+	animation-name: animacao2;
+	animation-duration: 0.8s;
+	animation-timing-function:  linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;}
+
+	.textbox > .box p:first-child:hover{
+		cursor: pointer;
+		color: #ffffff;
+		text-shadow: 5px 5px #000000;
+		-webkit-animation-name: animacao2;
+		-webkit-animation-duration: 0.8s;
+		-webkit-animation-timing-function:  linear;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-direction: alternate;
+	
+		-moz-animation-name: animacao2;
+		-moz-animation-duration: 0.8s;
+		-moz-animation-timing-function:  linear;
+		-moz-animation-iteration-count: infinite;
+		-moz-animation-direction: alternate;
+	
+		animation-name: animacao2;
+		animation-duration: 0.8s;
+		animation-timing-function:  linear;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
 }
 
 #menu {

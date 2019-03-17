@@ -54,12 +54,32 @@ class GameBoard {
 		return 1;
 	}
 
-	showAnnounce(){
-		document.querySelector("#howtoplay").style.display = "block";
+	showAnnounce(x){
+		if (x == 1){
+			if (document.querySelector("#howtoplay").style.display == "block"){
+				document.querySelector("#howtoplay").style.display = "none";
+				document.querySelector("#option").style.display = "none";
+			}
+			else
+				document.querySelector("#howtoplay").style.display = "block";
+				document.querySelector("#option").style.display = "none";
+		}
+		else{
+			if (document.querySelector("#option").style.display == "block"){
+				document.querySelector("#option").style.display = "none";
+			}
+			else{
+				document.querySelector("#option").style.display = "block";
+				document.querySelector("#howtoplay").style.display = "none";
+			}
+		}
+			
+
 	}
 
 	hideAnnounce(){
 		document.querySelector("#howtoplay").style.display = "none";
+		document.querySelector("#option").style.display = "none";
 	}
 
 	hiddenInterface() {
@@ -82,6 +102,7 @@ class GameBoard {
 		 */
 		startGame();
 		document.querySelector("#howtoplay").style.display = "none";
+		document.querySelector("#option").style.display = "none";
 		var list = document.getElementById("interface");
 		while (list.hasChildNodes()) {
 			list.removeChild(list.childNodes[0]);
@@ -238,6 +259,8 @@ class GameBoard {
 /* Configuration */
 const config = {
 	gameTick: 20
+	,gameSound: 1
+	,sfxSound: 1
 }
 
 /* Game declare */

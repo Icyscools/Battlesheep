@@ -64,3 +64,29 @@ function monsterHit(){
     sfx.load();
     sfx.play();
 }
+
+function soundMute(){
+    if (config.gameSound == 1){
+        document.getElementById("Audio").muted = true;
+        config.gameSound = 0;
+    }
+    else{
+        document.getElementById("Audio").muted = false;
+        config.gameSound = 1;
+    }
+}
+
+function sfxMute(){
+    if (config.sfxSound == 1){
+        document.getElementById("SFX").muted = true;
+        document.getElementById("hit").muted = true;
+        document.getElementById("mob").muted = true;
+        config.sfxSound = 0;
+    }
+    else{
+        document.getElementById("SFX").muted = false;
+        document.getElementById("hit").muted = false;
+        document.getElementById("mob").muted = false;
+        config.sfxSound = 1;
+    }
+}

@@ -16,7 +16,7 @@
 	</audio>
 	<audio autoplay preload="auto" id="hit"></audio>
 	<audio autoplay preload="auto" id="mob"></audio>
-	<div class="announcement">
+	<div>
 		<div id="howtoplay">
 			<div class="textbox">
 				<div class="box">
@@ -36,14 +36,33 @@
 			</div>
 		</div>
 	</div>
+	<div>
+		<div id="option">
+			<div class="textbox">
+				<div class="box">
+						<p><code onclick="game.hideAnnounce()">X</code></p>
+						<p>Options</p>
+						<p>
+							<code onclick="soundMute()" sound>รูป</code>
+							<span>Music</span>
+						</p>
+						<p><code onclick="sfxMute()" sound>รูป</code>
+							<span>SFX</span>
+						</p>
+				</div>
+				</div>
+			</div>
+		</div>
+			
+	</div>
 	<div class="board" id="board">
 		<div id="title">
 			<div id="battlesheep"></div>
 		</div>
 		<div id="menu">
 			<div id="startGame" onclick="game.init()"><p>Start Game</p></div>
-			<div id="loadGame" onclick="game.showAnnounce()"><p>How to play</p></div>
-			<div id="Options"><p>Options</p></div>
+			<div id="loadGame" onclick="game.showAnnounce('1')"><p>How to play</p></div>
+			<div id="Options" onclick="game.showAnnounce('0')"><p>Options</p></div>
 		</div>
 		<div id="gameover">
 			<p style="font-size: 8em;">
