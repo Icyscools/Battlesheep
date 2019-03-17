@@ -88,13 +88,14 @@ class Enemy extends LivingEntity {
 
 	asyncWalking() {
 		let ent = this;
+		let walkRange = 2.5;
 		if (ent.status.state != "aggressive") {
-			this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
+			this.vector = new Vector2D(Math.random() * (2 * walkRange) + -walkRange, Math.random() * (2 * walkRange) + -walkRange);
 			setTimeout(function() {
 				ent.vector = new Vector2D(0, 0);
 				setTimeout(function () {
 					if (ent.status.state != "aggressive") {
-						ent.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
+						ent.vector = new Vector2D(Math.random() * (2 * walkRange) + -walkRange, Math.random() * (2 * walkRange) + -walkRange);
 					}
 					ent.asyncWalking();
 				}, Math.random() * 10000);
@@ -119,7 +120,7 @@ class Enemy extends LivingEntity {
 				    center_posY = this.y + this.height / 2;
 				let vector_target = new Vector2D(target_posX, target_posY);
 				let vector_ent = new Vector2D(center_posX, center_posY);
-				let to_target = vector_target.subtract(vector_ent).normalize().add(this.vector);
+				let to_target = vector_target.subtract(vector_ent).normalize().multiple(1.2).add(this.vector);
 				this.x = Math.min(Math.max(this.x + to_target.x, 0), map.width);
 				this.y = Math.min(Math.max(this.y + to_target.y, 0), map.height);
 

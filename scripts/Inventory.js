@@ -89,21 +89,46 @@ class Inventory {
 		console.log(this.storages)
 	}
 
-	appendItem(item) {
+	findItem(item) {
 		for (let r = 0; r < this.rows; r++) {
 			for (let c = 0; c < this.cols; c++) {
-				if (this.storages[r][c] === 0 && !item.stackable) {
-					this.storages[r][c] = item;
-					return [item, r, c];
+				if (this.storages[r][c] === 0) continue;
+				else {
+					if (this.storages[r][c].isSame(item)) {
+						return [r, c];
+					} else {
+						continue;
+					}
 				}
-				if (this.storages[r][c] === 0 && item.stackable) {
-					let stackableItem = new ItemStack(item, 1);
-					this.storages[r][c] = stackableItem;
-					return [item, r, c, 1];
-				}
-				if (this.storages[r][c] instanceof ItemStack && item.stackable) {
-					this.storages[r][c].amount += 1;
-					return [item, r, c, this.storages[r][c].amount];
+			}
+		}
+		return 0;
+	}
+
+	appendItem(item) {
+		console.log(this.storages);
+		if (item.stackable) {
+			let index_item = this.findItem(item);
+			if (index_item !== 0) {
+				let r = index_item[0];
+				let c = index_item[1];
+				this.storages[r][c].amount += 1;
+				return [item, r, c, this.storages[r][c].amount];
+			} 
+		}
+
+		for (let r = 0; r < this.rows; r++) {
+			for (let c = 0; c < this.cols; c++) {
+				if (!item.stackable) {
+					if (this.storages[r][c] == 0) {
+						this.storages[r][c] = item;
+						return [item, r, c];
+					}
+				} else {
+					if (this.storages[r][c] == 0) {
+						this.storages[r][c] = item;
+						return [item, r, c, this.storages[r][c].amount];
+					}
 				}
 			}
 		}
