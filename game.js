@@ -100,8 +100,8 @@ class GameBoard {
 
 		this.map = new Map(
 			this.context,
-			16 * 100,
-			9 * 100
+			16 * 10,
+			9 * 10
 		);
 
 		this.character = new Character(
@@ -119,7 +119,7 @@ class GameBoard {
 
 		for (let n = 50; n > 0; n--) {
 			let ent = new Enemy(
-				"Spirit #" + n, 0 + Math.random() * (this.map.width - 32), 0 + Math.random() * (this.map.height - 32), 32, 32,
+				"Spirit #" + n, 0 + Math.random() * (this.map.map.width - 43.75), 0 + Math.random() * (this.map.map.height - 40), 43.75, 40,
 				{
 					src: "assets/monster.png",
 					width: 43.75,
