@@ -20,9 +20,12 @@ class GameBoard {
 			height: 768
 		};
 		this.isPause = false;
+		this.keyAction = new Set();
 
 		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
+		window.addEventListener('keydown', (e) => this.bindAction(e, "add"));
+		window.addEventListener('keyup', (e) => this.bindAction(e, "remove"))
 	}
 
 	getEntitys() {
@@ -94,6 +97,39 @@ class GameBoard {
 		document.querySelector("#menu").style.display = "none";
 		document.querySelector("#backdrop").style.display = "block";
 		return 0;
+	}
+
+	pause() {
+		this.isPause = true;
+		this.showAnnounce();
+		// pause panel show
+	}
+
+	unpause() {
+		this.isPause = false;
+		this.hideAnnounce();
+		// pause panel hide
+	}
+
+	togglePause() {
+		if (this.isPause) this.unpause();
+		else this.pause();
+
+		console.log(this.isPause)
+	}
+
+	bindAction(e, action) {
+		if (action === "add") {
+			if (this.keyAction.has(e.keyCode)) return 0;
+			else this.keyAction.add(e.keyCode);
+		} else {
+			if (this.keyAction.has(e.keyCode)) this.keyAction.delete(e.keyCode);
+			else return 0;
+		}
+
+		if (e.keyCode == 27 && action === "add") { // Escape
+			this.togglePause();
+		}
 	}
 
 	init() {
@@ -223,10 +259,11 @@ class GameBoard {
 				// Character update
 				this.i++;
 				this.character.render();
-				setTimeout(() => {
-					this.gameUpdate()
-				}, config.gameTick);
 			}
+			
+			setTimeout(() => {
+				this.gameUpdate()
+			}, config.gameTick);
 		} else {
 			console.log("Game over");
 			this.character.render();

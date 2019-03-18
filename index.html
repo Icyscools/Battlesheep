@@ -40,7 +40,7 @@
 		<div id="option">
 			<div class="textbox">
 				<div class="box">
-						<p><code onclick="game.hideAnnounce()">X</code></p>
+						<p><code onclick="game.togglePause()">X</code></p>
 						<p>Options</p>
 						<p>
 							<code onclick="soundMute()" sound>รูป</code>
@@ -62,7 +62,7 @@
 		<div id="menu">
 			<div id="startGame" onclick="game.init()"><p>Start Game</p></div>
 			<div id="loadGame" onclick="game.showAnnounce('1')"><p>How to play</p></div>
-			<div id="Options" onclick="game.showAnnounce('0')"><p>Options</p></div>
+			<div id="Options" onclick="game.togglePause('0')"><p>Options</p></div>
 		</div>
 		<div id="gameover">
 			<p style="font-size: 8em;">
