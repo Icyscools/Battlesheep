@@ -4,6 +4,7 @@ function gameOver(){
         audio.src = "assets/sound/gameover.wav";
         audio.loop = false;
         audio.load();
+        audio.playbackRate = 0.5;
         audio.play();
         console.log(audio)
 }
@@ -13,7 +14,7 @@ function gameWin(){
     audio.src = "assets/sound/victory.wav";
     audio.loop = false;
     audio.load();
-    audio.playbackRate = 0.5;
+    audio.playbackRate = 0.8;
     audio.play();
     console.log(audio)
 }
