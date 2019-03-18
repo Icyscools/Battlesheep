@@ -78,6 +78,11 @@ body {
 	font-size: 30px;
 }	
 
+#howtoplay > .textbox > .box > p > span {
+	padding-left: 30px;
+	padding-bottom: 10px;
+}	
+
 #option > .textbox > .box > p code[sound] {
 	width: 100px;
 	height: 90px;
@@ -106,6 +111,10 @@ body {
 	width: 350px;
 	height: 500px;
 	z-index: 999;
+}
+
+#howtoplay > .textbox > .box > p > .special {
+	width: 180px;
 }
 
 .textbox {
