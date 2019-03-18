@@ -67,10 +67,12 @@ function monsterHit(){
 
 function soundMute(){
     if (config.gameSound == 1){
+        document.getElementById('bgmmute').style.backgroundImage = "url(assets/mute.png)";
         document.getElementById("Audio").muted = true;
         config.gameSound = 0;
     }
     else{
+        document.getElementById('bgmmute').style.backgroundImage = "url(assets/unmute.png)";
         document.getElementById("Audio").muted = false;
         config.gameSound = 1;
     }
@@ -78,12 +80,14 @@ function soundMute(){
 
 function sfxMute(){
     if (config.sfxSound == 1){
+        document.getElementById('sfxmute').style.backgroundImage = "url(assets/mute.png)";
         document.getElementById("SFX").muted = true;
         document.getElementById("hit").muted = true;
         document.getElementById("mob").muted = true;
         config.sfxSound = 0;
     }
     else{
+        document.getElementById('sfxmute').style.backgroundImage = "url(assets/unmute.png)";
         document.getElementById("SFX").muted = false;
         document.getElementById("hit").muted = false;
         document.getElementById("mob").muted = false;
