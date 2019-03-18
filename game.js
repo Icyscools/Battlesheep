@@ -19,6 +19,7 @@ class GameBoard {
 			width: 1366,
 			height: 768
 		};
+		this.isPause = false;
 
 		this.resizeCanvas();
 		window.addEventListener('resize', (e) => this.resizeCanvas());
@@ -173,61 +174,64 @@ class GameBoard {
 		 */
 
 		if (this.character.isAlive()) {
-			// Clear screen
-			this.context.clearRect(0, 0, this.board.width, this.board.height);
+			if (!this.isPause) {
+				// Clear screen
+				this.context.clearRect(0, 0, this.board.width, this.board.height);
 
-			// Camera update
-			this.map.updateCamera();
+				// Camera update
+				this.map.updateCamera();
 
-			// Check for each entitys
-			this.entitys.forEach((ent) => {
-				// If entity collied with character and entity has a character to be a target
-				if (ent.collided(this.character) && ent.getTarget() === this.character) {
-					this.character.giveDamage(ent.getAttackDamage(), ent);
-				}
-
-				// Check for each bullets that character shoot
-				this.character.getBullet().forEach((bullet) => {
-					// If character bullet hit entity
-					if (bullet.collided(ent)) {
-						monsterHit(); // Monster Sound
-						// Give entity a amount of damage
-						this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
-						ent.giveDamage(this.character.getAttackDamage(), bullet);
-						// If entity have health less than or equal 0, then remove it
-						if (ent.getHealth() <= 0) {
-							this.entitys.splice(this.entitys.indexOf(ent), 1);
-						}
+				// Check for each entitys
+				this.entitys.forEach((ent) => {
+					// If entity collied with character and entity has a character to be a target
+					if (ent.collided(this.character) && ent.getTarget() === this.character) {
+						this.character.giveDamage(ent.getAttackDamage(), ent);
 					}
+
+					// Check for each bullets that character shoot
+					this.character.getBullet().forEach((bullet) => {
+						// If character bullet hit entity
+						if (bullet.collided(ent)) {
+							monsterHit(); // Monster Sound
+							// Give entity a amount of damage
+							this.character.getBullet().splice(this.character.getBullet().indexOf(bullet), 1);
+							ent.giveDamage(this.character.getAttackDamage(), bullet);
+							// If entity have health less than or equal 0, then remove it
+							if (ent.getHealth() <= 0) {
+								this.entitys.splice(this.entitys.indexOf(ent), 1);
+							}
+						}
+					})
 				})
-			})
 
-			// Entity update
-			this.orderEntitys = [...this.entitys];
-			this.orderEntitys.sort(function (a, b) {
-				if (a.y > b.y) {
-					return 1;
-				} else if (a.y < b.y) {
-					return -1;
-				} else {
-					return 0;
-				}
-			});
+				// Entity update
+				this.orderEntitys = [...this.entitys];
+				this.orderEntitys.sort(function (a, b) {
+					if (a.y > b.y) {
+						return 1;
+					} else if (a.y < b.y) {
+						return -1;
+					} else {
+						return 0;
+					}
+				});
 
-			this.orderEntitys.forEach((entity) => {
-				entity.render();
-			}, this);
+				this.orderEntitys.forEach((entity) => {
+					entity.render();
+				}, this);
 
-			// Character update
-			this.i++;
-			this.character.render();
-			setTimeout(() => {
-				this.gameUpdate()
-			}, config.gameTick);
+				// Character update
+				this.i++;
+				this.character.render();
+				setTimeout(() => {
+					this.gameUpdate()
+				}, config.gameTick);
+			}
 		} else {
 			console.log("Game over");
 			document.querySelector("#gameover").style.display = "block";
 			gameOver();
+			stopWalking();
 		}
 	}
 
