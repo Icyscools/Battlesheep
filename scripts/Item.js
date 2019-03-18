@@ -62,10 +62,10 @@ class ItemStack extends Item {
 
 function ItemGenerator() {
 	let item_id, name, attr = {};
-
+	let random = Math.floor(Math.random() * random_name.length);
 	item_id = zeroPadding((Math.floor(Math.random() * 5) + 1), 4);
-	name = random_name[Math.floor(Math.random() * random_name.length)] + " Sword";
-	attr.atk = Math.random() * 20
+	name = random_name[random] + " Sword";
+	attr.atk = prefix_list[random];
 
 	return new Item(item_id, name, "", attr, "sword");
 }
@@ -74,10 +74,12 @@ function zeroPadding(num, length) {
 	let str = num.toString();
 	let needFill = length - str.length;
 
-	while (needFill > 0) {
+	while (needFill > 1) {
 		str = "0" + str;
 		needFill -= 1;
 	}
+	category_index = Math.floor((Math.random() * 3) + 1);
+	str = category_index + str;
 	return str;
 }
 
