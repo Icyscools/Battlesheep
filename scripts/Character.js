@@ -225,10 +225,18 @@ class Character extends LivingEntity {
 	}
 
 	levelUp() {
+		console.log("level up " + (this.level + 1))
 		this.level += 1;
 		this.experience -= this.needExperience;
 		this.needExperience = this.calculateNextLevel();
-		if (this.experience >= this.needExperience) this.levelUp();
+
+		this.atk = this.atk * (1 + this.level / 10);
+		this.def = this.def * (1 + Math.max(((this.level - 1) / 25), 0));
+		this.maxhp = Math.floor(this.maxhp * (1 + Math.max((this.level - 1) / 10, 0)));
+		this.hp = this.maxhp;
+		if (this.experience >= this.needExperience) {
+			this.levelUp();
+		}
 	}
 
 	calculateNextLevel() {
