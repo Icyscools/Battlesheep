@@ -37,10 +37,10 @@ class Character extends LivingEntity {
 		this.velocity = new Vector2D(0, 0);
 
 		/* Inventory (Not finish) */
-		let item = new Item("0001", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30}, "sword");
+		let item = new Item("0000", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30}, "sword");
 		this.inventory = new Inventory(this, 2, 9, {});
 		this.inventory.addItem(item, 1, 2);
-		let potion = new ItemStack(new Item("0100", "Red Potion", "", {"regenHP" : 15}), 9, "consumable");
+		let potion = new ItemStack(new Item("9001", "Red Potion", "", {"regenHP" : 15}), 9, "consumable");
 		this.inventory.appendItem(potion);
 		console.log(this.inventory.swapItem(11, 12));
 

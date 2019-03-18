@@ -63,7 +63,7 @@ class ItemStack extends Item {
 function ItemGenerator() {
 	let item_id, name, attr = {};
 
-	item_id = zeroPadding((Math.floor(Math.random() * 9) + 1), 4);
+	item_id = zeroPadding((Math.floor(Math.random() * 5) + 1), 4);
 	name = random_name[Math.floor(Math.random() * random_name.length)] + " Sword";
 	attr.atk = Math.random() * 20
 
