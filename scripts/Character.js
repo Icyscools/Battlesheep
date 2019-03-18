@@ -179,8 +179,8 @@ class Character extends LivingEntity {
 		}
 
 		vec = vec.add(this.velocity);
-		let x = Math.min(Math.max(this.x + vec.x, 0), map.width - this.sprite_options.width * this.sprite_options.ratio);
-		let y = Math.min(Math.max(this.y + vec.y, 0), map.height - this.sprite_options.height * this.sprite_options.ratio);
+		let x = Math.min(Math.max(this.x + vec.x, -this.width), map.width - (this.sprite_options.width * this.sprite_options.ratio) / 2);
+		let y = Math.min(Math.max(this.y + vec.y, -this.height), map.height - (this.sprite_options.height * this.sprite_options.ratio));
 		if (game.map.isWalkable(x + this.width / 2, y + this.height)) {
 			this.x = x;
 			this.y = y;
