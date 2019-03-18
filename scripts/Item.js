@@ -74,12 +74,13 @@ function zeroPadding(num, length) {
 	let str = num.toString();
 	let needFill = length - str.length;
 
-	while (needFill > 1) {
+	// set to 1 if want to include Helm, Armor, Boots
+	while (needFill > 0) {
 		str = "0" + str;
 		needFill -= 1;
 	}
-	category_index = Math.floor((Math.random() * 3) + 1);
-	str = category_index + str;
+	// category_index = Math.floor((Math.random() * 3) + 1);
+	// str = category_index + str;
 	return str;
 }
 
