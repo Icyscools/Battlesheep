@@ -28,7 +28,9 @@ class Character extends LivingEntity {
 
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralatation);
+		super(name, x, y, width, height, sprite_options, 1, hp, atk, def, atkspd, velocity, acceralatation);
+		this.experience = 0;
+		this.needExperience = this.calculateNextLevel();
 		this.key = new Set();
 		this.faced = "down";
 		this.isWalking = false;
@@ -217,17 +219,31 @@ class Character extends LivingEntity {
 		super.render();
 	}
 
+	addExperince(exp) {
+		this.experience += exp;
+		if (this.experience >= this.needExperience) levelUp();
+	}
+
+	levelUp() {
+		this.level += 1;
+		this.experience -= this.needExperience;
+		this.needExperience = calculateNextLevel();
+		if (this.experience >= this.needExperience) this.levelUp();
+	}
+
+	calculateNextLevel() {
+		let x = 1,
+			y = 3,
+			z = 4,
+			w = -10;
+		return x * ((this.level + 1) + y)**2 + z*(this.level + 1) + w;
+	}
+
 	getBullet() {
 		/*
 		 * Get bullets object that this character shoot
 		 */
 		return this.bullets;
-	}
-
-	attack(e) {
-		/*
-		 * Attack action
-		 */
 	}
 
 	fireBullet(e) {

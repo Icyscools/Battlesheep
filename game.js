@@ -177,8 +177,9 @@ class GameBoard {
 		);
 
 		for (let n = 50; n > 0; n--) {
+			let level = Math.ceil(Math.random() * 10);
 			let ent = new Enemy(
-				"Spirit #" + n, 0 + Math.random() * (this.map.map.width - 43.75), 0 + Math.random() * (this.map.map.height - 40), 43.75, 40,
+				`Lv.${level} Spirit`, 0 + Math.random() * (this.map.map.width - 43.75), 0 + Math.random() * (this.map.map.height - 40), 43.75, 40,
 				{
 					src: "assets/monster.png",
 					width: 43.75,
@@ -187,7 +188,7 @@ class GameBoard {
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				}, 50, 10, 1, 1.5, 0.25, "idle"
+				}, level, 25, 10, 1, 1.5, 0.25, "idle"
 			);
 
 			/*

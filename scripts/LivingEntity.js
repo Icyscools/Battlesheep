@@ -5,7 +5,7 @@ class LivingEntity extends Entity {
 	 * LivingEntity object
 	 * Define to any creature on the game
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def, atkspd, velocity, acceralation) {
+	constructor(name, x, y, width, height, sprite_options, level, hp, atk, def, atkspd, velocity, acceralation) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -31,6 +31,7 @@ class LivingEntity extends Entity {
 		super(name, x, y, width, height, sprite_options);
 		this.hp = hp;
 		this.maxhp = hp;
+		this.level = level;
 		this.atk = atk;
 		this.def = def;
 		this.atkspd = atkspd;
@@ -42,6 +43,13 @@ class LivingEntity extends Entity {
 			isInvincible: false,
 			isMoving: false,
 		};
+	}
+
+	getLevel() {
+		/*
+		 * Get level of this object
+		 */
+		return this.level;
 	}
 
 	getHealth() {
@@ -131,9 +139,11 @@ class LivingEntity extends Entity {
 					if (damager instanceof Bullet) {
 						damager.getOwner().inventory.appendItem(loot_stack);
 						damager.getOwner().inventory.getUI().updateInventory();
+						damager.addExperince(this.level * (Math.random() * 5 + 1.75));
 					} else {
 						damager.inventory.appendItem(loot_stack);
 						damager.inventory.getUI().updateInventory();
+						damager.addExperince(this.level * (Math.random() * 5 + 1.75));
 					}
 
 					event = new CustomEvent("EntityDied", {

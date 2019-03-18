@@ -5,7 +5,7 @@ class Enemy extends LivingEntity {
 	 * Enemy object
 	 * Define as attacker to player
 	 */
-	constructor(name, x, y, width, height, sprite_options, hp, atk, def, velocity, accelaration, state) {
+	constructor(name, x, y, width, height, sprite_options, level, hp, atk, def, velocity, accelaration, state) {
 		/*
 		 * Constructor
 		 * is a function to define new object, class declaration
@@ -27,11 +27,10 @@ class Enemy extends LivingEntity {
 
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
-		super(name, x, y, width, height, sprite_options, hp, atk, def, 1);
+		super(name, x, y, width, height, sprite_options, level, hp, atk, def, 1);
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
-		this.def = 0;
 		this.vector = new Vector2D(Math.random() * (2 - -2) + -2, Math.random() * (2 - -2) + -2);
 		this.acceralation = accelaration;
 		this.status = {

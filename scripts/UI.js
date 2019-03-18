@@ -429,7 +429,7 @@ class UIHealthBar extends UI {
 
 		this.character = character;
 		this.ui = this.createUI();
-		this.ui.innerText = this.character.getName();
+		this.ui.innerText = `${this.character.getName()} Lv.${this.character.level}`;
 
 		this.hpbar = document.createElement("div");
 		this.hpbar.classList.add("bar");
@@ -447,7 +447,16 @@ class UIHealthBar extends UI {
 
 		this.expbar = document.createElement("div");
 		this.expbar.classList.add("bar");
-		//this.ui.appendChild(this.bar);
+
+		this.exp = document.createElement("div");
+		this.exp.classList.add("health");
+		this.expbar.appendChild(this.health);
+
+		this.exp_text = document.createElement("span");
+		this.exp_text.classList.add("floatText")
+		this.hpbar.appendChild(this.hp_text);
+
+		this.ui.appendChild(this.expbar);
 
 		this.setPosition(0, 0);
 		this.render();
@@ -457,6 +466,7 @@ class UIHealthBar extends UI {
 	render() {
 		//this.ui.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`
 		this.health.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
+		this.exp.style.width = `${this.character.experience / this.character.needExperience * 100}%`;
 
 		if (this.character.getHealth() <= 30) {
 			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
@@ -469,6 +479,9 @@ class UIHealthBar extends UI {
 
 		this.hp_text.style.top = "0px";
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
+
+		this.exp_text.style.top = "0px";
+		this.exp_text.innerText = `HP : ${this.character.experience} / ${this.character.needExperience}`;
 
 		setTimeout(() => {
 			if (this.game_identity == config.identity)
