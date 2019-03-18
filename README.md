@@ -1,6 +1,6 @@
 # JavaScript Game Mini-Project
 ## Battlesheep
-This Project is a part of course __06016311 Multimedia Technology__ (Academic Year 2018)
+This Project is a part of course __06016311 Multimedia Technology__ (Academic Year 2018), Faculty of Information Technology, King Mongkut's Institute of Technology Ladkrabang.
    * Play now: https://icyscools.github.io/battlesheep/
 
 # Details
@@ -21,8 +21,9 @@ press __J K L__ button to shoot the enemies.
 |<img src="/sheepy-adventure/mb/kun.jpg" width="150px" height="150px">|
 |:-----:|:-----:|:-----:|:-----:|:-----:|
 
-|61070004 - Krittima Chantachalee
-|61070059 - Nichapat Kachacheewa
-|61070097 - Nunja Sowan
-|61070200 - Woramat Ngamkham
-|61070 - Kun Wongubol
+|__61070004__ - Krittima Chantachalee
+|__61070059__ - Nichapat Kachacheewa
+|__61070097__ - Nunja Sowan
+|__61070200__ - Woramat Ngamkham
+|__61070337__ - Kun Wongubol
+|
