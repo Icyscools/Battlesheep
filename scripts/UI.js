@@ -156,31 +156,31 @@ class UIPlayerStatus extends UI {
 	update() {
 		this.player_panel.innerHTML = "";
 		let p_table = document.createElement("table")
-		for (let r = 0; r < 5; r++) {
-			let row = p_table.insertRow(r);
-			for (let c = 0; c < 1; c++) {
-				let cell = row.insertCell(c);
+		// for (let r = 0; r < 5; r++) {
+		// 	let row = p_table.insertRow(r);
+		// 	for (let c = 0; c < 1; c++) {
+		// 		let cell = row.insertCell(c);
 
-				/* Initialize the slot */
-				cell.id = "player_panel_slot";
-				cell.setAttribute("slot", r * 5 + c);
-				cell.style.width = "320px";
-				cell.style.height = "32px";
-				cell.innerHTML = "";
+		// 		/* Initialize the slot */
+		// 		cell.id = "player_panel_slot";
+		// 		cell.setAttribute("slot", r * 5 + c);
+		// 		cell.style.width = "32px";
+		// 		cell.style.height = "32px";
+		// 		cell.innerHTML = "";
 
-				/* Add Event listener to cell */
-				cell.addEventListener("dragover", function (e) {
-					e.preventDefault();
-				});
+		// 		/* Add Event listener to cell */
+		// 		cell.addEventListener("dragover", function (e) {
+		// 			e.preventDefault();
+		// 		});
 
-				let player_panel = this.player_panel;
-				cell.addEventListener("drop", function (e) {
-					e.preventDefault();
-					let data = e.dataTransfer.getData("from-item-slot");
-					player_panel.swapItem(data, this.getAttribute("slot"));
-				});
-			}
-		}
+		// 		let player_panel = this.player_panel;
+		// 		cell.addEventListener("drop", function (e) {
+		// 			e.preventDefault();
+		// 			let data = e.dataTransfer.getData("from-item-slot");
+		// 			player_panel.swapItem(data, this.getAttribute("slot"));
+		// 		});
+		// 	}
+		// }
 
 
 		let ui = document.createElement("div");
