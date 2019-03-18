@@ -341,6 +341,12 @@ class UIItem extends UI {
 		}
 
 		else {
+			if (game.character.equipment[0] !== undefined) {
+				game.character.setAttackDamage(game.character.atk - game.character.equipment[0].attrs["atk"]);
+				game.character.inventory.appendItem(game.character.equipment[0]);
+				game.character.equipment[0] = undefined;
+			}
+
 			if (this.item.category === "sword") {
 				game.character.equipment[0] = this.item;
 				game.character.inventory.storages[Math.floor(this.slot / 9)][this.slot % 9] = 0;
