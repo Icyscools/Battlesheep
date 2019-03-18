@@ -84,9 +84,17 @@ function zeroPadding(num, length) {
 const random_name = [
 	"Broken",
 	"Normal",
-	"Well",
-	"Great",
-	"Excellent"
+	"Demonic",
+	"Unreal",
+	"Legendary"
+]
+
+const prefix_list = [
+	30,
+	35,
+	40,
+	45,
+	50,
 ]
 
 const attribute_prefix = {
