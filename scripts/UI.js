@@ -156,31 +156,31 @@ class UIPlayerStatus extends UI {
 	update() {
 		this.player_panel.innerHTML = "";
 		let p_table = document.createElement("table")
-		// for (let r = 0; r < 5; r++) {
-		// 	let row = p_table.insertRow(r);
-		// 	for (let c = 0; c < 1; c++) {
-		// 		let cell = row.insertCell(c);
+		for (let r = 0; r < 5; r++) {
+			let row = p_table.insertRow(r);
+			for (let c = 0; c < 2; c++) {
+				let cell = row.insertCell(c);
 
-		// 		/* Initialize the slot */
-		// 		cell.id = "player_panel_slot";
-		// 		cell.setAttribute("slot", r * 5 + c);
-		// 		cell.style.width = "32px";
-		// 		cell.style.height = "32px";
-		// 		cell.innerHTML = "";
+				/* Initialize the slot */
+				cell.id = "player_panel_slot";
+				cell.setAttribute("slot", r * 5 + c);
+				cell.style.width = "100px";
+				cell.style.height = "32px";
+				cell.innerHTML = "";
 
-		// 		/* Add Event listener to cell */
-		// 		cell.addEventListener("dragover", function (e) {
-		// 			e.preventDefault();
-		// 		});
+				/* Add Event listener to cell */
+				cell.addEventListener("dragover", function (e) {
+					e.preventDefault();
+				});
 
-		// 		let player_panel = this.player_panel;
-		// 		cell.addEventListener("drop", function (e) {
-		// 			e.preventDefault();
-		// 			let data = e.dataTransfer.getData("from-item-slot");
-		// 			player_panel.swapItem(data, this.getAttribute("slot"));
-		// 		});
-		// 	}
-		// }
+				let player_panel = this.player_panel;
+				cell.addEventListener("drop", function (e) {
+					e.preventDefault();
+					let data = e.dataTransfer.getData("from-item-slot");
+					player_panel.swapItem(data, this.getAttribute("slot"));
+				});
+			}
+		}
 
 
 		let ui = document.createElement("div");
@@ -474,7 +474,7 @@ class UIHealthBar extends UI {
 		}
 
 		if (document.querySelectorAll('#player_panel_slot').length > 0) {
-			document.querySelectorAll('#player_panel_slot')[0].innerHTML = this.character.getHealth();
+			document.querySelectorAll('#player_panel_slot')[0].innerHTML = "HP : " + this.character.getHealth();
 		}
 
 		this.hp_text.style.top = "0px";
