@@ -6,6 +6,12 @@ This Project is a part of course __06016311 Multimedia Technology__ (Academic Ye
 # Details
 ## About this game
 __Battlesheep__ is a Single Player action-rpg game. You will play as a Battlesheep that will have to destroy all the enemies to win the game.
+## How to play a game
+press __W A S D__ button to move the sheep.<br />
+press __I__ button to view the inventory.<br />
+press __C__ button to view player status.<br />
+__Doubleclick__ to equip item.<br />
+press __J K L__ button to shoot the enemies.
 
 # Team Member
 |<img src="/sheepy-adventure/mb/syn.jpg" width="150px" height="150px">
