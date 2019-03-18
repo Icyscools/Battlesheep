@@ -159,8 +159,8 @@ class GameBoard {
 
 		this.map = new Map(
 			this.context,
-			16 * 10,
-			9 * 10
+			1280 / 8,
+			720 / 8
 		);
 
 		this.character = new Character(
