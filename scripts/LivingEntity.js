@@ -136,15 +136,15 @@ class LivingEntity extends Entity {
 					//let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
 					//let loot_stack = new ItemStack(loot, 1);
 					let loot_stack = ItemGenerator();
-					let exp = Math.floor(this.level * (Math.random() * 5 + 1.75));
+					let exp = Math.floor(this.level * (Math.random() * 1.5 + 1));
 					if (damager instanceof Bullet) {
+						damager.getOwner().addExperince(exp);
 						damager.getOwner().inventory.appendItem(loot_stack);
 						damager.getOwner().inventory.getUI().updateInventory();
-						damager.getOwner().addExperince(exp);
 					} else {
+						damager.addExperince(exp);
 						damager.inventory.appendItem(loot_stack);
 						damager.inventory.getUI().updateInventory();
-						damager.addExperince(exp);
 					}
 
 					event = new CustomEvent("EntityDied", {
