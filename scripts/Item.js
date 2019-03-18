@@ -1,10 +1,11 @@
 class Item {
-	constructor(item_id, name, lores, attrs) {
+	constructor(item_id, name, lores, attrs, category) {
 		this.id = item_id;
 		this.name = name;
 		this.lores = lores;
 		this.attrs = attrs;
 		this.stackable = false;
+		this.category = category;
 	}
 
 	getItemId() {
@@ -45,7 +46,7 @@ class Item {
 
 class ItemStack extends Item {
 	constructor(item, stack) {
-		super(item.id, item.name, item.lores, item.attrs);
+		super(item.id, item.name, item.lores, item.attrs, item.category);
 		this.stackable = true;
 		this.amount = stack;
 	}
@@ -66,7 +67,7 @@ function ItemGenerator() {
 	name = random_name[Math.floor(Math.random() * random_name.length)] + " Sword";
 	attr.atk = Math.random() * 20
 
-	return new Item(item_id, name, "", attr);
+	return new Item(item_id, name, "", attr, "sword");
 }
 
 function zeroPadding(num, length) {

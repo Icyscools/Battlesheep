@@ -188,4 +188,11 @@ class LivingEntity extends Entity {
 		*/
 		this.hp = hp;
 	}
+
+	setAttackDamage(atk) {
+		/*
+		 * Set Attack Damage of this object via parameter atk
+		 */
+		this.atk = atk;
+	}
 }

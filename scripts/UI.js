@@ -103,7 +103,7 @@ class UI {
 		    console.log(element);
 			document.onmouseup = closeDragElement;
 			document.onmousemove = elementDrag;
-			
+
 		}
 
 		function elementDrag(e) {
@@ -182,7 +182,7 @@ class UIPlayerStatus extends UI {
 			}
 		}
 
-		
+
 		let ui = document.createElement("div");
 		ui.innerText = this.character.getName();
 		ui.id = "p_name";
@@ -192,7 +192,7 @@ class UIPlayerStatus extends UI {
 
 	randomRNG() {
 		let sp = document.createElement("div");
-		this.player_panel.appenccsdChild(sp);	
+		this.player_panel.appenccsdChild(sp);
 	}
 
 	toggleUI() {
@@ -232,13 +232,13 @@ class UIInventory extends UI {
 			for (let c = 0; c < this.inventory.cols; c++) {
 				let cell = row.insertCell(c);
 				let item = this.inventory.getItem(r, c);
-				
+
 				/* Initialize the slot */
 				cell.id = "inventory_slot";
 				cell.setAttribute("slot", r * 9 + c);
 				cell.style.width = "32px";
 				cell.style.height = "32px";
-				
+
 				if (item !== undefined && item !== 0) {
 					let el_item = new UIItem(item, r * 9 + c);
 					cell.appendChild(el_item.getUI());
@@ -322,7 +322,33 @@ class UIItem extends UI {
 			console.log(e);
 		});
 		this.UI.addEventListener("mouseover", (e) => this.getDetail());
+		this.UI.addEventListener('dblclick', () => this.useItem());
 		//this.UI.addEventListener("drag", (e) => console.log(e));
+	}
+
+	useItem() {
+		console.log(this.item);
+		if (this.item.isStackable()) {
+			this.item.amount -= 1;
+			console.log(Math.floor(this.slot / 9), this.slot % 9);
+			console.log(this.item.amount);
+			game.character.setHealth(Math.min(game.character.hp + this.item.attrs["regenHP"], 100));
+
+			if (this.item.amount <= 0) {
+				game.character.inventory.storages[Math.floor(this.slot / 9)][this.slot % 9] = 0;
+			}
+			game.character.inventory.UI.updateInventory();
+		}
+
+		else {
+			if (this.item.category === "sword") {
+				game.character.equipment[0] = this.item;
+				game.character.inventory.storages[Math.floor(this.slot / 9)][this.slot % 9] = 0;
+				console.log(this.item.attrs["atk"]);
+				game.character.setAttackDamage(game.character.atk + this.item.attrs["atk"]);
+			}
+			game.character.inventory.UI.updateInventory();
+		}
 	}
 
 	getItem() {
@@ -439,7 +465,7 @@ class UIHealthBar extends UI {
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 
 		setTimeout(() => {
-			if (this.game_identity == config.identity) 
+			if (this.game_identity == config.identity)
 				this.render();
 		}, config.gameTick);
 	}
