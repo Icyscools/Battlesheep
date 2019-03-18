@@ -187,7 +187,7 @@ class GameBoard {
 					numberOfFrames: 3,
 					loop: true,
 					ratio: 1.0
-				}, 25, 10, 1, 1.5, 0.25, "idle"
+				}, 50, 10, 1, 1.5, 0.25, "idle"
 			);
 
 			/*
@@ -214,7 +214,8 @@ class GameBoard {
 				console.log("Game over");
 				document.querySelector("#gameover").style.display = "block";
 				document.querySelector("#gameover_text").innerText = "You win!";
-				gameOver();
+				gameWin();
+				stopWalking();
 				return 0;
 			} else if (!this.isPause) {
 				// Clear screen
@@ -266,7 +267,7 @@ class GameBoard {
 				this.i++;
 				this.character.render();
 			}
-			
+
 			setTimeout(() => {
 				this.gameUpdate()
 			}, config.gameTick);

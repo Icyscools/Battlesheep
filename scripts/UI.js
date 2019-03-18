@@ -243,7 +243,7 @@ class UIInventory extends UI {
 					let el_item = new UIItem(item, r * 9 + c);
 					cell.appendChild(el_item.getUI());
 				} else {
-					cell.innerHTML = `<img src="assets\\items\\0000.png">`;
+					cell.innerHTML = `<img src="assets\\items\\9999.png">`;
 				}
 
 				/* Add Event listener to cell */

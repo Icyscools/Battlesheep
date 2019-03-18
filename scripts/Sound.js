@@ -9,6 +9,16 @@ function gameOver(){
         console.log(audio)
 }
 
+function gameWin(){
+    var audio = document.getElementById("Audio");
+    audio.src = "assets/sound/victory.wav";
+    audio.loop = false;
+    audio.load();
+    audio.playbackRate = 0.8;
+    audio.play();
+    console.log(audio)
+}
+
 function startGame(){
     var audio = document.getElementById("Audio");
         audio.src = "assets/sound/bgm.wav";
