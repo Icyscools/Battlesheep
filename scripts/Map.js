@@ -13,8 +13,8 @@ class Map {
         this.camera = {
             x: 0,
             y: 0,
-            width: 854 * 0.8,
-            height: 480 * 0.8
+            width: 854 * 1,
+            height: 480 * 1
         };
 
         this.mapCanvas = document.querySelector("#GameMap");
@@ -69,24 +69,26 @@ class Map {
 
         let context = this.mapCanvas.getContext("2d");
         let tileset = new Image();
-        tileset.src = "./assets/tileset.png";
+        tileset.src = "./assets/map.png";
         let tileSize = this.tileSize;
         let map = this;
         tileset.onload = function () {
-            //context.drawImage(tileset, 0, 0, game.map.map.width, game.map.map.height)
+            context.drawImage(tileset, 0, 0, game.map.map.width, game.map.map.height)
+            /*
             for (let r = 0; r < map.height; r++) {
                 for (let c = 0; c < map.width; c++) {
                     if (map.map.data[r][c]) {
-                        let image_y = Math.floor(map.map.data[r][c] / 32);
-                        let image_x = game.map.map.data[r][c] % 32;
-                        context.drawImage(tileset, image_x * 8, image_y * 8, 8, 8, c * tileSize, r * tileSize, tileSize, tileSize);
+                        let image_y = Math.floor(map.map.data[r][c] / 32) * 8;
+                        let image_x = game.map.map.data[r][c] % 32 * 8;
+                        console.log(image_x, image_y)
+                        context.drawImage(tileset, image_x, image_y, 8, 8, c * tileSize, r * tileSize, tileSize, tileSize);
                     } else {
                         tile = "#000";
                         context.fillStyle = tile;
                         context.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
                     }
                 }
-            }
+            }*/
         }
     }
 
