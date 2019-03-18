@@ -221,13 +221,13 @@ class Character extends LivingEntity {
 
 	addExperince(exp) {
 		this.experience += exp;
-		if (this.experience >= this.needExperience) levelUp();
+		if (this.experience >= this.needExperience) this.levelUp();
 	}
 
 	levelUp() {
 		this.level += 1;
 		this.experience -= this.needExperience;
-		this.needExperience = calculateNextLevel();
+		this.needExperience = this.calculateNextLevel();
 		if (this.experience >= this.needExperience) this.levelUp();
 	}
 

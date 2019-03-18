@@ -28,6 +28,9 @@ class Enemy extends LivingEntity {
 		// This is a child class from `LivingEntity` class, so we need to
 		// call super() function to put a parameter to super class
 		super(name, x, y, width, height, sprite_options, level, hp, atk, def, 1);
+		this.atk = this.atk * (1 + this.level / 10);
+		this.hp = this.hp * (1 + this.hp / 10);
+		
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];

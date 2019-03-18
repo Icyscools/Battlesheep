@@ -100,7 +100,6 @@ class UI {
 
 			pos3 = e.clientX;
 			pos4 = e.clientY;
-		    console.log(element);
 			document.onmouseup = closeDragElement;
 			document.onmousemove = elementDrag;
 
@@ -310,16 +309,16 @@ class UIItem extends UI {
 
 		/* Add Event Listener - On Drag & Drop Event */
 		this.UI.addEventListener("dragstart", function (e) {
-			console.log(e);
 			e.dataTransfer.setData("from-item-slot", slot);
+			//console.log(e);
 		});
 
 		this.UI.addEventListener("dragover", function (e) {
 			e.preventDefault();
-			console.log(e);
+			//console.log(e);
 		});
 		this.UI.addEventListener("drop", function (e) {
-			console.log(e);
+			//console.log(e);
 		});
 		this.UI.addEventListener("mouseover", (e) => this.getDetail());
 		this.UI.addEventListener('dblclick', () => this.useItem());
@@ -327,11 +326,9 @@ class UIItem extends UI {
 	}
 
 	useItem() {
-		console.log(this.item);
+		//console.log(this.item);
 		if (this.item.isStackable()) {
 			this.item.amount -= 1;
-			console.log(Math.floor(this.slot / 9), this.slot % 9);
-			console.log(this.item.amount);
 			game.character.setHealth(Math.min(game.character.hp + this.item.attrs["regenHP"], 100));
 
 			if (this.item.amount <= 0) {
@@ -350,7 +347,6 @@ class UIItem extends UI {
 			if (this.item.category === "sword") {
 				game.character.equipment[0] = this.item;
 				game.character.inventory.storages[Math.floor(this.slot / 9)][this.slot % 9] = 0;
-				console.log(this.item.attrs["atk"]);
 				game.character.setAttackDamage(game.character.atk + this.item.attrs["atk"]);
 			}
 			game.character.inventory.UI.updateInventory();
@@ -447,14 +443,15 @@ class UIHealthBar extends UI {
 
 		this.expbar = document.createElement("div");
 		this.expbar.classList.add("bar");
+		this.expbar.id = "expbar";
 
 		this.exp = document.createElement("div");
-		this.exp.classList.add("health");
-		this.expbar.appendChild(this.health);
+		this.exp.classList.add("experience");
+		this.expbar.appendChild(this.exp);
 
 		this.exp_text = document.createElement("span");
 		this.exp_text.classList.add("floatText")
-		this.hpbar.appendChild(this.hp_text);
+		this.expbar.appendChild(this.exp_text);
 
 		this.ui.appendChild(this.expbar);
 
@@ -481,7 +478,7 @@ class UIHealthBar extends UI {
 		this.hp_text.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`;
 
 		this.exp_text.style.top = "0px";
-		this.exp_text.innerText = `HP : ${this.character.experience} / ${this.character.needExperience}`;
+		this.exp_text.innerText = `EXP : ${this.character.experience} / ${this.character.needExperience}`;
 
 		setTimeout(() => {
 			if (this.game_identity == config.identity)
