@@ -125,9 +125,9 @@ class LivingEntity extends Entity {
 				window.dispatchEvent(event);
 			} else {
 				if (this.isDead()) {
-					let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
-					let loot_stack = new ItemStack(loot, 1);
-
+					//let loot = new Item("0100", "Red Potion", "", {"regenHP" : 15});
+					//let loot_stack = new ItemStack(loot, 1);
+					let loot_stack = ItemGenerator();
 					if (damager instanceof Bullet) {
 						damager.getOwner().inventory.appendItem(loot_stack);
 						damager.getOwner().inventory.getUI().updateInventory();

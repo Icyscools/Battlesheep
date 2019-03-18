@@ -59,6 +59,35 @@ class ItemStack extends Item {
 	}
 }
 
+function ItemGenerator() {
+	let item_id, name, attr = {};
+
+	item_id = zeroPadding((Math.floor(Math.random() * 9) + 1), 4);
+	name = random_name[Math.floor(Math.random() * random_name.length)] + " Sword";
+	attr.atk = Math.random() * 20
+
+	return new Item(item_id, name, "", attr);
+}
+
+function zeroPadding(num, length) {
+	let str = num.toString();
+	let needFill = length - str.length;
+
+	while (needFill > 0) {
+		str = "0" + str;
+		needFill -= 1;
+	}
+	return str;
+}
+
+const random_name = [
+	"Broken",
+	"Normal",
+	"Well",
+	"Great",
+	"Excellent"
+]
+
 const attribute_prefix = {
 	"atk": "Atk. Damage: %d",
 	"def": "Defense: %d",
