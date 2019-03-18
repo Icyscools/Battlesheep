@@ -214,7 +214,8 @@ class GameBoard {
 				console.log("Game over");
 				document.querySelector("#gameover").style.display = "block";
 				document.querySelector("#gameover_text").innerText = "You win!";
-				gameOver();
+				gameWin();
+				stopWalking();
 				return 0;
 			} else if (!this.isPause) {
 				// Clear screen

@@ -4,9 +4,18 @@ function gameOver(){
         audio.src = "assets/sound/gameover.wav";
         audio.loop = false;
         audio.load();
-        audio.playbackRate = 0.5;
         audio.play();
         console.log(audio)
+}
+
+function gameWin(){
+    var audio = document.getElementById("Audio");
+    audio.src = "assets/sound/victory.wav";
+    audio.loop = false;
+    audio.load();
+    audio.playbackRate = 0.5;
+    audio.play();
+    console.log(audio)
 }
 
 function startGame(){
