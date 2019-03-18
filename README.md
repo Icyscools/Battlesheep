@@ -8,15 +8,15 @@ This Project is a part of course __06016311 Multimedia Technology__ (Academic Ye
 __Battlesheep__ is a Single Player action-rpg game. You will play as a Battlesheep that will have to destroy all the enemies to win the game.
 
 # Team Member
-|<img src="assets/items/0005.png" width="150px" height="150px">
-|<img src="assets/items/0005.png" width="150px" height="150px">
-|<img src="assets/items/0005.png" width="150px" height="150px">
-|<img src="assets/items/0005.png" width="150px" height="150px">
-|<img src="assets/items/0005.png" width="150px" height="150px">|
+|<img src="/sheepy-adventure/mb/syn.jpg" width="150px" height="150px">
+|<img src="/sheepy-adventure/mb/pang.jpg" width="150px" height="150px">
+|<img src="/sheepy-adventure/mb/sow.jpg" width="150px" height="150px">
+|<img src="/sheepy-adventure/mb/icys.jpg" width="150px" height="150px">
+|<img src="/sheepy-adventure/mb/kun.jpg" width="150px" height="150px">|
 |:-----:|:-----:|:-----:|:-----:|:-----:|
 
-|61070xxx - *Reserved for Aomsyn*
-|61070xxx - *Reserved for Khunpang*
+|61070004 - Krittima Chantachalee
+|61070059 - Nichapat Kachacheewa
 |61070097 - Nunja Sowan
-|61070xxx - *Reserved for Kun*
-|61070xxx - *Reserved for Ice*|
+|61070200 - Woramat Ngamkham
+|61070 - Kun Wongubol
