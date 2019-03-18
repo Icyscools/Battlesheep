@@ -80,7 +80,8 @@ body {
 
 #option > .textbox > .box > p code[sound] {
 	width: 100px;
-	height: 100px;
+	height: 90px;
+	z-index: 999;
 }
 
 
