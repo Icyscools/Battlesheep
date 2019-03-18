@@ -121,8 +121,8 @@ class Enemy extends LivingEntity {
 				let vector_target = new Vector2D(target_posX, target_posY);
 				let vector_ent = new Vector2D(center_posX, center_posY);
 				let to_target = vector_target.subtract(vector_ent).normalize().multiple(1.2).add(this.vector);
-				this.x = Math.min(Math.max(this.x + to_target.x, 0), map.width);
-				this.y = Math.min(Math.max(this.y + to_target.y, 0), map.height);
+				this.x = Math.min(Math.max(this.x + to_target.x, 0), map.width - (this.sprite_options.width * this.sprite_options.ratio) / 2);
+				this.y = Math.min(Math.max(this.y + to_target.y, 0), map.height - (this.sprite_options.height * this.sprite_options.ratio));
 
 				//Decay Velocity
 				let acc = 0.2;
@@ -142,8 +142,8 @@ class Enemy extends LivingEntity {
 				}
 			}
 		} else {
-			this.x = Math.min(Math.max(this.x + this.vector.x, 0), map.width - this.width);
-			this.y = Math.min(Math.max(this.y + this.vector.y, 0), map.height - this.height);
+			this.x = Math.min(Math.max(this.x + this.vector.x, 0), map.width - (this.sprite_options.width * this.sprite_options.ratio) / 2);
+			this.y = Math.min(Math.max(this.y + this.vector.y, 0), map.height - (this.sprite_options.height * this.sprite_options.ratio));
 		}
 
 		this.context.save();

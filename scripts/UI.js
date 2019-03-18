@@ -359,6 +359,33 @@ class UITextBox extends UI {
 	}
 }
 
+class UIConsoleBox extends UI {
+	constructor(text) {
+		super({
+			class: "consolebox",
+			isPanel: true,
+			width: 280,
+			height: 180
+		});
+
+		this.text = "";
+		this.ui = this.createUI();
+
+		this.setText(text);
+		this.setPosition(300, 400);
+		this.deleteUI();
+	}
+
+	deleteUI() {
+		super.deleteUI(this.ui);
+	}
+
+	setText(text) {
+		this.text = text;
+		this.ui.innerHTML = this.text;
+	}
+}
+
 class UIHealthBar extends UI {
 	constructor(character) {
 		super({
