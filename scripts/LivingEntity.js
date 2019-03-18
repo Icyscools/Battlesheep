@@ -139,12 +139,16 @@ class LivingEntity extends Entity {
 					let exp = Math.floor(this.level * (Math.random() * 1.5 + 1));
 					if (damager instanceof Bullet) {
 						damager.getOwner().addExperince(exp);
-						damager.getOwner().inventory.appendItem(loot_stack);
-						damager.getOwner().inventory.getUI().updateInventory();
+						if (Math.random() < 0.2) {
+							damager.getOwner().inventory.appendItem(loot_stack);
+							damager.getOwner().inventory.getUI().updateInventory();
+						}
 					} else {
 						damager.addExperince(exp);
-						damager.inventory.appendItem(loot_stack);
-						damager.inventory.getUI().updateInventory();
+						if (Math.random() < 0.2) {
+							damager.inventory.appendItem(loot_stack);
+							damager.inventory.getUI().updateInventory();
+						}
 					}
 
 					event = new CustomEvent("EntityDied", {
