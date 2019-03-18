@@ -186,6 +186,13 @@ class UIPlayerStatus extends UI {
 		ui.innerText = this.character.getName();
 		ui.id = "p_name";
 		this.player_panel.appendChild(ui);
+
+		/*
+		ui = document.createElement("div");
+		ui.innerText = `Level: ${this.character.level}`;
+		ui.id = "p_level";
+		this.player_panel.appendChild(ui);
+		*/
 		this.player_panel.appendChild(p_table);
 	}
 
@@ -420,7 +427,7 @@ class UIHealthBar extends UI {
 			id: "healthbar",
 			isPanel: true,
 			width: 280,
-			height: 45
+			height: 60
 		});
 
 		this.character = character;
@@ -429,7 +436,7 @@ class UIHealthBar extends UI {
 
 		this.hpbar = document.createElement("div");
 		this.hpbar.classList.add("bar");
-		this.hpbar.id = "healthbar";
+		this.hpbar.id = "hpbar";
 
 		this.health = document.createElement("div");
 		this.health.classList.add("health");
@@ -468,6 +475,9 @@ class UIHealthBar extends UI {
 		if (this.character.getHealth() <= 30) {
 			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "blink .2s step-end infinite alternate";
 			document.querySelector('#interface > #healthbar > .bar > .floatText').style.animation = "blinktxt .2s step-end infinite alternate";
+		} else {
+			document.querySelector('#interface > #healthbar > .bar > .health').style.animation = "";
+			document.querySelector('#interface > #healthbar > .bar > .floatText').style.animation = "";
 		}
 
 		if (document.querySelectorAll('#player_panel_slot').length > 0) {

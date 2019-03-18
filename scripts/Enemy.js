@@ -29,8 +29,10 @@ class Enemy extends LivingEntity {
 		// call super() function to put a parameter to super class
 		super(name, x, y, width, height, sprite_options, level, hp, atk, def, 1);
 		this.atk = this.atk * (1 + this.level / 10);
-		this.hp = this.hp * (1 + this.hp / 10);
-		
+		//this.def = this.def * (1 + Math.max(((this.level - 1) / 25), 0));
+		this.maxhp = Math.floor(this.maxhp * (1 + Math.max((this.level - 1) / 10, 0)));
+		this.hp = this.maxhp;
+
 		this.key = new Set();
 		this.faced = "right";
 		this.bullets = [];
