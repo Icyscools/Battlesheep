@@ -169,13 +169,24 @@ class Entity {
 					ent_to_y = camera_offset_y
 				}*/
 
-				let movingRow = 64 * ent.status.isMoving;
-
-				if (ent.faced === "down") {
+				if (ent.isDead()) {
+					var deadSprite = new Image();
+					deadSprite.src = "assets/sheepy-dead.png";
+					frameIndex = 3;
+					if (ent.faced === "left") {
+						frameIndex = 8;
+					}
+					if (ent.faced === "right") {
+						frameIndex = 13;
+					}
+					if (ent.faced === "up") {
+						frameIndex = 18;
+					}
+					console.log(frameIndex, ent.faced);
 					gameBoard.drawImage(
-						that.image,
+						deadSprite,
 						frameIndex * that.width,
-						movingRow,
+						0,
 						that.width,
 						that.height,
 						ent_to_x,
@@ -185,47 +196,68 @@ class Entity {
 					);
 				}
 
-				if (ent.faced === "left") {
-					gameBoard.drawImage(
-						that.image,
-						(4 + frameIndex) * that.width,
-						movingRow,
-						that.width,
-						that.height,
-						ent_to_x,
-						ent_to_y,
-						that.width * ratio,
-						that.height * ratio
-					);
+				else {
+
+					let movingRow = 64 * ent.status.isMoving;
+
+					if (ent.faced === "down") {
+						gameBoard.drawImage(
+							that.image,
+							frameIndex * that.width,
+							movingRow,
+							that.width,
+							that.height,
+							ent_to_x,
+							ent_to_y,
+							that.width * ratio,
+							that.height * ratio
+						);
+					}
+
+					if (ent.faced === "left") {
+						gameBoard.drawImage(
+							that.image,
+							(4 + frameIndex) * that.width,
+							movingRow,
+							that.width,
+							that.height,
+							ent_to_x,
+							ent_to_y,
+							that.width * ratio,
+							that.height * ratio
+						);
+					}
+
+					if (ent.faced === "right") {
+						gameBoard.drawImage(
+							that.image,
+							(8 + frameIndex) * that.width,
+							movingRow,
+							that.width,
+							that.height,
+							ent_to_x,
+							ent_to_y,
+							that.width * ratio,
+							that.height * ratio
+						);
+					}
+
+					if (ent.faced === "up") {
+						gameBoard.drawImage(
+							that.image,
+							(12 + frameIndex) * that.width,
+							movingRow,
+							that.width,
+							that.height,
+							ent_to_x,
+							ent_to_y,
+							that.width * ratio,
+							that.height * ratio
+						);
+					}
+
 				}
 
-				if (ent.faced === "right") {
-					gameBoard.drawImage(
-						that.image,
-						(8 + frameIndex) * that.width,
-						movingRow,
-						that.width,
-						that.height,
-						ent_to_x,
-						ent_to_y,
-						that.width * ratio,
-						that.height * ratio
-					);
-				}
-
-				if (ent.faced === "up") {
-					gameBoard.drawImage(
-						that.image,
-						(12 + frameIndex) * that.width,
-						movingRow,
-						that.width,
-						that.height,
-						ent_to_x,
-						ent_to_y,
-						that.width * ratio,
-						that.height * ratio
-					);
-				}
 			}
 			else if (ent instanceof Bullet) {
 				if (ent.faced === "right") {
@@ -286,6 +318,45 @@ class Entity {
 						that.width,
 						that.height,
 						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+			}
+
+			else if (ent instanceof Enemy) {
+				if (ent.vector.x > 0) {
+					ent.faced = "right";
+				}
+				if (ent.vector.x < 0) {
+					ent.faced = "left";
+				}
+
+				if (ent.faced === "left") {
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						ent_to_x,
+						ent_to_y,
+						that.width * ratio,
+						that.height * ratio
+					);
+				}
+
+				else if (ent.faced === "right") {
+					gameBoard.scale(-1, 1);
+					gameBoard.translate(-that.width, 0);
+					gameBoard.drawImage(
+						that.image,
+						frameIndex * that.width,
+						0,
+						that.width,
+						that.height,
+						-ent_to_x,
 						ent_to_y,
 						that.width * ratio,
 						that.height * ratio

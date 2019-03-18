@@ -74,7 +74,7 @@ class GameBoard {
 				document.querySelector("#howtoplay").style.display = "none";
 			}
 		}
-			
+
 
 	}
 
@@ -229,6 +229,7 @@ class GameBoard {
 			}
 		} else {
 			console.log("Game over");
+			this.character.render();
 			document.querySelector("#gameover").style.display = "block";
 			gameOver();
 			stopWalking();

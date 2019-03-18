@@ -289,26 +289,39 @@ class UIItem extends UI {
 
 		this.item_element = document.createElement("img");
 		this.item_element.setAttribute("itemId", this.item.getItemId());
-		this.item_element.setAttribute("title", `${this.item.getName()}\u000dDamage: ${this.item.getAttribute().atk}`);
-		this.item_element.src = `assets\\items\\${item.getItemId()}.png`;
+
+		let attr_str = `${this.item.getName()}`;
+		for (let attr in this.item.getAttribute()) {
+			let prefix = attribute_prefix[attr];
+			prefix = prefix.replace("%d", this.item.getAttribute()[attr]);
+			attr_str += `\u000d${prefix}`;
+		}
+		this.UI.setAttribute("title", attr_str);
+		this.item_element.src = `assets\\items\\${this.item.getItemId()}.png`;
+
+		this.UI.appendChild(this.item_element);
+		if (this.item.isStackable()) {
+			let text_amount = document.createElement("span");
+			text_amount.classList.add("amount_item");
+			text_amount.innerText = this.item.getAmount();
+			text_amount.style.userSelect = "none";
+			this.UI.appendChild(text_amount);
+		}
 
 		/* Add Event Listener - On Drag & Drop Event */
-		this.item_element.addEventListener("dragstart", function (e) {
+		this.UI.addEventListener("dragstart", function (e) {
 			console.log(e);
 			e.dataTransfer.setData("from-item-slot", slot);
 		});
 
-		this.item_element.addEventListener("dragover", function (e) {
+		this.UI.addEventListener("dragover", function (e) {
 			e.preventDefault();
 			console.log(e);
 		});
-		this.item_element.addEventListener("drop", function (e) {
+		this.UI.addEventListener("drop", function (e) {
 			console.log(e);
 		});
-
-		this.item_element.addEventListener("mouseover", (e) => this.getDetail());
-
-		this.UI.appendChild(this.item_element);
+		this.UI.addEventListener("mouseover", (e) => this.getDetail());
 		//this.UI.addEventListener("drag", (e) => console.log(e));
 	}
 

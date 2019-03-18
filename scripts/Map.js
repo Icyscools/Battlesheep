@@ -3,7 +3,7 @@ class Map {
         this.context = context;
         this.width = width;
         this.height = height;
-        this.tileSize = 25;
+        this.tileSize = 40;
         this.map = {
             width: this.width * this.tileSize,
             height: this.height * this.tileSize,
@@ -15,11 +15,9 @@ class Map {
             width: 854 * 0.8,
             height: 480 * 0.8
         };
-        //var onXTile = Math.floor((this.camera.x + (this.camera.width / 2)) / tileSize);
-        //var onYTile = Math.floor((this.camera.y + (this.camera.height / 2)) / tileSize);
         
-        console.log(this.map)
-        console.log(this.camera)
+        //console.log(this.map)
+        //console.log(this.camera)
 
         this.mapCanvas = document.querySelector("#GameMap");
         this.mapCanvas.width = this.map.width;
@@ -116,11 +114,12 @@ class Map {
     isWalkable(x, y) {
         let c = Math.floor(x / this.tileSize);
         let r = Math.floor(y / this.tileSize);
-        if (this.map.data[r][c] != 0) {
-            return true;
-        } else {
-            return false;
+        if (c >= 0 && c < this.width && r >= 0 && r < this.height) {
+            if (this.map.data[r][c] != 0) {
+                return true;
+            }
         }
+        return false;
     }
 }
 

@@ -37,16 +37,21 @@ class Character extends LivingEntity {
 		this.velocity = new Vector2D(0, 0);
 
 		/* Inventory (Not finish) */
-		let item = new Item("0001", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30}, false);
+		let item = new Item("0001", "Newbie's Sword", "An ordinary sword ? Is there any hidden power !?", {"atk": 30});
 		this.inventory = new Inventory(this, 2, 9, {});
 		this.inventory.addItem(item, 1, 2);
+		let potion = new ItemStack(new Item("0100", "Red Potion", "", {"regenHP" : 15}), 9);
+		this.inventory.appendItem(potion);
 		console.log(this.inventory.swapItem(11, 12));
 
 		let textbox = new UITextBox("test");
 		let healthBar = new UIHealthBar(this);
 		this.playerStatusBox = new UIPlayerStatus(this);
 
-
+		while (!game.map.isWalkable(this.x + this.width / 2, this.y + this.height)) {
+			this.x = Math.random() * game.map.map.width;
+			this.y = Math.random() * game.map.map.height;
+		}
 		/* Event Listener */
 		window.addEventListener('keydown', (e) => this.updateKey(e, 'add'));
 		window.addEventListener('keyup', (e) => this.updateKey(e, 'remove'));
@@ -135,8 +140,8 @@ class Character extends LivingEntity {
 		// Moving
 		let vec = new Vector2D(0, 0);
 		let acc = 0.25
-		let static_velo = 3;
-		let limit = 4
+		let static_velo = 4;
+		let limit = 5
 		if (this.key.has(65)) {
 			vec.x += -static_velo;
 			this.faced = "left";
