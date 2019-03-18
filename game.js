@@ -269,7 +269,6 @@ class GameBoard {
 			this.character.render();
 			document.querySelector("#gameover").style.display = "block";
 			gameOver();
-			stopWalking();
 		}
 	}
 
