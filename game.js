@@ -210,7 +210,13 @@ class GameBoard {
 		 */
 
 		if (this.character.isAlive()) {
-			if (!this.isPause) {
+			if (this.entitys.length === 0) {
+				console.log("Game over");
+				document.querySelector("#gameover").style.display = "block";
+				document.querySelector("#gameover_text").innerText = "You win!";
+				gameOver();
+				return 0;
+			} else if (!this.isPause) {
 				// Clear screen
 				this.context.clearRect(0, 0, this.board.width, this.board.height);
 
@@ -268,6 +274,7 @@ class GameBoard {
 			console.log("Game over");
 			this.character.render();
 			document.querySelector("#gameover").style.display = "block";
+			document.querySelector("#gameover_text").innerText = "Game Over";
 			gameOver();
 		}
 	}

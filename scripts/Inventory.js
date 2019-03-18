@@ -86,7 +86,6 @@ class Inventory {
 
 	addItem(item, row, col) {
 		this.storages[row][col] = item;
-		console.log(this.storages)
 	}
 
 	findItem(item) {
@@ -106,7 +105,6 @@ class Inventory {
 	}
 
 	appendItem(item) {
-		console.log(this.storages);
 		if (item.stackable) {
 			let index_item = this.findItem(item);
 			if (index_item !== 0) {
