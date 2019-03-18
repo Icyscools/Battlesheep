@@ -171,7 +171,7 @@ class Entity {
 
 				if (ent.isDead()) {
 					var deadSprite = new Image();
-					deadSprite.src = "assets/sheepy-dead.png";
+					deadSprite.src = "assets/character/sheepy-dead.png";
 					frameIndex = 3;
 					if (ent.faced === "left") {
 						frameIndex = 8;

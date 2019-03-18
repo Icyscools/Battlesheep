@@ -166,7 +166,7 @@ class GameBoard {
 		this.character = new Character(
 			"Sheep", Math.random() * this.map.map.width, Math.random() * this.map.map.height, 64, 64,
 			{
-				src: "assets/sheepy-idle-walk.png",
+				src: "assets/charecter/sheepy-idle-walk.png",
 				width: 64,
 				height: 64,
 				ticksPerFrame: 10,
@@ -181,7 +181,7 @@ class GameBoard {
 			let ent = new Enemy(
 				`Lv.${level} Spirit`, 0 + Math.random() * (this.map.map.width - 43.75), 0 + Math.random() * (this.map.map.height - 40), 43.75, 40,
 				{
-					src: "assets/monster.png",
+					src: "assets/monster/monster.png",
 					width: 43.75,
 					height: 40,
 					ticksPerFrame: 8,
