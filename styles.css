@@ -369,7 +369,9 @@ body {
 	display: block;
 	text-align: right;
     top: -20px;
-    color: white;
+	color: white;
+	font-family: 'Press Start 2P', cursive;
+	font-size: 10px;
 }
 
 #interface div > .header {
@@ -384,7 +386,15 @@ body {
 	font-size: 12px;
 }
 
-#interface > #player_status > div, tr, td {
+#interface > #player_status > div {
+	border: 1px solid #6b4840c4;
+	border-radius: 3px;
+	background: #815950c4;
+}
+#interface > #player_status > tr, td {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(5, 5px);
 	border: 1px solid #6b4840c4;
 	border-radius: 3px;
 	background: #815950c4;
@@ -397,12 +407,17 @@ body {
 
 #interface > #player_status > div #p_name {
 	/* position: absolute; */
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(5, 40px);
+	align-items: center;
+	width: 200px;
 	margin: 10px;
 	padding: 2px;
-	text-align: left;
 	color: #fff;
 	font-family: 'Press Start 2P', cursive;
 	font-size: 10px;
+	border: 1px solid #6b4840c4;
 }
 
 #player_panel_slot {

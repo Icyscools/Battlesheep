@@ -316,3 +316,6 @@ const config = {
 const game = new GameBoard("GameBoard");
 
 //game.init();
+window.onload = function () {
+	console.log("on load...");
+}
