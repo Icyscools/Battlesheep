@@ -19,7 +19,6 @@ press __J K L__ button to shoot the enemies.
 |<img src="mb/sow.jpg" width="150px" height="150px">
 |<img src="mb/icys.jpg" width="150px" height="150px">
 |<img src="mb/kun.jpg" width="150px" height="150px">|
-|:----------:|:-----:|:-----:|:-----:|:-----:|
 
 |__61070004__ - Krittima Chantachalee
 |__61070059__ - Nichapat Kachacheewa
