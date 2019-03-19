@@ -336,7 +336,7 @@ class UIItem extends UI {
 		//console.log(this.item);
 		if (this.item.isStackable()) {
 			this.item.amount -= 1;
-			game.character.setHealth(Math.min(game.character.hp + this.item.attrs["regenHP"], 100));
+			game.character.setHealth(Math.min(game.character.getHealth() + this.item.attrs["regenHP"], game.character.getMaxHealth()));
 
 			if (this.item.amount <= 0) {
 				game.character.inventory.storages[Math.floor(this.slot / 9)][this.slot % 9] = 0;
@@ -432,7 +432,10 @@ class UIHealthBar extends UI {
 
 		this.character = character;
 		this.ui = this.createUI();
-		this.ui.innerText = `${this.character.getName()} Lv.${this.character.level}`;
+		this.namebar = document.createElement("div");
+		this.namebar.innerText = `${this.character.getName()} Lv.${this.character.level}`;
+		this.namebar.id = "namebar"
+		this.ui.appendChild(this.namebar);
 
 		this.hpbar = document.createElement("div");
 		this.hpbar.classList.add("bar");
@@ -469,6 +472,7 @@ class UIHealthBar extends UI {
 
 	render() {
 		//this.ui.innerText = `HP : ${this.character.getHealth()} / ${this.character.getMaxHealth()}`
+		this.namebar.innerText = `${this.character.getName()} Lv.${this.character.level}`;
 		this.health.style.width = `${this.character.getHealth() / this.character.getMaxHealth() * 100}%`;
 		this.exp.style.width = `${this.character.experience / this.character.needExperience * 100}%`;
 
